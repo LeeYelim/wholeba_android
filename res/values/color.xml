@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_item_menu_color">#230101</color>
+    <color name="main_feeling_font_color">#ff9800</color>
+     <color name="love_add_font_color">#6a3906</color> 
+     <color name="actionBar">#ffffff</color>
+      <color name="actiontextColor">#230101</color>
+      <color name="color_white">#ffffff</color>
+      <color name="join_font_color">#6a3906</color>
+      <color name="join_back">#fff798</color>
+</resources>

@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.love.LovePopupActivity" >
+
+    <ToggleButton
+        android:id="@+id/toggle_love_condom"
+        android:layout_width="259dp"
+        android:layout_height="259dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="84dp"
+        android:layout_marginTop="123dp"
+        android:background="@drawable/lovepopupselector"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toggle_love_condom"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="44dp"
+        android:text="피임기구 사용 여부를 선택하세요"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_popup_ok"
+        android:layout_width="212dp"
+        android:layout_height="42dp"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/popup_bt_push"
+        android:text="Push 보내기"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="22dp"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/popup_bt_x" />
+
+</RelativeLayout>

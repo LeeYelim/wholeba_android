@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.mission.AddMissionActivity" >
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme1"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/toggle_selector1"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme2"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/toggle_selector3"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme3"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="326dp"
+        android:background="@drawable/toggle_selector5"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme4"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/toggle_selector4"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="  " />
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme5"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="326dp"
+        android:background="@drawable/ms_bt_pink"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <ToggleButton
+        android:id="@+id/ToggleTheme6"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/toggle_selector2"
+        android:text="　"
+        android:textOff="　"
+        android:textOn="　" />
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="259dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/ms_bt_ok"
+        android:text="ok"
+        android:textColor="#6a3906"
+        android:textSize="13sp" />
+
+</RelativeLayout>

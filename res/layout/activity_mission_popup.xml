@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ms_choice_bg"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.mission.MissionPopupActivity" >
+
+    <ImageView
+        android:id="@+id/img_mission1"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/ms_bt_red" />
+
+    <ImageView
+        android:id="@+id/img_mission2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/img_mission1"
+        android:layout_marginRight="32dp"
+        android:src="@drawable/ms_bt_green" />
+
+</RelativeLayout>

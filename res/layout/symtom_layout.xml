@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView4"
+            android:gravity="center"
+            android:text="생리전"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/edit_before"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="일"
+            android:textSize="13sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/editText1"
+            android:gravity="center"
+            android:text="생리후"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/edit_after"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView3"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="right|center"
+            android:hint="일"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

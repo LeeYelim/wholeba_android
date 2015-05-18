@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffffff" >
+
+        <ImageView
+            android:id="@+id/img_mission1"
+            android:layout_width="20dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="44dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/text_missionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="81dp"
+            android:layout_toRightOf="@+id/img_mission1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/missionState"
+            android:layout_width="64dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="26dp"
+            android:background="@drawable/mission_contents_yellow_icon2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detailView"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:background="@drawable/mission_contents_bar2_selected_under"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/text_validdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="87dp"
+            android:layout_marginTop="42dp"
+            android:text="유효기간"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/text_validdate"
+            android:layout_alignBottom="@+id/text_validdate"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="42dp"
+            android:layout_toRightOf="@+id/text_validdate"
+            android:text="2015.04.24"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/Mission_valid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/text_date"
+            android:layout_alignBottom="@+id/text_date"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="42dp"
+            android:layout_toRightOf="@+id/text_date"
+            android:text="목요일"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_validdate"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="42dp"
+            android:layout_marginLeft="101dp"
+            android:text="힌트"
+            android:textSize="15sp" />
+
+        <TextView
+
+            android:id="@+id/mission_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@array/list_sort"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="42dp"
+            android:layout_marginLeft="130dp"
+            android:text="#명동#뽀뽀#성공적"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>

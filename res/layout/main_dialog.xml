@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1" 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/main_emotion_select_bar" 
+    android:gravity="center"
+    android:orientation="horizontal" >
+    
+          <LinearLayout
+              android:layout_width="wrap_content" 
+              android:layout_height="wrap_content"
+              android:layout_marginRight="15dp"
+              android:orientation="vertical" >
+         
+     	 <ImageView
+     	     android:id="@+id/img_feel1"
+     	     android:layout_width="64dp"
+     	     android:layout_height="64dp"
+     	     android:src="@drawable/main_emotion_select_angry" />
+ 
+          <TextView
+              android:id="@+id/text_feel1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+ 
+              android:layout_gravity="center_horizontal"
+              android:text="화가난다"
+              android:textColor="@color/main_feeling_font_color"
+              android:textSize="9sp" />
+
+ 		</LinearLayout>
+
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="15dp"
+             android:orientation="vertical" >
+         
+     	 <ImageView
+     	     android:id="@+id/img_feel2"
+     	     android:layout_width="64dp"
+     	     android:layout_height="64dp"
+     	     android:src="@drawable/main_emotion_select_sick" /> 
+          <TextView
+              android:id="@+id/text_feel2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+ 
+              android:layout_gravity="center_horizontal"
+              android:text="마이아파"
+              android:textColor="@color/main_feeling_font_color"
+              android:textSize="9sp" />
+
+ 		</LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginRight="15dp"
+                     android:orientation="vertical" >
+         
+     	 <ImageView
+     	     android:id="@+id/img_feel3"
+     	     android:layout_width="64dp"
+     	     android:layout_height="wrap_content"
+     	     android:src="@drawable/main_emotion_select_sexy" />
+
+          <TextView
+              android:id="@+id/text_feel3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" 
+              android:layout_gravity="center_horizontal"
+              android:text="음흉음흉"
+              android:textColor="@color/main_feeling_font_color"
+              android:textSize="9sp" /> 
+ 		</LinearLayout>
+       
+          <LinearLayout
+              android:layout_width="wrap_content" 
+              android:layout_height="wrap_content"
+              android:orientation="vertical" >
+         
+     	 <ImageView
+     	     android:id="@+id/img_feel4"
+     	     android:layout_width="64dp"
+     	     android:layout_height="64dp"
+     	     android:src="@drawable/main_emotion_select_happy" />
+ 
+          <TextView
+              android:id="@+id/text_feel4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" 
+              android:layout_gravity="center_horizontal"
+              android:text="기분좋아"
+              android:textColor="@color/main_feeling_font_color"
+              android:textSize="9sp" /> 
+ 		</LinearLayout>
+
+
+</LinearLayout>

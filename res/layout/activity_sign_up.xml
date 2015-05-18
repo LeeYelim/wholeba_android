@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/join_bg01"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.signup.SignUpActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="230dp"
+        android:layout_height="125dp"
+        android:layout_above="@+id/edit_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical" >
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/FrameLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" >
+
+                    <TextView
+                        android:id="@+id/text_agreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/join_back"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/terms"
+                        android:textSize="12sp" />
+
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/join_bt01"
+        android:text="NEXT"
+        android:textColor="@color/color_white" />
+
+    <FrameLayout
+        android:id="@+id/framePwd"
+        android:layout_width="230dp"
+        android:layout_height="38dp"
+        android:layout_above="@+id/btn_next"
+        android:layout_alignLeft="@id/edit_id"
+        android:layout_marginBottom="16dp" >
+
+        <EditText
+            android:id="@+id/edit_pwd_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/join_memo"
+            android:ems="10"
+            android:hint="암호확인"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:text="1"
+            android:textColor="@color/join_font_color"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/text_pwd_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:paddingRight="15dp" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/edit_id"
+        android:layout_width="230dp"
+        android:layout_height="38dp"
+        android:layout_above="@+id/edit_pwd"
+        android:layout_alignLeft="@+id/edit_pwd"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/join_memo"
+        android:ems="10"
+        android:hint="Email"
+        android:paddingLeft="15dp"
+        android:text="aa"
+        android:textColor="@color/join_font_color"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/edit_pwd"
+        android:layout_width="230dp"
+        android:layout_height="38dp"
+        android:layout_above="@+id/framePwd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/join_memo"
+        android:ems="10"
+        android:hint="암호입력"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:text="1"
+        android:textColor="@color/join_font_color"
+        android:textSize="13sp" />
+
+    <CheckBox 
+        android:id="@+id/chk_agree1" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit_id"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_marginBottom="11dp"
+        android:focusable="false"
+        android:text="동의" />
+
+</RelativeLayout>

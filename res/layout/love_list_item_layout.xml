@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_love_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/love_progressBar"
+        android:layout_width="272dp"
+        android:layout_height="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/love_graphbar1"
+        android:src="@drawable/love_clip" />
+
+    <TextView
+        android:id="@+id/text_love_possibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_love_date"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="40dp"
+        android:text="가임률" />
+
+    <TextView
+        android:id="@+id/num_love_possibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_love_possibility"
+        android:layout_alignBottom="@+id/text_love_possibility"
+        android:layout_alignParentRight="true"
+        android:text="TextView" />
+
+</RelativeLayout>

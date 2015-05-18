@@ -1,0 +1,294 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fffde5"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.signup.SymtomInfoActivity" >
+
+    <TextView
+        android:id="@+id/textSymtom15"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@+id/textSymtom16"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/textSymtom16"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="성욕"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom3"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@+id/textSymtom1"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/textSymtom2"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="예민"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="11sp" />
+
+  <Button
+        android:id="@+id/btn_next"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/join_bt02" />
+
+    <Button
+        android:id="@+id/btn_before"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/join_bt03" />
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:text="생리  증후군"
+        android:textStyle="bold"
+        android:textColor="@color/join_font_color"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textSymtom2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignBottom="@id/textSymtom3"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="분노"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_below="@+id/tv1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="31dp"
+        android:layout_toLeftOf="@+id/textSymtom2"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="식욕"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom7"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignBottom="@+id/textSymtom5"
+        android:layout_toRightOf="@+id/textSymtom6"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="설사"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom4"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignBottom="@+id/textSymtom7"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/textSymtom5"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="변비"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom6"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignRight="@+id/tv1"
+        android:layout_alignTop="@+id/textSymtom5"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="우울"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom9"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textSymtom5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="짜증"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom10"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textSymtom4"
+        android:layout_toRightOf="@id/textSymtom9"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="유방통증"
+        android:textSize="9sp" />
+
+    <TextView
+        android:id="@+id/textSymtom8"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/textSymtom9"
+        android:layout_marginRight="7dp"
+        android:layout_toLeftOf="@+id/textSymtom9"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="여드름"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom5"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textSymtom2"
+        android:layout_marginRight="7dp"
+        android:layout_toLeftOf="@id/textSymtom6"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="복통"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom12"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textSymtom9"
+        android:layout_marginRight="7dp"
+        android:layout_toLeftOf="@+id/textSymtom13"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="무기력"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom11"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@id/textSymtom12"
+        android:layout_below="@+id/textSymtom8"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/textSymtom12"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="빈혈"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom14"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@+id/textSymtom13"
+        android:layout_toRightOf="@id/textSymtom13"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="두통"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom13"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/textSymtom12"
+        android:layout_alignRight="@+id/textSymtom6"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/symtom_selector2"
+        android:gravity="center"
+        android:text="불면증"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textSymtom16"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignRight="@+id/textSymtom9"
+        android:layout_below="@id/textSymtom13"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="식욕저하"
+        android:textSize="9sp" />
+
+    <TextView
+        android:id="@+id/textSymtom17"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@id/textSymtom16"
+        android:layout_toRightOf="@id/textSymtom16"
+        android:background="@drawable/symtom_selector1"
+        android:gravity="center"
+        android:text="소화불량"
+        android:textSize="9sp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSymtom16"
+        
+        android:layout_marginRight="77dp"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/symtom_info"
+            android:textSize="13sp" />
+
+        <com.banana.banana.signup.ListLinearLayout
+            android:id="@+id/list_Symtom"
+            android:layout_width="224dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp" >
+
+        </com.banana.banana.signup.ListLinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignBottom="@+id/textSymtom10"
+        android:layout_alignLeft="@+id/textSymtom11"
+        android:background="@drawable/period_syndrome_very_smallround" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignBottom="@+id/textSymtom10"
+        android:layout_toRightOf="@+id/textSymtom14"
+        android:background="@drawable/period_syndrome_very_smallround" />
+
+</RelativeLayout>
+

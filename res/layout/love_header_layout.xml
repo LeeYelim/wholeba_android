@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="345dp"
+    android:layout_gravity="center_horizontal"
+    android:background="#ffe100"
+    android:orientation="vertical" > 
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="TODAY 가임률%"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#6a3906"
+        android:textSize="13sp" /> 
+        
+    <FrameLayout
+        android:id="@+id/layout_love_today_percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="34dp" >
+
+       <ImageView
+            android:id="@+id/img_posibility"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="105dp"
+            android:layout_marginTop="42dp"
+            android:src="@drawable/popup_bt_condorm" />
+
+
+         <de.passsy.holocircularprogressbar.HoloCircularProgressBar
+            android:id="@+id/holoCircularProgressBar1"
+            android:layout_width="222dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+ 
+	  <TextView
+        android:id="@+id/text_nocondom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="250dp"
+        android:text="미사용"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffffff"
+        android:textSize="13sp" />
+   
+   <TextView
+        android:id="@+id/text_iscondom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_nocondom"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/text_nocondom"
+        android:layout_marginRight="40dp"
+        android:text="피임기구 사용시"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="13sp" />
+
+     <TextView
+        android:id="@+id/text_nocondom1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/text_nocondom"
+        android:layout_marginLeft="32dp"
+        android:text="가임률"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/text_iscondom1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_nocondom1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/text_nocondom1"
+        android:layout_marginRight="40dp"
+        android:layout_weight="0.44"
+        android:text="가임률"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+ <LinearLayout
+	           android:id="@+id/Sort_layout"
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:orientation="vertical" 
+	           android:visibility="gone" >
+
+	           <RelativeLayout
+	               android:id="@+id/Sort_year_Layout"
+	               android:layout_width="match_parent"
+	               android:layout_height="64dp"
+	               android:visibility="visible" >
+
+	               <com.banana.banana.love.CustomGallery
+	                   android:id="@+id/gallery"
+	                   android:layout_width="match_parent"
+	                   android:layout_height="wrap_content"
+	                   android:layout_alignParentBottom="true"
+	                   android:layout_alignParentLeft="true"
+	                   android:layout_marginBottom="10dp"
+	                   android:alpha="80" />
+
+	               <ImageView
+	                   android:id="@+id/imageView1"
+	                   android:layout_width="70dp"
+	                   android:layout_height="wrap_content"
+	                   android:layout_centerInParent="true"
+	                   android:alpha="80" />
+	           </RelativeLayout>
+
+	           <RelativeLayout
+	               android:id="@+id/Sort_month_Layout"
+	               android:layout_width="match_parent"
+	               android:layout_height="64dp"
+	               android:visibility="visible" >
+
+	               <com.banana.banana.love.CustomGallery
+	                   android:id="@+id/gallery2"
+	                   android:layout_width="match_parent"
+	                   android:layout_height="wrap_content"
+	                   android:layout_alignParentBottom="true"
+	                   android:layout_alignParentLeft="true"
+	                   android:layout_marginBottom="10dp"
+	                   android:alpha="80" />
+
+	               <ImageView
+	                   android:id="@+id/ImageView2"
+	                   android:layout_width="70dp"
+	                   android:layout_height="wrap_content"
+	                   android:layout_centerInParent="true"
+	                   android:alpha="80" />
+	           </RelativeLayout>
+
+	       </LinearLayout>
+
+	       <LinearLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_alignParentBottom="true"
+	           android:layout_alignParentLeft="true" >
+
+	           <LinearLayout
+	               android:id="@+id/layout_sort"
+	               android:layout_width="wrap_content"
+	               android:layout_height="match_parent"
+	               android:layout_weight="0.11"
+	                android:background="#fffcdb" >
+
+	               <TextView
+	                   android:id="@+id/text_sort_year"
+	                   android:layout_width="wrap_content"
+	                   android:layout_height="wrap_content"
+	                   android:layout_weight="0.11"
+	                   android:text="Medium Text"
+	                   android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	               <TextView
+	                   android:id="@+id/text_sort_month"
+	                   android:layout_width="wrap_content"
+	                   android:layout_height="wrap_content"
+	                   android:layout_weight="0.11"
+	                   android:text="Medium Text"
+	                   android:textAppearance="?android:attr/textAppearanceMedium" />
+	           </LinearLayout>
+
+	           <Spinner
+	               android:id="@+id/love_sort"
+	               android:layout_width="68dp"
+	               android:layout_height="25dp"
+	                android:background="#fffcdb"
+	               android:layout_weight="0.11" />
+	       </LinearLayout>
+</RelativeLayout>

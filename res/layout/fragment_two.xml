@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/join_bg01"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.banana.banana.signup.CoupleRequestActivity" >
+
+    <Button
+        android:id="@+id/btn_couple_response"
+        android:layout_width="230dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/join_bt01"
+        android:text="Button"
+        android:textColor="@color/color_white" />
+
+    <EditText
+        android:id="@+id/edit_number"
+        android:layout_width="230dp"
+        android:layout_height="28dp"
+        android:layout_above="@+id/btn_couple_response"
+        android:layout_alignLeft="@+id/btn_couple_response"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/join_memo"
+        android:ems="10"
+        android:hint="상대방번호 입력"
+        android:inputType="phone"
+        android:paddingLeft="15dp"
+        android:textColor="@color/join_font_color"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/img_mission1"
+        android:layout_width="248dp"
+        android:layout_height="248dp"
+        android:layout_above="@+id/edit_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:src="@drawable/join_character" />
+
+</RelativeLayout>

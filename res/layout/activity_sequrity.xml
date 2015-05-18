@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    tools:context="com.banana.banana.setting.SequrityActivity" >
+
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	
+        
+        <Button
+            android:id="@+id/btn_on"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ON" />
+
+        <Button
+            android:id="@+id/btn_off"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="OFF" />
+    </LinearLayout>
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content" >
+        
+       <TextView
+         android:id="@+id/text_pwd"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="비밀번호" />
+
+     <EditText
+         android:id="@+id/edit_pwd"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:ems="10" >
+
+         <requestFocus />
+     </EditText>
+     
+ </LinearLayout>
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content" >
+
+     <TextView
+         android:id="@+id/text_pwd_ok"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="비밀번호 확인" />
+
+     <EditText
+         android:id="@+id/edit_pwd_ok"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:ems="10" >
+
+         <requestFocus />
+     </EditText>
+
+ </LinearLayout>
+
+ <Button
+     android:id="@+id/btn_ok"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:text="OK" />
+
+</LinearLayout>

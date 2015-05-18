@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/join_bg01"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="212dp"
+        android:text="암호를 잊어버리셨나요?"
+        android:textColor="#6a3906"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/login_memo"
+        android:ems="10"
+        android:height="38dp"
+        android:hint="Email"
+        android:width="230dp"
+        android:textColorHint="#6a3906" 
+        android:paddingLeft="10dp">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btn_popup_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/login_bt02"
+        android:height="40dp"
+        android:text="암호변경 요청"
+        android:textSize="13sp"
+        android:width="230dp" />
+
+</RelativeLayout>

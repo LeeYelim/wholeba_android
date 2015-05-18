@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash2_bg"
+    android:orientation="vertical"
+    tools:context="com.banana.banana.intro.IntroActivity" >
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="142dp"
+        android:background="@drawable/splash2_bt01"
+        android:height="40dp"
+        android:text="Login"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:width="230dp" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp"
+        android:background="@drawable/splash2_bt02"
+        android:height="40dp"
+        android:text="Join"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:width="230dp" />
+
+</RelativeLayout>
