@@ -44,9 +44,12 @@ public class BananaMainActivity extends ActionBarActivity {
 	HorizontalScrollView hView; 
 	MainDialog dialog1; 
 	String couple_birth,gender;
-	int f_reward, m_reward, m_condition, f_condition;  
+	int f_reward, m_reward, m_condition, f_condition, ddays;  
 	ImageView settingImg;
 	int couple_condom;
+	
+	
+	
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class BananaMainActivity extends ActionBarActivity {
 					startActivity(intent);
 					} else if (data.category == "Mission") {
 						Intent intent = new Intent(BananaMainActivity.this, SimpleExample.class);
+						intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
 						startActivity(intent);
 					}
 				}
@@ -155,6 +159,7 @@ public class BananaMainActivity extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(BananaMainActivity.this, DdayActivity.class);
 					intent.addFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
+					intent.putExtra("dday", ddays);
 					startActivity(intent);
 				}
 			});
@@ -170,6 +175,7 @@ public class BananaMainActivity extends ActionBarActivity {
 				public void onClick(View v) {
 					if(gender.equals("M")) {
 					dialog1.showAsDropDown(v); 
+					
 					}  
 				}
 			});
@@ -211,10 +217,26 @@ public class BananaMainActivity extends ActionBarActivity {
 						TextFlevel.setText(""+f_reward); 
 						couple_condom = result.items.couple_condom;
 						if(f_condition == 1) {
-							//WomanChar.setImageResource(R.drawable.profile3);
+							//WomanChar.setImageResource(R.drawable);
+						} else if(f_condition == 2) {
+							WomanChar.setImageResource(R.drawable.woman_angry_137_206);
+						} else if(f_condition == 3) {
+							WomanChar.setImageResource(R.drawable.woman_sick);
+						} else if(f_condition == 4) {
+							WomanChar.setImageResource(R.drawable.woman_happy);
+						} else if(f_condition == 5) {
+							WomanChar.setImageResource(R.drawable.woman_sexy);
 						}
 						if(m_condition == 1) {
 							//ManChar.setImageResource(R.drawable.profile4);
+						} else if(m_condition == 2) {
+							ManChar.setImageResource(R.drawable.man_angry_137_206);
+						} else if(m_condition == 3) {
+							ManChar.setImageResource(R.drawable.man_sick);
+						} else if(m_condition == 4) {
+							ManChar.setImageResource(R.drawable.man_happy);
+						} else if(m_condition == 5) {
+							ManChar.setImageResource(R.drawable.man_sexy);
 						}
 						
 						subDdate(couple_birth);  
@@ -250,8 +272,8 @@ public class BananaMainActivity extends ActionBarActivity {
 			d1 = cal.getTime().getTime();
 			d2 = cal2.getTime().getTime();
 			
-			int days = (int)((d1-d2)/(1000*60*60*24)); 
-			ddayView.setText(""+days);
+			ddays = (int)((d1-d2)/(1000*60*60*24)); 
+			ddayView.setText(""+ddays);
 			
 		}
 
@@ -273,18 +295,30 @@ public class BananaMainActivity extends ActionBarActivity {
 		if(gender.equals("F")) {
 			if(v.getId() == R.id.img_feel1) {
 				myCondition(2);
-				WomanChar.setImageResource(R.drawable.profile2);
+				WomanChar.setImageResource(R.drawable.woman_angry_137_206);
 			} else if (v.getId() == R.id.img_feel2) {
 				myCondition(3);
-				WomanChar.setImageResource(R.drawable.profile3);
+				WomanChar.setImageResource(R.drawable.woman_sick);
+			}  else if (v.getId() == R.id.img_feel3) {
+				myCondition(4);
+				WomanChar.setImageResource(R.drawable.woman_happy);
+			}  else if (v.getId() == R.id.img_feel4) {
+				myCondition(5);
+				WomanChar.setImageResource(R.drawable.woman_sexy);
 			}
 		} else if(gender.equals("M")) {
 			if(v.getId() == R.id.img_feel1) {
 				myCondition(2);
-			ManChar.setImageResource(R.drawable.profile2);
+				ManChar.setImageResource(R.drawable.man_angry_137_206);
 			} else if (v.getId() == R.id.img_feel2) {
 				myCondition(3);
-			ManChar.setImageResource(R.drawable.profile3);
+				ManChar.setImageResource(R.drawable.man_sick);
+			} else if (v.getId() == R.id.img_feel3) {
+				myCondition(4);
+				ManChar.setImageResource(R.drawable.man_sexy);
+			} else if (v.getId() == R.id.img_feel4) {
+				myCondition(5);
+				ManChar.setImageResource(R.drawable.man_happy);
 			}
 		}
 	} 

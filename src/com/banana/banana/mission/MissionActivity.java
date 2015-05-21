@@ -1,14 +1,19 @@
 package com.banana.banana.mission;
+import java.util.Calendar;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,6 +22,8 @@ import android.widget.Toast;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
+import com.banana.banana.main.BananaMainActivity;
+import com.banana.banana.setting.SettingActivity;
 
 public class MissionActivity extends ActionBarActivity {
 	int orderby=0;
@@ -31,11 +38,39 @@ public class MissionActivity extends ActionBarActivity {
 	int manTotalScore,womanTotalScore;
 	TextView manTotalScoreView,womanTotalScoreView;
 	int manCompleteScore,womanCompleteScore;
-	TextView manCompleteView,womanCompleteView;
+	TextView manCompleteView,womanCompleteView, titleView, todayView;
+	ImageView settingImg;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission);
+		ActionBar actionBar = getSupportActionBar(); 
+	      actionBar.setDisplayHomeAsUpEnabled(false);
+	      actionBar.setDisplayShowTitleEnabled(false);
+	      actionBar.setDisplayShowHomeEnabled(false);
+	      actionBar.setDisplayShowCustomEnabled(true); // Custom메뉴 설정 true
+	      actionBar.setCustomView(R.layout.custom_action_bar); 
+	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
+	      titleView.setText("MISSION");
+	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
+	      settingImg.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MissionActivity.this, SettingActivity.class);
+				startActivity(intent);
+			}
+		});
+	      
+	    todayView = (TextView)findViewById(R.id.today);
+	    Calendar oCalendar = Calendar.getInstance();
+		year = oCalendar.get(Calendar.YEAR);
+			 month = oCalendar.get(Calendar.MONTH)+1;
+			
+	      
+	      
 		MissionListView=(ListView)findViewById(R.id.listView1);
 		mAdapter=new MissionAdapter(this);
 		MissionListView.setAdapter(mAdapter);
@@ -97,7 +132,7 @@ public class MissionActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.mission, menu);
+		//getMenuInflater().inflate(R.menu.mission, menu);
 		return true;
 	}
 
@@ -106,10 +141,10 @@ public class MissionActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		//int id = item.getItemId();
+		//if (id == R.id.action_settings) {
+			//return true;
+		//}
 		return super.onOptionsItemSelected(item);
 	}
 	public void initData()

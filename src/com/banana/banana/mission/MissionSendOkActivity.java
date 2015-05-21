@@ -25,8 +25,7 @@ public class MissionSendOkActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				Log.i("getchipcount", ""+PropertyManager.getInstance().getChipCount());
-				Intent intent=new Intent(MissionSendOkActivity.this,MissionActivity.class);
-			
+				Intent intent=new Intent(MissionSendOkActivity.this,MissionActivity.class); 
 				startActivity(intent);
 				
 				

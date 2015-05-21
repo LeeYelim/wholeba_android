@@ -114,16 +114,29 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/Today"
+            android:id="@+id/todayYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="44dp"
             android:layout_marginTop="10dp"
-            android:text="2051.04"
+            android:text=""
             android:textSize="11sp" />
-
+        
+        
+        <TextView
+            android:id="@+id/todayMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="44dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="11sp" />
+        
+        
         <Spinner
             android:id="@+id/sort"
             android:layout_width="80dp"

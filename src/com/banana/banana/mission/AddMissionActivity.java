@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -18,85 +19,89 @@ import com.banana.banana.mission.scratch.*;
 public class AddMissionActivity extends ActionBarActivity {
 	Button btnOK;
 	ToggleButton btnTheme1, btnTheme2, btnTheme3, btnTheme4, btnTheme5, btnTheme6;
-	
-	int theme_no=3;//미션 테마 
+	 
+	private static final int BUTTON_SIZE = 6;
+	ToggleButton[] btnGroup = new ToggleButton[BUTTON_SIZE];
+	ToggleButton selectedButton = null;
+	private int[] toggleResIds = {R.id.ToggleTheme1,R.id.ToggleTheme2,R.id.ToggleTheme3,R.id.ToggleTheme4,R.id.ToggleTheme5,R.id.ToggleTheme6};
+	int theme_no; //미션 테마 
 	boolean selected = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_mission);
-		
-		btnTheme1 = (ToggleButton)findViewById(R.id.ToggleTheme1); 
-		btnTheme2 = (ToggleButton)findViewById(R.id.ToggleTheme2); 
-		btnTheme3 = (ToggleButton)findViewById(R.id.ToggleTheme3); 
-		btnTheme4 = (ToggleButton)findViewById(R.id.ToggleTheme4); 
-		btnTheme5 = (ToggleButton)findViewById(R.id.ToggleTheme5); 
-		btnTheme6 = (ToggleButton)findViewById(R.id.ToggleTheme6); 
-		//로직 다시 짜기 
-		/*
-		if(btnTheme1.isChecked()) {
-			theme_no = 3;
-			btnTheme2.setEnabled(false);
-			btnTheme3.setEnabled(false);
-			btnTheme4.setEnabled(false);
-			btnTheme5.setEnabled(false);
-			btnTheme6.setEnabled(false);
-			selected = true;
-		} else if (btnTheme2.isChecked()) {
-			theme_no =1;
-			btnTheme1.setEnabled(false);
-			btnTheme3.setEnabled(false);
-			btnTheme4.setEnabled(false);
-			btnTheme5.setEnabled(false);
-			btnTheme6.setEnabled(false);
-			selected = true;
-		} else if (btnTheme3.isChecked()) {
-			theme_no = 0; 
-			btnTheme1.setEnabled(false);
-			btnTheme2.setEnabled(false);
-			btnTheme4.setEnabled(false);
-			btnTheme5.setEnabled(false);
-			btnTheme6.setEnabled(false);
-			selected = true;
-		} else if (btnTheme4.isChecked()) {
-			theme_no =5; 
-			btnTheme2.setEnabled(false);
-			btnTheme3.setEnabled(false);
-			btnTheme1.setEnabled(false);
-			btnTheme5.setEnabled(false);
-			btnTheme6.setEnabled(false);
-			selected = true;
-		} else if (btnTheme5.isChecked()) {
-			theme_no =4;
-			btnTheme2.setEnabled(false);
-			btnTheme3.setEnabled(false);
-			btnTheme4.setEnabled(false);
-			btnTheme1.setEnabled(false);
-			btnTheme6.setEnabled(false);
-			selected = true;
-		} else if (btnTheme6.isChecked()) {
-			theme_no = 2; 
-			btnTheme2.setEnabled(false);
-			btnTheme3.setEnabled(false);
-			btnTheme4.setEnabled(false);
-			btnTheme5.setEnabled(false);
-			btnTheme1.setEnabled(false);
-			selected = true;
-		}*/
-		
-		 
+		setContentView(R.layout.activity_add_mission); 
+				
+			for (int i = 0; i < BUTTON_SIZE; i++) {
+				btnGroup[i] = (ToggleButton)findViewById(toggleResIds[i]);
+				btnGroup[i].setOnCheckedChangeListener(checkedListener);
+			} 
+			
 		btnOK=(Button)findViewById(R.id.btn_ok);
 		btnOK.setOnClickListener(new View.OnClickListener() {
-			
+		
 			@Override
-			public void onClick(View v) { 
-				//if(selected  == true) {
-				
+			public void onClick(View v) {  
 				addMission();
-				Toast.makeText(AddMissionActivity.this, "send", Toast.LENGTH_LONG).show();	
-				//}
+				Toast.makeText(AddMissionActivity.this, "send", Toast.LENGTH_LONG).show();	 
 			}
-		});
+		}); 
+	}
+	
+	
+	CompoundButton.OnCheckedChangeListener checkedListener = new CompoundButton.OnCheckedChangeListener() {
+		
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if (isChecked) {
+				if (selectedButton != null) { //기존것 꺼지고
+					selectedButton.setChecked(false);
+				}
+				if (selectedButton != buttonView) { //새로운거 켜지게
+					selectedButton = (ToggleButton)buttonView;
+					onToggleSelected(buttonView.getId(), isChecked);
+				}
+			} else {
+				if (selectedButton == buttonView) { //같은거 두번 누르면 꺼지게
+					onToggleSelected(buttonView.getId(), isChecked);
+				}
+			}
+		}
+	}; 
+	
+	private void onToggleSelected(int resId, boolean isChecked) {
+		switch(resId) {
+			case R.id.ToggleTheme1: 
+				if(isChecked == true) {
+					theme_no = 3;    
+					break;
+				}
+			case R.id.ToggleTheme2 :
+				if(isChecked == true) {
+					theme_no = 1;  
+					break;
+				}
+			case R.id.ToggleTheme3 :
+				if(isChecked == true) {
+					theme_no = 0;    
+					break;
+				}
+			case R.id.ToggleTheme4 :
+				if(isChecked == true) {
+					theme_no = 5;   
+					break;
+				}
+			case R.id.ToggleTheme5 :
+				if(isChecked == true) {
+					theme_no = 4;    
+					break;
+				}
+			case R.id.ToggleTheme6 :
+				if(isChecked == true) {
+					theme_no = 2;    
+					break;
+				}
+		} 
 	}
 
 	protected void addMission() {
@@ -107,8 +112,7 @@ public class AddMissionActivity extends ActionBarActivity {
 			public void onSuccess(MissionResult result) {
 				if(result.success==1){
 				
-				Intent intent=new Intent(AddMissionActivity.this,MissionSendOkActivity.class);
-			
+				Intent intent=new Intent(AddMissionActivity.this,MissionSendOkActivity.class); 
 				startActivity(intent); 
 				}
 			}

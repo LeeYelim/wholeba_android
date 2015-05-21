@@ -179,7 +179,7 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 	 	String num1 = user_phone.substring(0, 3);
 		String num2 = user_phone.substring(3, 7);
 		String num3 = user_phone.substring(7, 11);
-		user_phone = num1+"-"+num2+"-"+num3;
+		user_phone = num1+"-"+num2+"-"+num3; 
 		NetworkManager.getInstnace().login(SplashActivity.this, user_id, user_pass, user_phone, reg_id, new OnResultListener<LoginResult>() {
 
 			@Override
@@ -256,12 +256,14 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 				else if(join_code == 3) { //요청자의 커플 승인대기 페이지(버튼 비활성화)  
 					JoinCodeInfoParcel joinData = new JoinCodeInfoParcel();
 					joinData.join_code = join_code;
+					PropertyManager.getInstance().setUserGender(result.result.items.user_gender);
 					Intent intent = new Intent(SplashActivity.this, CoupleRequestActivity.class); 
 					intent.putExtra("joinData", joinData);
 					startActivity(intent); 
 					finish();
 				} else if(join_code == 4) { //추가정보 미입력 페이지(기념일, 생일)
-					notInputJoinDetail(); 
+					String gender = result.result.items.user_gender;
+					notInputJoinDetail(gender); 
 				} else if(join_code == 5) { //한명이 탈퇴했을 경우
 					Dialog();
 				}
@@ -274,14 +276,16 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 			}
 		});
 } 
-	protected void notInputJoinDetail() { //추가정보 미입력
+	protected void notInputJoinDetail(String gender) { //추가정보 미입력
 		// TODO Auto-generated method stub
-		
-		if(user_req == 1) {
+			
+			if(user_req == 1) {
+				PropertyManager.getInstance().setUserGender(gender);
 				Intent intent = new Intent(SplashActivity.this, FirstMeetingActivity.class);
 				startActivity(intent);
 				finish();
 			} else if(user_req == 0) {
+				PropertyManager.getInstance().setUserGender(gender);
 				Intent intent = new Intent(SplashActivity.this, BirthDayInfoActivity.class);
 				startActivity(intent); 
 				finish();

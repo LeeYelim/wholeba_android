@@ -10,9 +10,10 @@
     <LinearLayout
         android:layout_width="360dp"
         android:layout_height="346dp"
-        android:orientation="vertical" > 
+        android:orientation="vertical" >
+
         <LinearLayout
-            android:id="@+id/LayoutDday" 
+            android:id="@+id/LayoutDday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -42,7 +43,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/main_item_menu_color"
                 android:textSize="12sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -60,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="46dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical" >
 
                     <ImageView
@@ -89,20 +90,70 @@
                             android:text="2"
                             android:textColor="#ffb806"
                             android:textSize="13sp" />
-
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LinearLayout2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <ImageView
-                        android:id="@+id/img_female"
-                        android:layout_width="106dp"
-                        android:layout_height="206dp"
-                        android:src="@drawable/main_banana_character_woman" />
+                    <FrameLayout 
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" >
+
+                        <ImageView
+                            android:id="@+id/img_female"
+                            android:layout_width="106dp"
+                            android:layout_height="206dp"
+                            android:layout_gravity="left"
+                            android:src="@drawable/main_banana_character_woman" />
+
+                        <ImageView
+                            android:id="@+id/img_isperiod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginLeft="70dp"
+                            android:src="@drawable/warningday_icon" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="64dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/bust_band" />
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="80dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/pimple" />
+
+                        <ImageView
+                            android:id="@+id/img_headache"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="38dp"
+                            android:layout_marginLeft="4dp"
+                            android:src="@drawable/headache1" />
+
+                        <ImageView
+                            android:id="@+id/img_band"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="50dp"
+                            android:layout_marginTop="47dp"
+                            android:src="@drawable/band" />
+
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -125,13 +176,11 @@
                             android:text="2"
                             android:textColor="#ffb806"
                             android:textSize="13sp" />
-
                     </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 
     <HorizontalScrollView
@@ -143,91 +192,89 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/main_item_select_under_bar" >
+            android:background="@drawable/main_item_select_under_bar"
+            android:orientation="horizontal" >
 
-           
             <TextView
                 android:id="@+id/item1"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
-                android:textSize="12sp"
-                android:text="미션다시뽑기"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:background="@drawable/main_item_select_banana_chip" />
+                android:text="미션다시뽑기"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item2"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
-                android:textSize="12sp"
-                android:text="미션유효기간 늘리기" 
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:background="@drawable/main_item_select_banana_chip" />
+                android:text="미션유효기간 늘리기"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item3"
                 android:layout_width="70dp"
-                android:layout_height="64dp" 
+                android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="데이트 미션으로 다시 뽑기"
-                android:background="@drawable/main_item_select_banana_chip" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item4"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
-                android:text="섹시미션으로 다시 뽑기"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:background="@drawable/main_item_select_banana_chip"/>
+                android:text="섹시미션으로 다시 뽑기"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item5"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="애교미션으로 다시 뽑기"
-                android:background="@drawable/main_item_select_banana_chip" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item6"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="천사미션으로 다시 뽑기"
-               android:background="@drawable/main_item_select_banana_chip"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item7"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="처음미션으로 다시 뽑기"
-                android:background="@drawable/main_item_select_banana_chip"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/item8"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="미션패스"
-                android:background="@drawable/main_item_select_banana_chip"/>
-            
-              <TextView
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/item9"
                 android:layout_width="70dp"
                 android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:textSize="12sp"
                 android:text="미션 내맘대로 쓰기"
-                android:background="@drawable/main_item_select_banana_chip"/>
-              
+                android:textSize="12sp" />
         </LinearLayout>
     </HorizontalScrollView>
 

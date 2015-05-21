@@ -160,8 +160,9 @@ public class LoveDialog extends DialogFragment {
 		String month = LoveMonthView.getText().toString();
 		String day = LoveDayView.getText().toString();
 		loves_date = year+"-"+month+"-"+day;
+		int loves_ispopup = 0;
 		
-		NetworkManager.getInstnace().addLove(getActivity(), iscondom, loves_date, new OnResultListener<LoveSearchResult>() {
+		NetworkManager.getInstnace().addLove(getActivity(), iscondom, loves_date, loves_ispopup, new OnResultListener<LoveSearchResult>() {
 
 			@Override
 			public void onSuccess(LoveSearchResult result) {

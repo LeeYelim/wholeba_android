@@ -76,10 +76,7 @@ public class BirthDayInfoActivity extends ActionBarActivity {
 
 			@Override
 			public void onSuccess(JoinResult result) {
-				// TODO Auto-generated method stub
-
-				Log.i("user_gender", user_gender);
-
+				// TODO Auto-generated method stub 
 				if(user_gender.equals("M")) {
 					Intent intent = new Intent(BirthDayInfoActivity.this, BananaMainActivity.class);
 					intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -87,7 +84,6 @@ public class BirthDayInfoActivity extends ActionBarActivity {
 					startActivity(intent);
 				} else if(user_gender.equals("F")) {
 					Intent intent = new Intent(BirthDayInfoActivity.this, PeriodInfoActivity.class); 
-
 					startActivity(intent);  
 				}
 			}
@@ -98,29 +94,7 @@ public class BirthDayInfoActivity extends ActionBarActivity {
 				
 			}
 		}); 
-		/*
-		NetworkManager.getInstnace().addCommonInfo(BirthDayInfoActivity.this, couple_birth, user_birth, new OnResultListener<JoinResult>() {
 
-			@Override
-			public void onSuccess(JoinResult result) {
-				if(user_gender.equals("남")) {
-					Intent intent = new Intent(BirthDayInfoActivity.this, MainActivity.class);
-					intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
-	 				intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(intent);
-					Toast.makeText(BirthDayInfoActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
-				} else if(user_gender.equals("여")) {
-					Intent intent = new Intent(BirthDayInfoActivity.this, PeriodInfoActivity.class);  
-					startActivity(intent); 
-					Toast.makeText(BirthDayInfoActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
-				}
-			}
-
-			@Override
-			public void onFail(int code) {
-				 
-			}
-		});*/
 	}
 
 

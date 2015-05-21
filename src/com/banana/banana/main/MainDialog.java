@@ -11,11 +11,12 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 
 public class MainDialog extends PopupWindow{
 	Context mContext;
-	ImageView feelOneView, feelTwoView, feelThreeView;
+	ImageView feelOneView, feelTwoView, feelThreeView, feelFourView;
 
 	public interface OnChangeFeelingListener{
 		public void OnFeelingClick(View view);
@@ -47,6 +48,23 @@ public class MainDialog extends PopupWindow{
 		feelOneView = (ImageView)view.findViewById(R.id.img_feel1);
 		feelTwoView = (ImageView)view.findViewById(R.id.img_feel2);
 		feelThreeView = (ImageView)view.findViewById(R.id.img_feel3);
+		feelFourView = (ImageView)view.findViewById(R.id.img_feel4);
+		
+		String gender = PropertyManager.getInstance().getUserGender();
+		if(gender.equals("M")) {
+			feelOneView.setImageResource(R.drawable.main_emotion_select_angry);
+			feelTwoView.setImageResource(R.drawable.main_emotion_select_sick);
+			feelThreeView.setImageResource(R.drawable.main_emotion_select_sexy);
+			feelFourView.setImageResource(R.drawable.main_emotion_select_happy);
+		} else if(gender.equals("F")) {
+			feelOneView.setImageResource(R.drawable.woman_circle_angry);
+			feelTwoView.setImageResource(R.drawable.woman_circle_sick);
+			feelThreeView.setImageResource(R.drawable.woman_circle_sexy);
+			feelFourView.setImageResource(R.drawable.woman_circle_happy);
+		}
+		
+		
+		
 		
 		feelOneView.setOnClickListener(new OnClickListener() {
 			
@@ -73,6 +91,32 @@ public class MainDialog extends PopupWindow{
 		});
 		
 		
+		feelThreeView.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if(changelistener != null) {
+							changelistener.OnFeelingClick(v);
+						}
+						dismiss();
+					}
+				});
+		
+		
+		feelFourView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(changelistener != null) {
+					changelistener.OnFeelingClick(v);
+				}
+				dismiss();
+			}
+		});
+				
+				
 		
 	}
 

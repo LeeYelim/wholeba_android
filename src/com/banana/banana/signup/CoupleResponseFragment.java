@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
@@ -17,18 +18,24 @@ import com.banana.banana.love.NetworkManager.OnResultListener;
 public class CoupleResponseFragment extends Fragment {
 
 
-	EditText edit_response_number; 
+	TextView response_number; 
 	Button btnResponse;
 	String requestPhone;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) { 
 		View view = inflater.inflate(R.layout.fragment_two, container, false);
-		init();
-		
 		btnResponse = (Button)view.findViewById(R.id.btn_couple_response);
-		edit_response_number = (EditText)view.findViewById(R.id.edit_number);
+		response_number = (TextView)view.findViewById(R.id.text_number);
 		
+		init();
+				
+		Intent i = getActivity().getIntent();
+		if(i == null) {
+			i = new Intent();
+		}
+		requestPhone = i.getStringExtra("partner");
+		response_number.setText(requestPhone);
 		
 		btnResponse.setOnClickListener(new View.OnClickListener() {
 			
@@ -52,14 +59,14 @@ public class CoupleResponseFragment extends Fragment {
 
 		 
 		
-		//-----원래는 여기서 그냥 요청만 searchJoininfo 하면됨 파라매터 없이  
+		//-----원래는 여기서 그냥 요청만 searchJoininfo 하면됨 파라매터 없이 
 	//다시 풀	
 		NetworkManager.getInstnace().searchJoinInfo(getActivity(), new OnResultListener<JoinResult>() {
 
 			@Override
 			public void onSuccess(JoinResult result) { 
 				requestPhone = result.result.items.partner_phone; 
-			 	edit_response_number.setText(requestPhone);
+				response_number.setText(requestPhone);
 			 	PropertyManager.getInstance().setUserGender(result.result.items.user_gender);
 
 			}
@@ -81,6 +88,7 @@ public class CoupleResponseFragment extends Fragment {
 				Intent intent = new Intent(getActivity(), BirthDayInfoActivity.class);
 				intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
 				intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+				PropertyManager.getInstance().setUserGender(result.result.items.user_gender);
 				//intent.putExtras(b);
 				startActivity(intent);
 			}

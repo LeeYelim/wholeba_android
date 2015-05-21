@@ -22,8 +22,8 @@
         android:text="Button"
         android:textColor="@color/color_white" />
 
-    <EditText
-        android:id="@+id/edit_number"
+    <TextView
+        android:id="@+id/text_number"
         android:layout_width="230dp"
         android:layout_height="28dp"
         android:layout_above="@+id/btn_couple_response"

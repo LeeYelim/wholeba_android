@@ -162,6 +162,7 @@ public class LoginActivity extends ActionBarActivity {
 					JoinCodeInfoParcel joinData = new JoinCodeInfoParcel();
 					joinData.join_code = join_code;
 					Intent intent = new Intent(LoginActivity.this, CoupleRequestActivity.class); 
+					intent.putExtra("joinData", joinData); 
 					startActivity(intent); 
 					finish();
 				} else if(join_code == 4) {
@@ -218,25 +219,6 @@ public class LoginActivity extends ActionBarActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Toast.makeText(LoginActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
-				}
-			});
-			builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Toast.makeText(LoginActivity.this, "Cancel Click", Toast.LENGTH_SHORT).show();
-				}
-			});
-			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Toast.makeText(LoginActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
-				}
-			});
-			builder.setOnCancelListener(new OnCancelListener() {
-				
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					Toast.makeText(LoginActivity.this, "Dialog Canceled", Toast.LENGTH_SHORT).show();
 				}
 			});
 //			builder.setCancelable(false);

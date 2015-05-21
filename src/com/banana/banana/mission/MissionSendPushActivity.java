@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.banana.banana.R;
+import com.banana.banana.love.PopupOk;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 
@@ -20,7 +21,7 @@ public class MissionSendPushActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission_send_push);
 		Intent intent=getIntent();
-		mlist_no=intent.getIntExtra("mlist_no", 0);
+		mlist_no=intent.getIntExtra("mlist_no", -1);
 		btn_sendPush=(Button)findViewById(R.id.btn_sendPush);
 		btn_sendPush.setOnClickListener(new View.OnClickListener() {
 			
@@ -32,7 +33,9 @@ public class MissionSendPushActivity extends ActionBarActivity {
 					@Override
 					public void onSuccess(MissionResult result) {
 						if(result.success==1){
-							Intent intent=new Intent(MissionSendPushActivity.this,MissionPopupActivity.class);
+							Intent intent=new Intent(MissionSendPushActivity.this,PopupOk.class);
+							intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
+							intent.putExtra("mlist_no", mlist_no);
 							startActivity(intent);
 						}
 						

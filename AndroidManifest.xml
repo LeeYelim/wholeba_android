@@ -23,9 +23,6 @@
 
     <uses-permission android:name="com.banana.banana.permission.C2D_MESSAGE" />
 
-    
-    
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -34,6 +31,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
+            android:exported="true"
             android:icon="@drawable/main_emotion_select_sexy"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
@@ -42,10 +40,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         </activity>
-         
-        
-       <activity
+        </activity>
+        <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
@@ -88,8 +84,8 @@
         </activity>
         <activity
             android:name=".signup.SymtomInfoActivity"
-            android:label="@string/title_activity_symtom_info" 
-                        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="@string/title_activity_symtom_info"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".signup.UseInfoActivity"
@@ -114,7 +110,6 @@
         <activity
             android:name=".setting.MyinfoActivity"
             android:label="@string/title_activity_myinfo" >
-            
         </activity>
         <activity
             android:name=".setting.MyPartenerInfoActivity"
@@ -124,22 +119,20 @@
             android:name=".setting.SequrityActivity"
             android:label="@string/title_activity_sequrity" >
         </activity>
-        <activity
-            android:name=".setting.AlarmActivity" >
+        <activity android:name=".setting.AlarmActivity" >
         </activity>
         <activity
             android:name=".mission.MissionActivity"
             android:label="@string/title_activity_mission_popup" >
         </activity>
-                <activity android:name=".mission.MissionPopupActivity" >
+        <activity android:name=".mission.MissionPopupActivity" >
         </activity>
-        
         <activity android:name=".mission.MissionDetailActivity" >
         </activity>
         <activity android:name=".mission.MissionSendAlram" >
         </activity>
         <activity
-            android:name=".love.LovePopupOk"
+            android:name=".love.PopupOk"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity android:name=".love.LoveActivity" >
@@ -150,14 +143,12 @@
         </activity>
         <activity android:name=".mission.PullMissionActivity" >
         </activity>
-        
         <activity android:name=".mission.AddMissionActivity" >
         </activity>
         <activity
             android:name=".signup.ResponseActivity"
             android:label="@string/title_activity_response" >
         </activity>
- 
         <activity android:name=".signup.PeriodDoseInfoActivity" >
         </activity>
         <activity android:name=".mission.card.CardActivity" >
@@ -166,7 +157,8 @@
         </activity>
         <activity
             android:name=".mission.scratch.MissionCardScratchActivity"
-            android:label="@string/title_activity_mission_card_scratch" android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_mission_card_scratch" >
         </activity>
         <activity
             android:name=".mission.MissionSendOkActivity"
@@ -178,29 +170,29 @@
         </activity>
         <activity android:name=".setting.NoticeActivity" >
         </activity>
-
         <activity
             android:name=".NoticeActivity"
             android:label="@string/title_activity_notice" >
-        </activity> 
+        </activity>
         <activity
             android:name=".SimpleActivity"
             android:label="@string/title_activity_simple" >
-        </activity>  
-        
-        <activity
-            android:name=".LogoutActivity"
-            android:label="@string/title_activity_logout" android:exported="true">
         </activity>
         <activity
-            android:name="com.banana.banana.mission.MissionReceiveConfirmActivity"
-            android:label="@string/title_activity_mission_receive_confirm" android:exported="true">
+            android:name=".LogoutActivity"
+            android:exported="true"
+            android:label="@string/title_activity_logout" >
+        </activity>
+        <activity
+            android:name=".mission.MissionReceiveConfirmActivity"
+            android:exported="true"
+            android:label="@string/title_activity_mission_receive_confirm" >
         </activity>
         <activity
             android:name=".WithDrawActivity"
             android:label="@string/title_activity_with_draw" >
         </activity>
-        
+
         <receiver
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -217,5 +209,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".mission.MissionSendPushActivity" >
+        </activity>
+        <activity android:name=".mission.MissionShowHint" >
+        </activity>
+        <activity
+            android:name=".MissionItemUsePushActivity"
+            android:label="@string/title_activity_mission_item_use_push" >
+        </activity>
+        <receiver android:name="AlaramReceiver"></receiver>
+        <service android:name="AlarmService"></service>
     </application>
+
 </manifest>

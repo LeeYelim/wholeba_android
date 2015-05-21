@@ -1,5 +1,7 @@
 package com.banana.banana.signup;
 
+import javax.net.ssl.HostnameVerifier;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -88,8 +90,17 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 				 String pills_date = year +"-"+month+"-"+day;
 				String hour = hourView.getText().toString();
 				String minute = minuteView.getText().toString();
+				int h = Integer.parseInt(hour);
+				
+				if(toggleTime.getText().equals("PM") && h < 12) { 
+					h += 12;
+					hour = Integer.toString(h);
+				} 
+				
 				String pills_time = hour+":"+minute;
 
+				
+				
 				if(year.equals("")) {
 					pills_date = "";
 				}

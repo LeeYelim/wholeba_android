@@ -1,36 +1,24 @@
 package com.banana.banana;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-
-
-
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import android.os.Handler;
-import android.os.Message;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
-import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.banana.banana.love.LovePopupActivity;
-import com.banana.banana.main.BananaMainActivity;
-import com.banana.banana.mission.MissionActivity;
+import com.banana.banana.love.PopupOk;
+import com.banana.banana.love.NetworkManager;
+import com.banana.banana.love.NetworkManager.OnResultListener;
+import com.banana.banana.mission.MissionPopupActivity;
 import com.banana.banana.mission.MissionReceiveConfirmActivity;
 import com.banana.banana.mission.scratch.MissionCardScratchActivity;
+import com.banana.banana.signup.CoupleRequestActivity;
 import com.banana.banana.signup.CoupleResponseFragment;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -48,7 +36,7 @@ public class GcmIntentService extends IntentService {
     int phone_number;
     String mlist_regdate,item_usedate;
     String partner_phone,item_name;
-    int mlist_no,theme_no,item_no;
+    int mlist_no,theme_no,item_no, loves_no;
     
     
     String mission_name;
@@ -91,29 +79,73 @@ public class GcmIntentService extends IntentService {
     }
 
  
+    Handler mHandler = new Handler(Looper.getMainLooper());
     private void sendNotification(int push_type,Intent send_intent) {
     	
     	  
     	 Intent intent=null;
     	  
-    	  if(push_type==1){
+    	  if(push_type==1){ //다른 기기 로그인
     		  intent =new Intent(this,LogoutActivity.class);
-    		  	
+    		  mHandler.post(new Runnable() {
+				
+				@Override
+				public void run() {
+		    		  NetworkManager.getInstnace().logout(GcmIntentService.this, new OnResultListener<LogoutResponse>() {
+		  				
+		  				@Override
+		  				public void onSuccess(LogoutResponse result) {
+		  					// TODO Auto-generated method stub
+		  					
+		  				}
+		  				
+		  				@Override
+		  				public void onFail(int code) {
+		  					// TODO Auto-generated method stub
+		  					
+		  				}
+		  			});
+				}
+			});
     		  
-    	  }else if(push_type==2){
-    		  
+    	  }else if(push_type==2){ //커플요청 - 상대방 번호, partner_phone 
     		  partner_phone=send_intent.getStringExtra("partner_phone");
-    		  intent =new Intent(this,CoupleResponseFragment.class);
-    		  intent.putExtra("partner", partner_phone);
-    		
-    	  }else if(push_type==3){
+    		  intent =new Intent(this,SplashActivity.class); 
+    		  intent.putExtra("partner", partner_phone); 
+    		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
     		  
-    	  }else if(push_type==4){
-    		 
-    		  intent=new Intent(this,LovePopupActivity.class);
+    	  }else if(push_type==3){ //커플승인
+    		  intent =new Intent(this,SplashActivity.class); 
+    		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	  }else if(push_type==4){ // 뽀뽀팝업 요청하기  
     		  
-    		  //intent=new Intent(this,MissionPopupActivity.class);
-    	  }else if(push_type==5){
+    		  if(!send_intent.getStringExtra("mlist_no").equals("")) {
+    			  	mlist_no = Integer.parseInt(send_intent.getStringExtra("mlist_no"));
+    			  	intent=new Intent(this, PopupOk.class);
+    			  	intent.putExtra("mlist_no", mlist_no);
+      		    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+    		  } else if(!send_intent.getStringExtra("loves_no").equals("")) {
+    			  loves_no=Integer.parseInt(send_intent.getStringExtra("loves_no")); 
+    			  intent=new Intent(this,PopupOk.class);
+    			  intent.putExtra("loves_no", loves_no);
+    			  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    		  }
+    		  //mlist_no=Integer.parseInt(send_intent.getStringExtra("mlist_no"));  
+    		  //loves_no=Integer.parseInt(send_intent.getStringExtra("loves_no")); 
+    		  
+    		  
+    		  
+    		  /*if(mlist_no != -1) {
+    		    intent=new Intent(this, PopupOk.class);
+    		    intent.putExtra("mlist_no", mlist_no);
+    		    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    		  } else if(loves_no != -1) {
+    			  intent=new Intent(this,PopupOk.class);
+    			  intent.putExtra("loves_no", loves_no);
+    			  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    		  }*/
+    		  
+    	}else if(push_type==5){ //미션 생성
     		  mlist_no=Integer.parseInt(send_intent.getStringExtra("mlist_no"));
     		  mission_name=send_intent.getStringExtra("mission_name");
     		  theme_no=Integer.parseInt(send_intent.getStringExtra("theme_no"));
@@ -129,15 +161,17 @@ public class GcmIntentService extends IntentService {
     		  intent.putExtra("theme_no",theme_no);
     		  intent.putExtra("mlist_regdate",mlist_regdate);
     		  intent.putExtra("item_no", item_no);
+    		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
     		  
     		  
-    	  }else if(push_type==6){
+    	  }else if(push_type==6){ // 미션 확인
     		  mission_hint=send_intent.getStringExtra("mission_hint");
     		  Log.i("mission_hint",mission_hint);
     		  intent=new Intent(this,MissionReceiveConfirmActivity.class);
     		  intent.putExtra("mission_hint", mission_hint);
+    		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
     		
-    	  }else if(push_type==7){
+    	  }else if(push_type==7){ // 미션에 아이템 사용 
     		  item_no=Integer.parseInt(send_intent.getStringExtra("item_no"));
     		  item_usedate=send_intent.getStringExtra("item_usedate");
     		  theme_no=Integer.parseInt(send_intent.getStringExtra("theme_no"));
@@ -145,11 +179,22 @@ public class GcmIntentService extends IntentService {
     		  
     		  if(item_no==1||item_no==3||item_no==4||item_no==5||item_no==6||item_no==7){
     			  mission_hint=send_intent.getStringExtra("mission_hint");
-    		  }
+    		  }  
+    		  
+    		  intent=new Intent(this,MissionItemUsePushActivity.class);
+    		  intent.putExtra("theme_no", theme_no);
+    		  intent.putExtra("item_name", item_name);
+    		  intent.putExtra("item_usedate", item_usedate);
+    		  intent.putExtra("mission_hint", mission_hint);
+    		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+    		  
     		//  item_no=send_intent.g
-    	  }else if(push_type==9){
+    		  
+    		  // 8번일땐 shared에 리워드 저장만
+    	  }else if(push_type==9){ // 탈퇴
     		  intent=new Intent(this,WithDrawActivity.class);
     	  }
+    	  
     	  PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                   intent, PendingIntent.FLAG_UPDATE_CURRENT);
           NotificationCompat.Builder mBuilder =

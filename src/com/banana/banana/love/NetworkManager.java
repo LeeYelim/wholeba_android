@@ -8,6 +8,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
@@ -21,7 +22,6 @@ import com.banana.banana.MyApplication;
 import com.banana.banana.WithDrawReponse;
 import com.banana.banana.dday.DdayResponse;
 import com.banana.banana.dday.DdayResult;
-import com.banana.banana.login.AutoLoginResponse;
 import com.banana.banana.login.LoginResult;
 import com.banana.banana.main.CoupleInfoResult;
 import com.banana.banana.main.UserInfoResponse;
@@ -30,6 +30,7 @@ import com.banana.banana.mission.BananaItemResponse;
 import com.banana.banana.mission.MissionIngResult;
 import com.banana.banana.mission.MissionResult;
 import com.banana.banana.setting.NoticeResponse;
+import com.banana.banana.setting.PeriodItems;
 import com.banana.banana.setting.WomanInfoResponse;
 import com.banana.banana.signup.JoinResult;
 import com.banana.banana.signup.WomanInfoParcelData;
@@ -87,10 +88,10 @@ import com.loopj.android.http.TextHttpResponseHandler;
 			public void onFail(int code); 
 		}
 		
-		//public static final String SERVER = "http://zzanghansol.mooo.com";
-		//public static final String HTTPS_SERVER = "http://zzanghansol.mooo.com";
-		public static final String SERVER = "http://yeolwoo.mooo.com";
-		public static final String HTTPS_SERVER = "https://yeolwoo.mooo.com";
+		public static final String SERVER = "http://zzanghansol.mooo.com";
+		public static final String HTTPS_SERVER = "https://zzanghansol.mooo.com";
+		//public static final String SERVER = "http://yeolwoo.mooo.com";
+		//public static final String HTTPS_SERVER = "https://yeolwoo.mooo.com";
 		
 		
 		/*-----------로그인---------*/			
@@ -508,30 +509,6 @@ import com.loopj.android.http.TextHttpResponseHandler;
 			});
 		}
 		
-		/*-----------여성정보조회---------*/
-		public static final String GET_WOMAN_INFO_URL = SERVER + "/setting/herself/%s";
-		public void getWomanInfoList(Context context, String user_gender, final OnResultListener<WomanInfoResponse> listener){
-			 
-			String url = String.format(GET_WOMAN_INFO_URL, user_gender);
-			 client.get(context, url, new TextHttpResponseHandler() {
-				
-				@Override
-				public void onSuccess(int statusCode, Header[] headers,
-						String responseString) {
-					// TODO Auto-generated method stub
-					Gson gson = new Gson();
-					WomanInfoResponse results = gson.fromJson(responseString, WomanInfoResponse.class);
-					listener.onSuccess(results);
-				}
-				
-				@Override
-				public void onFailure(int statusCode, Header[] headers,
-						String responseString, Throwable throwable) {
-					// TODO Auto-generated method stub
-					listener.onFail(statusCode);
-				}
-			});
-		}  
 		
 		
 		/*-----------LOVE---------*/
@@ -562,10 +539,11 @@ import com.loopj.android.http.TextHttpResponseHandler;
 	}
 	
 		public static final String LOVE_ADD_URL = SERVER + "/loves/add";
-		public void addLove(Context context, int iscondom, String loves_date, final OnResultListener<LoveSearchResult> listener) {
+		public void addLove(Context context, int iscondom, String loves_date, int loves_ispopup, final OnResultListener<LoveSearchResult> listener) {
 			RequestParams params = new RequestParams();
 			params.put("loves_condom", ""+iscondom);
 			params.put("loves_date", loves_date);
+			params.put("loves_ispopup", ""+loves_ispopup);
 			
 			client.post(context, LOVE_ADD_URL, params, new TextHttpResponseHandler() {
 				
@@ -586,6 +564,34 @@ import com.loopj.android.http.TextHttpResponseHandler;
 				}
 			});
 		} 
+		
+		
+
+		public static final String LOVE_ADD_POPUP_URL = SERVER + "/loves/add/popup";
+		public void addPopupLove(Context context, int loves_no, final OnResultListener<LoveSearchResult> listener) {
+			RequestParams params = new RequestParams();
+			params.put("loves_no", ""+loves_no); 
+			
+			client.post(context, LOVE_ADD_POPUP_URL, params, new TextHttpResponseHandler() {
+				
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						String responseString) {
+					// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					LoveSearchResult results = gson.fromJson(responseString, LoveSearchResult.class);
+					listener.onSuccess(results); 
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					listener.onFail(statusCode);
+				}
+			});
+		} 		
+		
 		
 		public static final String LOVE_EDIT_URL = SERVER + "/loves/%s/modify";	
 		public void modifyLove(Context context, int loves_no, int is_condom, String date, final OnResultListener<LoveSearchResult> listener) {
@@ -693,7 +699,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 		public static final String MISSION_ADD_URL = SERVER + "/missions/add";
 		public void addMission(Context context, int theme_no, final OnResultListener<MissionResult> listener) {
 			RequestParams params = new RequestParams();
-			params.put("theme_no",theme_no); 
+			params.put("theme_no", ""+theme_no); 
 			
 			client.post(context, MISSION_ADD_URL, params, new TextHttpResponseHandler() {
 				
@@ -793,6 +799,34 @@ import com.loopj.android.http.TextHttpResponseHandler;
 				}
 			}); 
 		}
+		
+		/*---------Mission 팝업 요청----------*/
+		public static final String ASKPOPUP_MISSION_URL = SERVER + "/missions/%s/success/popup";
+		public void askpopup(Context context,int mlist_no,final OnResultListener<MissionResult> listener){
+			
+			String url = String.format(ASKPOPUP_MISSION_URL, mlist_no);
+			
+			client.post(context, url, null, new TextHttpResponseHandler() {
+				
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						String responseString) {
+					// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					MissionResult results = gson.fromJson(responseString, MissionResult.class);
+					listener.onSuccess(results);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					listener.onFail(statusCode); 
+				}
+			});
+		}
+		
+		/*
 		public static final String ASKPOPUP_MISSION_URL = SERVER + "/missions/askpopup";
 		public void askpopup(Context context,int mlist_no,final OnResultListener<MissionResult> listener){
 			RequestParams params = new RequestParams();
@@ -816,7 +850,35 @@ import com.loopj.android.http.TextHttpResponseHandler;
 					listener.onFail(statusCode); 
 				}
 			});
+		}*/
+		
+		public static final String MISSION_SUCCESS_POPUP = SERVER + "/missions/%s/success";
+		public void missionPopupSuccess(Context context, int mlist_no, String mlist_successdate, final OnResultListener<MissionResult> listener){
+			RequestParams params = new RequestParams();
+			params.put("mlist_successdate", mlist_successdate);
+			
+			String url = String.format(MISSION_SUCCESS_POPUP, ""+mlist_no);
+			
+			client.post(context, url, params, new TextHttpResponseHandler() {
+				
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						String responseString) {
+					// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					MissionResult results = gson.fromJson(responseString, MissionResult.class);
+					listener.onSuccess(results);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					listener.onFail(statusCode); 
+				}
+			});
 		}
+		
 		
 		//--------아이템---------
 		
@@ -892,7 +954,56 @@ import com.loopj.android.http.TextHttpResponseHandler;
 			}); 
 		}
 		
-		/*-----------설정창---------*/
+		/*-----------설정창---------*/  
+		public static final String GET_WOMAN_INFO_URL = SERVER + "/setting/herself/%s";
+		public void getWomanInfoList(Context context, String user_gender, final OnResultListener<WomanInfoResponse> listener){
+			 
+			String url = String.format(GET_WOMAN_INFO_URL, user_gender);
+			 client.get(context, url, new TextHttpResponseHandler() {
+				
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						String responseString) {
+					// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					WomanInfoResponse results = gson.fromJson(responseString, WomanInfoResponse.class);
+					listener.onSuccess(results);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					listener.onFail(statusCode);
+				}
+			});
+		}  
+		
+		public static final String EDIT_PERIOD_URL = SERVER + "/setting/herself/%s";
+		public void editPeriod(Context context, List<PeriodItems> items, final OnResultListener<WomanInfoResponse> listener) {
+			
+			String url = String.format(EDIT_PERIOD_URL, ""+items);
+			client.post(context, url, null, new TextHttpResponseHandler() {
+				
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						String responseString) {
+					// TODO Auto-generated method stub
+					Gson gson = new Gson();
+					WomanInfoResponse results = gson.fromJson(responseString, WomanInfoResponse.class);
+					listener.onSuccess(results);
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						String responseString, Throwable throwable) {
+					// TODO Auto-generated method stub
+					listener.onFail(statusCode);
+				}
+			});
+		} 
+		
+		
 		public static final String NOTICE_URL = SERVER + "/setting/notice";
 		public void getNotic(Context context, final OnResultListener<NoticeResponse> listener) {
 			

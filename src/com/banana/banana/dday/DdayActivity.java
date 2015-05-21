@@ -28,7 +28,7 @@ public class DdayActivity extends ActionBarActivity {
 	DdayAdapter mDAdapter;
 	//View DdayheaderView;
 	Button btnAdd;
-	TextView titleView, textToday;
+	TextView titleView, textToday, ddayView;
 	ImageView settingImg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class DdayActivity extends ActionBarActivity {
 	    SimpleDateFormat CurDateFormat = new SimpleDateFormat("yyyy.MM.dd");
 	    String today = CurDateFormat.format(date);
 	    textToday.setText(today);
+	    ddayView = (TextView)findViewById(R.id.text_Dday);
 	    
 		btnAdd = (Button)findViewById(R.id.btn_add_dday);
 		btnAdd.setOnClickListener(new OnClickListener() {
@@ -112,6 +113,9 @@ public class DdayActivity extends ActionBarActivity {
 			@Override
 			public void onSuccess(DdayResult result) {
 				// TODO Auto-generated method stub
+				Intent i = getIntent();
+				int ddays = i.getIntExtra("dday", -1);
+				ddayView.setText(""+ddays);
 				mDAdapter.addAll(result.items);
 			}
 

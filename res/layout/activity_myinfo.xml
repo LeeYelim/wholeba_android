@@ -177,7 +177,7 @@
                         android:text="주기" />
 
                     <EditText
-                        android:id="@+id/editText1"
+                        android:id="@+id/edit_period"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -230,14 +230,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <ListView
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >  
+                
+                    <com.banana.banana.setting.WomanLinearLayout
                         android:id="@+id/list_menses"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp" >
-                    </ListView>
+                        android:layout_height="150dp">
+                    </com.banana.banana.setting.WomanLinearLayout>
+                    
                 </LinearLayout>
             </ScrollView>
 

@@ -21,13 +21,15 @@ import android.widget.Toast;
 
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager.OnResultListener;
+import com.banana.banana.mission.MissionActivity;
+import com.banana.banana.mission.MissionResult;
 
-public class LovePopupOk extends ActionBarActivity implements SensorEventListener {
+public class PopupOk extends ActionBarActivity implements SensorEventListener {
 
 	Sensor mProximitySensor;
 	SensorManager mSM;
 	SensorListener mListener;
-	int is_condom;
+	int loves_no, mlist_no;
 	Button btn_out;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +45,17 @@ public class LovePopupOk extends ActionBarActivity implements SensorEventListene
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(LovePopupOk.this, LoveActivity.class);
+				Intent i = new Intent(PopupOk.this, LoveActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(i);
 			}
 		});
 		
 		Intent i = getIntent();
-		is_condom = i.getIntExtra("is_condom", -1);
-		Toast.makeText(LovePopupOk.this, ""+is_condom, Toast.LENGTH_SHORT).show();
+		//is_condom = i.getIntExtra("is_condom", -1);
+		loves_no = i.getIntExtra("loves_no", -1);
+		mlist_no = i.getIntExtra("mlist_no", -1);
+		//Toast.makeText(LovePopupOk.this, ""+is_condom, Toast.LENGTH_SHORT).show();
 		
 	}
 
@@ -62,7 +66,7 @@ public class LovePopupOk extends ActionBarActivity implements SensorEventListene
 		if(mProximitySensor != null) {
 			mSM.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_GAME);
 		} else {
-			Toast.makeText(LovePopupOk.this, "device doesn't have PROXIMITY SENSOR", Toast.LENGTH_SHORT).show();
+			Toast.makeText(PopupOk.this, "device doesn't have PROXIMITY SENSOR", Toast.LENGTH_SHORT).show();
 		}
  	}
 	
@@ -99,29 +103,52 @@ public class LovePopupOk extends ActionBarActivity implements SensorEventListene
 		switch (event.sensor.getType()) {
 		case Sensor.TYPE_PROXIMITY:
 			 float distance = event.values[0];
-			 if(distance <= 1 && is_condom != -1) {
-				 addLove();
+			 if(distance <= 1 && loves_no != -1) {
+				 addLovePopUp();
+			 } else if(distance <= 1 && mlist_no != -1) {
+				addMissionPopup();
 			 }
 		}
 	}
 
-	private void addLove() {
-		// TODO Auto-generated method stub
-		
-		Date today = new Date(); 
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(today); 
-		String loves_date = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-		NetworkManager.getInstnace().addLove(LovePopupOk.this, is_condom, loves_date, new OnResultListener<LoveSearchResult>() {
-			
+	private void addLovePopUp() { 
+		NetworkManager.getInstnace().addPopupLove(PopupOk.this, loves_no, new OnResultListener<LoveSearchResult>() {
+
 			@Override
 			public void onSuccess(LoveSearchResult result) {
 				// TODO Auto-generated method stub
-				Intent i = new Intent(LovePopupOk.this, LoveActivity.class);
+				Intent i = new Intent(PopupOk.this, LoveActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(i);
 			}
-			
+
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		}); 
+	}
+
+	private void addMissionPopup() {
+
+		Date today = new Date(); 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(today); 
+		String mlist_successdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(cal.getTime());
+		
+		NetworkManager.getInstnace().missionPopupSuccess(PopupOk.this, mlist_no, mlist_successdate, new OnResultListener<MissionResult>() {
+
+			@Override
+			public void onSuccess(MissionResult result) {
+				// TODO Auto-generated method stub
+				if(result.success == 1) {
+					Intent i = new Intent(PopupOk.this, MissionActivity.class);
+					i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+					startActivity(i);
+				}
+			}
+
 			@Override
 			public void onFail(int code) {
 				// TODO Auto-generated method stub
@@ -129,7 +156,8 @@ public class LovePopupOk extends ActionBarActivity implements SensorEventListene
 			}
 		});
 	}
-
+	
+	
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub

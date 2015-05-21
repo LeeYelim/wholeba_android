@@ -1,18 +1,21 @@
 package com.banana.banana.love;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.banana.banana.R;
-import com.banana.banana.signup.MainActivity;
+import com.banana.banana.love.NetworkManager.OnResultListener;
 
 public class LovePopupActivity extends ActionBarActivity {
 
@@ -49,10 +52,34 @@ public class LovePopupActivity extends ActionBarActivity {
 				} else {
 					is_condom = 0;
 				}				
-				Intent intent = new Intent(LovePopupActivity.this, LovePopupOk.class);
+				/*Intent intent = new Intent(LovePopupActivity.this, LovePopupOk.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				intent.putExtra("is_condom", is_condom);
-				startActivity(intent);
+				startActivity(intent);*/
+				Date today = new Date(); 
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(today); 
+				String loves_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(cal.getTime());
+				int loves_ispopup = 1;
+				
+				NetworkManager.getInstnace().addLove(LovePopupActivity.this, is_condom, loves_date, loves_ispopup, new OnResultListener<LoveSearchResult>() {
+					
+					@Override
+					public void onSuccess(LoveSearchResult result) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent(LovePopupActivity.this, PopupOk.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); 
+						intent.putExtra("loves_no", ""+result.result.items.loves_no);
+						startActivity(intent);
+					}
+					
+					@Override
+					public void onFail(int code) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
 			}
 		});
 		

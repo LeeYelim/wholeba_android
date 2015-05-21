@@ -9,4 +9,6 @@
     <dimen name="popup_main_item_height">90sp</dimen>
 	<dimen name="mainActivityListItemHeight">100dp</dimen>
     <dimen name="mainActivityListItemPadding">16dp</dimen>
+    <dimen name="gallery_item_width">200dp</dimen>
+    <dimen name="gallery_item_height">500dp</dimen>
 </resources>

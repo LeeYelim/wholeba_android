@@ -77,8 +77,6 @@ public class SignUpActivity extends ActionBarActivity {
 					String num2 = user_phone.substring(3, 7);
 					String num3 = user_phone.substring(7, 11);
 					user_phone = num1+"-"+num2+"-"+num3;
-			 	
-				    //user_phone = "010-0000-0000"; for 강사님
 					
 					Date today = new Date(); 
 					Calendar cal = Calendar.getInstance();
