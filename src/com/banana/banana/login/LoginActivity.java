@@ -3,8 +3,8 @@ package com.banana.banana.login;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.banana.banana.JoinCodeInfoParcel;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
-import com.banana.banana.SplashActivity;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 import com.banana.banana.main.BananaMainActivity;
@@ -28,9 +26,7 @@ import com.banana.banana.signup.BirthDayInfoActivity;
 import com.banana.banana.signup.CoupleRequestActivity;
 import com.banana.banana.signup.FirstMeetingActivity;
 import com.banana.banana.signup.JoinResult;
-import com.banana.banana.signup.MainActivity;
 import com.banana.banana.signup.SexInfoActivity;
-import com.banana.banana.signup.SignUpActivity;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -132,9 +128,9 @@ public class LoginActivity extends ActionBarActivity {
 				//autoLogin();
 				if(join_code == 0) {
 					Intent intent = new Intent(LoginActivity.this, BananaMainActivity.class);  
-					
 					intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
 					intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK); 
+					PropertyManager.getInstance().setUserGender(gender);
 					startActivity(intent);
 				} else if (join_code == 1) {
 					//Bundle bundle = new Bundle();

@@ -1,22 +1,21 @@
 package com.banana.banana.main;
 
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 
 public class MainDialog extends PopupWindow{
 	Context mContext;
-	ImageView feelOneView, feelTwoView, feelThreeView, feelFourView;
+	ImageView feelOneView, feelTwoView, feelThreeView, feelFourView, feelFiveView;
+	TextView feelFiveText;
 
 	public interface OnChangeFeelingListener{
 		public void OnFeelingClick(View view);
@@ -49,6 +48,8 @@ public class MainDialog extends PopupWindow{
 		feelTwoView = (ImageView)view.findViewById(R.id.img_feel2);
 		feelThreeView = (ImageView)view.findViewById(R.id.img_feel3);
 		feelFourView = (ImageView)view.findViewById(R.id.img_feel4);
+		feelFiveView = (ImageView)view.findViewById(R.id.img_feel5); 
+		feelFiveText = (TextView)view.findViewById(R.id.text_feel5);
 		
 		String gender = PropertyManager.getInstance().getUserGender();
 		if(gender.equals("M")) {
@@ -56,11 +57,15 @@ public class MainDialog extends PopupWindow{
 			feelTwoView.setImageResource(R.drawable.main_emotion_select_sick);
 			feelThreeView.setImageResource(R.drawable.main_emotion_select_sexy);
 			feelFourView.setImageResource(R.drawable.main_emotion_select_happy);
+			feelFiveView.setImageResource(R.drawable.man_circle_basic);
+			feelFiveText.setText("진지진지");
 		} else if(gender.equals("F")) {
 			feelOneView.setImageResource(R.drawable.woman_circle_angry);
 			feelTwoView.setImageResource(R.drawable.woman_circle_sick);
 			feelThreeView.setImageResource(R.drawable.woman_circle_sexy);
 			feelFourView.setImageResource(R.drawable.woman_circle_happy);
+			feelFiveView.setImageResource(R.drawable.woman_circle_basic);
+			feelFiveText.setText("도도도도");
 		}
 		
 		
@@ -116,6 +121,17 @@ public class MainDialog extends PopupWindow{
 			}
 		});
 				
+		feelFiveView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(changelistener != null) {
+					changelistener.OnFeelingClick(v);
+				}
+				dismiss();
+			}
+		});
 				
 		
 	}

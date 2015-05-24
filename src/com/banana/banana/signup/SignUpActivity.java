@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +33,7 @@ public class SignUpActivity extends ActionBarActivity {
 	EditText idView, pwdView, pwdOkView; 
 	CheckBox chk_agree;
 	String pwd, pwdOk;  
-	TextView TextpwdOK;
+	TextView TextpwdOK, agreementView;
 	int joincode = 2;   
 	int user_req = 0;  
  	String reg_id = PropertyManager.getInstance().getRegistrationId(); 
@@ -48,6 +49,9 @@ public class SignUpActivity extends ActionBarActivity {
 		pwdView = (EditText)findViewById(R.id.edit_pwd);
 		pwdOkView = (EditText)findViewById(R.id.edit_pwd_ok);
 		TextpwdOK = (TextView)findViewById(R.id.text_pwd_ok);
+		agreementView = (TextView)findViewById(R.id.text_agreement);
+		
+		agreementView.setText(Html.fromHtml(getString(R.string.terms)));
 		
 		pwdOkView.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
@@ -68,11 +72,13 @@ public class SignUpActivity extends ActionBarActivity {
 				if(chk_agree.isChecked() && pwdOk() == true) {
 					user_id= idView.getText().toString();
 				    user_pass = pwdView.getText().toString();				
-				    TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
+				    /*TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
 				    user_phone = telManager.getLine1Number();
 				    if(user_phone.startsWith("+82")){
 			 			user_phone = user_phone.replace("+82", "0");
-			 		}
+			 		}*/
+				    user_phone = "01012341234";
+				    
 				    String num1 = user_phone.substring(0, 3);
 					String num2 = user_phone.substring(3, 7);
 					String num3 = user_phone.substring(7, 11);

@@ -1,9 +1,7 @@
 package com.banana.banana.signup;
  
 
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -31,7 +29,7 @@ public class CoupleRequestFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) { 
 		View view = inflater.inflate(R.layout.fragment_one, container, false);
-		btnRequest = (Button)view.findViewById(R.id.btn_couple_request);
+		btnRequest = (Button)view.findViewById(R.id.btn_couple_request); 
 		edit_request_number = (EditText)view.findViewById(R.id.edit_number); 
 		edit_request_number.setInputType(android.text.InputType.TYPE_CLASS_PHONE);
 		edit_request_number.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -46,19 +44,16 @@ public class CoupleRequestFragment extends Fragment {
 		join_code = joinData.join_code;  
 		
 		if(join_code == 3) {
-			btnRequest.setEnabled(false);
+			edit_request_number.setEnabled(false);
+			btnRequest.setEnabled(false); 
+			btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);
 		}
 		btnRequest.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) { 
 				auth_phone = edit_request_number.getText().toString(); 
-				if(auth_phone.length()!=13) {
-					//String num1 = number.substring(0, 3);
-					//String num2 = number.substring(3, 7);
-					//String num3 = number.substring(7, 11); 
-					//auth_phone = num1+"-"+num2+"-"+num3; 
+				if(auth_phone.length()!=13) { 
 					Toast.makeText(getActivity(), "번호를 다시 입력", Toast.LENGTH_SHORT).show();
 				} else {
 					NetworkManager.getInstnace().coupleAsk(getActivity(), auth_phone, user_gender, new OnResultListener<JoinResult>() {
@@ -66,8 +61,10 @@ public class CoupleRequestFragment extends Fragment {
 					@Override
 					public void onSuccess(JoinResult result) {   
 						//버튼 비활성화
-						sendSMS(auth_phone, "커플요청"); 
-						btnRequest.setEnabled(false);
+						//sendSMS(auth_phone, "커플요청"); 
+						edit_request_number.setEnabled(false);
+						btnRequest.setEnabled(false);  
+						btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);
 					}
 					
 					@Override

@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-
+	
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -32,7 +33,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:icon="@drawable/main_emotion_select_sexy"
+            android:icon="@drawable/launcher_icon"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
@@ -53,7 +54,8 @@
         </activity>
         <activity
             android:name=".intro.IntroActivity"
-            android:label="@string/title_activity_intro" >
+            android:label="@string/title_activity_intro" 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
             android:name=".signup.SignUpActivity"
@@ -63,7 +65,8 @@
         </activity>
         <activity
             android:name=".signup.SexInfoActivity"
-            android:label="@string/title_activity_sex_info" >
+            android:label="@string/title_activity_sex_info"
+            android:theme="@style/fullScreen" >
         </activity>
         <activity
             android:name=".signup.CoupleRequestActivity"
@@ -72,15 +75,18 @@
         </activity>
         <activity
             android:name=".signup.FirstMeetingActivity"
-            android:label="@string/title_activity_first_meeting" >
+            android:label="@string/title_activity_first_meeting" 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".signup.BirthDayInfoActivity"
-            android:label="@string/title_activity_birth_day_info" >
+            android:label="@string/title_activity_birth_day_info"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".signup.PeriodInfoActivity"
-            android:label="@string/title_activity_period_info" >
+            android:label="@string/title_activity_period_info"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".signup.SymtomInfoActivity"
@@ -89,7 +95,8 @@
         </activity>
         <activity
             android:name=".signup.UseInfoActivity"
-            android:label="@string/title_activity_use_info" >
+            android:label="@string/title_activity_use_info"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".dday.DdayActivity"
@@ -149,7 +156,8 @@
             android:name=".signup.ResponseActivity"
             android:label="@string/title_activity_response" >
         </activity>
-        <activity android:name=".signup.PeriodDoseInfoActivity" >
+        <activity android:name=".signup.PeriodDoseInfoActivity" 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".mission.card.CardActivity" >
         </activity>
@@ -158,6 +166,7 @@
         <activity
             android:name=".mission.scratch.MissionCardScratchActivity"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/title_activity_mission_card_scratch" >
         </activity>
         <activity
@@ -209,16 +218,23 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".mission.MissionSendPushActivity" >
+        <activity android:name=".mission.MissionSendPushActivity" 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity android:name=".mission.MissionShowHint" >
         </activity>
         <activity
             android:name=".MissionItemUsePushActivity"
-            android:label="@string/title_activity_mission_item_use_push" >
+            android:label="@string/title_activity_mission_item_use_push"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"  >
         </activity>
-        <receiver android:name="AlaramReceiver"></receiver>
-        <service android:name="AlarmService"></service>
+        <service android:name="AlarmService" android:exported="true"></service> 
+        <receiver android:name="AlaramReceiver">
+             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+         
     </application>
 
 </manifest>

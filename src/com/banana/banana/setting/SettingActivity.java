@@ -4,15 +4,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.banana.banana.LogoutResponse;
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.WithDrawReponse;
 import com.banana.banana.intro.IntroActivity;
@@ -23,13 +27,32 @@ import com.banana.banana.love.NetworkManager.OnResultListener;
 public class SettingActivity extends ActionBarActivity {
 
 	Button btn_out, btn_logout, btn_qna, btn_myInfo, btn_sequrity, btn_alarm, btn_notice;
+	Button btn_message_on, btn_message_off, btn_sound_on, btn_sound_off; 
 	View view;
 	boolean securitybutton_click=false;
 	boolean alarmbutton_click=false;
+	boolean isCheckedMessagePopup = false;
+	boolean isCheckedSound = false;
+	
+	TextView titleView;
+	ImageView settingImg;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
+		
+		ActionBar actionBar = getSupportActionBar(); 
+	      actionBar.setDisplayHomeAsUpEnabled(false);
+	      actionBar.setDisplayShowTitleEnabled(false);
+	      actionBar.setDisplayShowHomeEnabled(false);
+	      actionBar.setDisplayShowCustomEnabled(true); // Custom메뉴 설정 true
+	      actionBar.setCustomView(R.layout.custom_action_bar); 
+	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
+	      titleView.setText("SETTING");
+	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
+	      settingImg.setVisibility(View.GONE);
+	      
 		btn_myInfo = (Button)findViewById(R.id.btn_myinfo);
 		btn_logout = (Button)findViewById(R.id.btn_logout);
 		btn_qna = (Button)findViewById(R.id.btn_qna);
@@ -38,6 +61,14 @@ public class SettingActivity extends ActionBarActivity {
 		//btn_sequrity = (Button)findViewById(R.id.btn_sequrity);
 		btn_alarm = (Button)findViewById(R.id.btn_alarm);
 		btn_out = (Button)findViewById(R.id.btn_out);
+		btn_message_on = (Button)findViewById(R.id.btn_message_on);
+		btn_message_off = (Button)findViewById(R.id.btn_message_off);
+		btn_sound_on = (Button)findViewById(R.id.btn_sound_on);
+		btn_sound_off = (Button)findViewById(R.id.btn_sound_off);
+		
+		setSoundChecked(true);
+		setMessagePopupChecked(true);
+		
 		btn_out.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -58,6 +89,8 @@ public class SettingActivity extends ActionBarActivity {
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); 
 								startActivity(intent);
 								finish();
+								PropertyManager.getInstance().setUserId("");
+								PropertyManager.getInstance().setPassword("");
 							}
 							
 							@Override
@@ -92,6 +125,9 @@ public class SettingActivity extends ActionBarActivity {
 					@Override
 					public void onSuccess(LogoutResponse result) {
 						// TODO Auto-generated method stub
+						PropertyManager.getInstance().setUserId("");
+						PropertyManager.getInstance().setPassword("");
+						
 						Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
 						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); 
@@ -158,6 +194,66 @@ public class SettingActivity extends ActionBarActivity {
 					}
 			}
 		});
+		
+		btn_sound_on.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setSoundChecked(true);
+			}
+		});
+		
+		btn_sound_off.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setSoundChecked(false);
+			}
+		});
+		
+		
+		btn_message_on.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setMessagePopupChecked(true);
+			}
+		});
+		
+		btn_message_off.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setMessagePopupChecked(false);
+			}
+		});
+	}
+	
+	private void setSoundChecked(boolean isChecked) {
+		isCheckedSound = isChecked;
+		if(isCheckedSound == false) {
+			btn_sound_on.setBackgroundResource(R.drawable.set_off);
+			btn_sound_off.setBackgroundResource(R.drawable.set_on); //clicked image
+		} else {
+			btn_sound_on.setBackgroundResource(R.drawable.set_on);  //clicked image
+			btn_sound_off.setBackgroundResource(R.drawable.set_off);
+		}
+	}
+	
+	
+	private void setMessagePopupChecked(boolean isChecked) {
+		isCheckedMessagePopup = isChecked;
+		if(isCheckedMessagePopup == false) {
+			btn_message_on.setBackgroundResource(R.drawable.set_off);
+			btn_message_off.setBackgroundResource(R.drawable.set_on); //clicked image
+		} else {
+			btn_message_on.setBackgroundResource(R.drawable.set_on);  //clicked image
+			btn_message_off.setBackgroundResource(R.drawable.set_off);
+		}
 	}
 	 
 	@Override

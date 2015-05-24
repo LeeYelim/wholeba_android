@@ -44,6 +44,7 @@
         android:layout_alignLeft="@+id/edit_userid"
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_memo"
+        android:textColor="@color/join_font_color"
         android:ems="10"
         android:height="100dp"
         android:hint="비밀번호"
@@ -64,6 +65,7 @@
         android:background="@drawable/login_memo"
         android:ems="10"
         android:hint="Email"
+        android:textColor="@color/join_font_color"
         android:paddingLeft="10dp"
         android:textColorHint="#6a3906" />
 

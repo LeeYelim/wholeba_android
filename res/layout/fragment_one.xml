@@ -34,6 +34,7 @@
         android:layout_marginTop="54dp"
         android:background="@drawable/join_memo"
         android:ems="10"
+        android:maxLength="13"
         android:hint="상대방 번호 입력"
         android:inputType="phone"
         android:paddingLeft="15dp"

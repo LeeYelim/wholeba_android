@@ -2,43 +2,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     tools:context="com.banana.banana.mission.scratch.MissionCardScratchActivity" >
+
+    <Button
+        android:id="@+id/btn_out"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="14dp" 
+        android:background="@drawable/mission_cancle_button" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="79dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/mission_sexy_icon" />
 
     <TextView
         android:id="@+id/text_themeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="258dp"
-        android:layout_height="242dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/mission_sexy_icon" />
+        android:layout_gravity="center_horizontal"
+        android:text="TextView"
+        android:layout_marginBottom="51dp"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/scratchView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginLeft="40dp"
         android:orientation="vertical"
         android:visibility="visible" >
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="97dp" >
+            android:layout_width="262dp"
+            android:layout_height="88dp" >
 
             <TextView
                 android:id="@+id/text_missionName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="262dp"
+                android:layout_height="88dp"
                 android:text="TextView"
-                android:textSize="30sp"
+                android:textSize="19sp"
+                android:background="#ff0000"
                 android:visibility="visible" />
 
             <com.winsontan520.WScratchView
@@ -46,41 +60,50 @@
                 android:id="@+id/scratch_view"
                 android:layout_width="262dp"
                 android:layout_height="88dp"
-                android:layout_marginBottom="194dp"
                 android:visibility="visible" />
 
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" >
+            android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/btn_chance"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="21dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
                 android:text="chance"
+                android:background="@drawable/mission_gray_button"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_ok"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="23dp"
+                android:layout_weight="1"
                 android:text="ok"
+                android:background="@drawable/mission_yellow_button"
                 android:visibility="gone" />
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="" />
+
     <LinearLayout
         android:id="@+id/itemView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_width="301dp"
+        android:layout_height="194dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="49dp"
         android:orientation="vertical"
         android:visibility="gone" >
 
@@ -89,70 +112,124 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff000"
+            android:gravity="center"
             android:text="TextView" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="38dp"
+            android:background="@drawable/mission_item_select_gray" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
+              <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_item_select_under_bar"
+            android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/item1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/item1"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="미션다시뽑기"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/item2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/item2"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="미션유효기간 늘리기"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/item3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/item3"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="데이트 미션으로 다시 뽑기"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/item4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/item4"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/main_item_select_banana_chip"
+                android:gravity="center"
+                android:text="섹시미션으로 다시 뽑기"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/item5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/item5"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="애교미션으로 다시 뽑기"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/item6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/item6"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="천사미션으로 다시 뽑기"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item7"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="처음미션으로 다시 뽑기"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item8"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="미션패스"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/item9"
+                android:layout_width="70dp"
+                android:layout_height="64dp"
+                android:background="@drawable/mission_item_select_bananachip_gray"
+                android:gravity="center"
+                android:text="미션 내맘대로 쓰기"
+                android:textSize="12sp" />
+        </LinearLayout>
         </HorizontalScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal" >
 
             <Button
                 android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/mission_item_select_gray"
                 android:text="cancel" />
 
             <Button
                 android:id="@+id/btn_ok2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/mission_yellow_button"
                 android:text="ok" />
         </LinearLayout>
     </LinearLayout>

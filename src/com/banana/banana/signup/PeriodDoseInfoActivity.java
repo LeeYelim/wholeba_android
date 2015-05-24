@@ -1,6 +1,8 @@
 package com.banana.banana.signup;
 
-import javax.net.ssl.HostnameVerifier;
+import java.util.Calendar;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,9 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.banana.banana.AlarmData;
+import com.banana.banana.AlarmService;
+import com.banana.banana.DBManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
@@ -85,30 +90,31 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub 
 				String year = yearView.getText().toString();
-				 String month = monthView.getText().toString();
-				 String day = dayView.getText().toString();
-				 String pills_date = year +"-"+month+"-"+day;
+				String month = monthView.getText().toString();
+				String day = dayView.getText().toString();
+				String pills_date = year + "-" + month + "-" + day;
 				String hour = hourView.getText().toString();
 				String minute = minuteView.getText().toString();
-				int h = Integer.parseInt(hour);
+				String pills_time = hour+":"+minute; 
+				
+				/*int h = Integer.parseInt(hour);
 				
 				if(toggleTime.getText().equals("PM") && h < 12) { 
 					h += 12;
 					hour = Integer.toString(h);
-				} 
+				}*/   
 				
-				String pills_time = hour+":"+minute;
-
-				
-				
-				if(year.equals("")) {
+				if(year.equals("")||month.equals("")||day.equals("")) {
 					pills_date = "";
 				}
 				
-				if(hour.equals("")) {
+				if(hour.equals("")||minute.equals("")) {
 					pills_time = "";
-				}
-			
+				} 
+				   
+			/*	if(!pills_time.equals("")) {
+					setAlarm(pills_time);
+				}*/
 
 				Bundle bundle = getIntent().getExtras();
 				WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 
@@ -145,6 +151,8 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 			}
 		});
 	}  
+	
+	 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

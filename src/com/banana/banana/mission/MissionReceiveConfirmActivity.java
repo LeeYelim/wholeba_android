@@ -2,6 +2,7 @@ package com.banana.banana.mission;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 
+
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.banana.banana.R;
 import com.banana.banana.R.id;
@@ -18,10 +22,24 @@ import com.banana.banana.R.menu;
 public class MissionReceiveConfirmActivity extends ActionBarActivity {
 	Button btn_showHint;
 	String hint;
+	TextView titleView;
+	ImageView settingImg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission_receive_confirm);
+		ActionBar actionBar = getSupportActionBar(); 
+	      actionBar.setDisplayHomeAsUpEnabled(false);
+	      actionBar.setDisplayShowTitleEnabled(false);
+	      actionBar.setDisplayShowHomeEnabled(false);
+	      actionBar.setDisplayShowCustomEnabled(true); // Custom메뉴 설정 true
+	      actionBar.setCustomView(R.layout.custom_action_bar); 
+	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
+	      titleView.setText("MISSION");
+	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
+	      settingImg.setVisibility(View.GONE);
+		
+		
 		Intent intent=getIntent();
 		hint=intent.getStringExtra("mission_hint");
 		btn_showHint=(Button)findViewById(R.id.btn_showHint);
@@ -30,8 +48,9 @@ public class MissionReceiveConfirmActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				
-				Intent intent=new Intent(MissionReceiveConfirmActivity.this,MissionShowHint.class);
+				Intent intent=new Intent(MissionReceiveConfirmActivity.this, MissionShowHint.class);
 				intent.putExtra("mission_hint", hint);
+				finish();
 				startActivity(intent);
 			}
 		});

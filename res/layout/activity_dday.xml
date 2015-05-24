@@ -61,21 +61,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:text="2051.04.03"
+            android:textColor="#434343"
             android:textSize="11sp" />
-
-        <Spinner
-            android:id="@+id/sort"
-            android:layout_width="80dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="44dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1" />
+     
     </RelativeLayout>
 
     <FrameLayout
@@ -93,7 +84,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/d_day_plus_button" />
 

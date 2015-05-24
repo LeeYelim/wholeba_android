@@ -1,5 +1,7 @@
 package com.banana.banana.mission.scratch;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -27,38 +29,42 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 	private WScratchView scratchView;
 	private TextView percentageView;
 	private float mPercentage;
-	Button btn_ok,btn_chance,btn_ok2;
-	LinearLayout sView;
-	LinearLayout hView;
+	Button btn_ok,btn_chance,btn_ok2, btn_out, btn_cancel;
+	LinearLayout sView, hView; 
 	ImageView lottoView;
-	int item_no,mlist_no,theme_no;
-	String themeName;
+	int item_no,mlist_no,theme_no, chipCount, age;
+	String themeName, mission_name, mlist_regdate;
 	ImageView themeView;
-	TextView text_ThemeView,text_missionName;
-	TextView chip_countView;//보유 바나나칩 갯수
+	TextView text_ThemeView,text_missionName, chip_countView;  
 	
-	ImageView item1,item2,item3,item4;
-	int age;
-	String mission_name;
-	String mlist_regdate;
+	private static final int[] ITEM_COIN_COUNT = { 1, 1, 2, 2, 2, 2, 2, 3, 5 };
+	private int resIds[] = {R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5, R.id.item6, R.id.item7, R.id.item8, R.id.item9};
+	TextView[] items = new TextView[resIds.length];
+	int selectedIndex = -1;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission_card_scratch);
+		
+		for (int i = 0; i < resIds.length;i++) {
+			items[i] = (TextView)findViewById(resIds[i]);
+			items[i].setTag((Integer)i);
+		}
+
 		Intent intent=getIntent();
 		mlist_no=intent.getIntExtra("mlist_no", 0);
 		mission_name=intent.getStringExtra("mission_name");
 		mlist_regdate=intent.getStringExtra("mlist_regdate");
 		theme_no=intent.getIntExtra("theme_no", 0);
-		item_no=-1;
-		
+		item_no=-1; 
 		
 		themeView=(ImageView)findViewById(R.id.imageView1);
 		chip_countView=(TextView)findViewById(R.id.chip_count);
 		text_missionName=(TextView)findViewById(R.id.text_missionName);
 		text_missionName.setText(mission_name);
 		
-		chip_countView.setText(""+PropertyManager.getInstance().getChipCount());
+		chipCount = PropertyManager.getInstance().getChipCount();
+		chip_countView.setText(""+chipCount+"개로 교환할 수 있는 아이템");
 		text_ThemeView=(TextView)findViewById(R.id.text_themeName);
 		sView=(LinearLayout)findViewById(R.id.scratchView);
 		btn_ok=(Button)findViewById(R.id.btn_ok);
@@ -66,6 +72,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 		btn_ok2=(Button)findViewById(R.id.btn_ok2);
 		scratchView = (WScratchView) findViewById(R.id.scratch_view);
 		hView=(LinearLayout)findViewById(R.id.itemView);
+		btn_cancel = (Button)findViewById(R.id.btn_cancel);
 		
 		scratchView.setScratchable(true);
 		scratchView.setRevealSize(50);
@@ -120,6 +127,34 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 			}
 		});
 		
+		btn_cancel.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
+
+					@Override
+					public void onSuccess(MissionResult result) {
+						if(result.success==1){
+							Toast.makeText(MissionCardScratchActivity.this, "미션 확인 완료", Toast.LENGTH_SHORT).show();
+							Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
+							finish();
+							startActivity(intent);
+						}
+						
+					}
+
+					@Override
+					public void onFail(int code) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			} 
+		});
+		
+		
 		btn_ok.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -132,6 +167,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 							if(result.success==1){
 								Toast.makeText(MissionCardScratchActivity.this, "미션 확인 완료", Toast.LENGTH_SHORT).show();
 								Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
+								finish();
 								startActivity(intent);
 							}
 							
@@ -146,6 +182,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 				}
 			
 		});
+		
 		btn_ok2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -153,29 +190,29 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 				if(item_no!=-1){
 				NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
 
-					@Override
-					public void onSuccess(MissionResult result) {
-						
-						if(result.success==1){
-							if(item_no!=9){
-								mission_name="";
-							}
-							NetworkManager.getInstnace().useItem(MissionCardScratchActivity.this, item_no, mlist_no,mission_name, new OnResultListener<BananaItemResponse>() {
+				@Override
+				public void onSuccess(MissionResult result) {
+					
+					if(result.success==1){
+						if(item_no!=9){
+							mission_name="";
+						}
+						NetworkManager.getInstnace().useItem(MissionCardScratchActivity.this, selectedIndex+1 , mlist_no,mission_name, new OnResultListener<BananaItemResponse>() {
 
-								@Override
-								public void onSuccess(BananaItemResponse result) {
-								if(result.success==1){
-									Toast.makeText(MissionCardScratchActivity.this, "아이템 사용 완료", Toast.LENGTH_SHORT).show();
-									Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
-									startActivity(intent);
-								}
+							@Override
+							public void onSuccess(BananaItemResponse result) {
+							if(result.success==1){
+								Toast.makeText(MissionCardScratchActivity.this, "아이템 사용 완료", Toast.LENGTH_SHORT).show();
+								Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
+								finish();
+								startActivity(intent);
 							}
+						}
 
-								@Override
-								public void onFail(int code) {
-									
-									
-								}
+							@Override
+							public void onFail(int code) {
+												
+							}
 							});
 						}
 					}
@@ -189,49 +226,55 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 			}
 			}
 		});
-		//아이템 클릭시 처리 시작  ---------------------------------------
+		 
+		btn_out = (Button)findViewById(R.id.btn_out);
+		btn_out.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 		
-		item1=(ImageView)findViewById(R.id.item1);
-		item2=(ImageView)findViewById(R.id.item2);
-		item3=(ImageView)findViewById(R.id.item3);
-		item4=(ImageView)findViewById(R.id.item4);
-		item1.setOnClickListener(new View.OnClickListener() {//1번 아이템 선택 
-			
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MissionCardScratchActivity.this, "item1click", Toast.LENGTH_SHORT).show();
-				item_no=1;
+		//*-----칩 갯수에 따라 아이템 색 변화-----*//
+		
+		for (int i = 0; i < items.length; i++) {
+			if (chipCount >= ITEM_COIN_COUNT[i] ) {
+				items[i].setBackgroundResource(R.drawable.item_checked_selector);
+			} else {
+				items[i].setBackgroundResource(R.drawable.mission_item_select_bananachip_gray);
 			}
-		});
-		item2.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MissionCardScratchActivity.this, "item2click", Toast.LENGTH_SHORT).show();
-			item_no=2;
+		}
+		
+		for (int i = 0; i < items.length; i++) {
+			items[i].setOnClickListener(new View.OnClickListener() {
 				
-			}
-		});
-		item3.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MissionCardScratchActivity.this, "item3click", Toast.LENGTH_SHORT).show();
-				item_no=3;
-				
-			}
-		});
-		item4.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MissionCardScratchActivity.this, "item4click", Toast.LENGTH_SHORT).show();
-				item_no=4;
-				
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					int index = (Integer)v.getTag();
+					if (chipCount >= ITEM_COIN_COUNT[index]) {
+						if (selectedIndex != -1) {
+							if (selectedIndex == index) {
+								items[index].setSelected(false);
+								selectedIndex = -1;
+								return;
+							} else {
+								items[selectedIndex].setSelected(false);
+								selectedIndex = -1;
+							}
+						}
+						
+						items[index].setSelected(true);
+						selectedIndex = index;
+					}
+				}
+			});
+		}
+		
 		
 	}
+	
 	public void setTheme()
 	{
 		if(theme_no==1)//악마
@@ -257,8 +300,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 	
 	protected void updatePercentage(float percentage) {
 		mPercentage = percentage;
-		String percentage2decimal = String.format("%.2f", percentage) + " %";
-	
+		String percentage2decimal = String.format("%.2f", percentage) + " %"; 
 	}
 
 	@Override

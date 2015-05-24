@@ -34,9 +34,9 @@ public class MissionSendPushActivity extends ActionBarActivity {
 					public void onSuccess(MissionResult result) {
 						if(result.success==1){
 							Intent intent=new Intent(MissionSendPushActivity.this,PopupOk.class);
-							intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
 							intent.putExtra("mlist_no", mlist_no);
-							startActivity(intent);
+							finish();
+							startActivity(intent); 
 						}
 						
 					}

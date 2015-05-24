@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 
@@ -55,6 +56,15 @@ public class LoveDialog extends DialogFragment {
 		condomView = (RadioButton)view.findViewById(R.id.radio_condom);
 		notCondomView = (RadioButton)view.findViewById(R.id.radio_nocondom);
 		isCondomView = (RadioGroup)view.findViewById(R.id.RadioGroup1);
+		
+		int couple_condom = PropertyManager.getInstance().getCoupleCondom();
+		if(couple_condom == 0) {
+			notCondomView.setChecked(true);
+			iscondom = 0;
+		} else {
+			condomView.setChecked(true);
+			iscondom = 1;
+		}
 		
 		isCondomView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			

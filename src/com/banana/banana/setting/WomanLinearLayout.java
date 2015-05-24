@@ -50,9 +50,9 @@ public class WomanLinearLayout extends LinearLayout{
 	public int set(PeriodItems data) { 
 //		PeriodItems item = new PeriodItems(data.period_no, data.period_start, data.period_end, data.period_cycle);
 //		list.add(item);
-	list.add(data);
-	notifyDataSetChanged();
-	return ITEM_ADDED;  
+		list.add(data);
+		notifyDataSetChanged();
+		return ITEM_ADDED;  
 }
 	
 	

@@ -52,25 +52,25 @@ public class DdayItemView extends FrameLayout{
 		
 		switch (cal.get(Calendar.DAY_OF_WEEK)){
 	    case 1:
-			ddayDateView.setText(year+"."+month+". "+"일요일");
+			ddayDateView.setText(month+"."+date+"일요일");
 	        break;
 	    case 2:
-	    	ddayDateView.setText(year+"."+month+". "+"월요일");
+	    	ddayDateView.setText(month+"."+date+"월요일");
 	        break;
 	    case 3:
-	    	ddayDateView.setText(year+"."+month+". "+"화요일");
+	    	ddayDateView.setText(month+"."+date+"화요일");
 	        break;
 	    case 4:
-	    	ddayDateView.setText(year+"."+month+". "+"수요일");
+	    	ddayDateView.setText(month+"."+date+"수요일");
 	        break;
 	    case 5:
-	    	ddayDateView.setText(year+"."+month+". "+"목요일");
+	    	ddayDateView.setText(month+"."+date+"목요일");
 	        break;
 	    case 6:
-	    	ddayDateView.setText(year+"."+month+". "+"금요일");
+	    	ddayDateView.setText(month+"."+date+"금요일");
 	        break;
 	    case 7:
-	    	ddayDateView.setText(year+"."+month+". "+"토요일");
+	    	ddayDateView.setText(month+"."+date+"토요일");
 	        break;
 	    }
 	     

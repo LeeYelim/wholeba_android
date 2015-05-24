@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
@@ -53,7 +54,8 @@ public class DdayActivity extends ActionBarActivity {
 			}
 		}); 
 	      
-	      
+	    initData();
+	    
 	    textToday = (TextView)findViewById(R.id.today);
 	    long now = System.currentTimeMillis();
 	    Date date = new Date(now);
@@ -83,7 +85,7 @@ public class DdayActivity extends ActionBarActivity {
 		//ddayList.addHeaderView(DdayheaderView, null, false);
 		ddayList.setAdapter(mDAdapter);
 		
-		initData();
+		
 		ddayList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -111,11 +113,8 @@ public class DdayActivity extends ActionBarActivity {
 		NetworkManager.getInstnace().getDdayList(DdayActivity.this, new OnResultListener<DdayResult>() {
 
 			@Override
-			public void onSuccess(DdayResult result) {
-				// TODO Auto-generated method stub
-				Intent i = getIntent();
-				int ddays = i.getIntExtra("dday", -1);
-				ddayView.setText(""+ddays);
+			public void onSuccess(DdayResult result) { 
+				ddayView.setText(""+PropertyManager.getInstance().getCoupleDays());
 				mDAdapter.addAll(result.items);
 			}
 
@@ -125,7 +124,7 @@ public class DdayActivity extends ActionBarActivity {
 				
 			}
 		}); 
-	}
+	} 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -76,8 +76,8 @@ public class SimpleExample extends Activity {
 			public void onClick(View v) {
 				
 			Intent intent=new Intent(SimpleExample.this,MissionSendPushActivity.class);
-			intent.putExtra("mlist_no",mlist_no);
-			intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
+			intent.putExtra("mlist_no",mlist_no); 
+			finish();
 			startActivity(intent);
 			}
 		});

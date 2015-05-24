@@ -56,7 +56,9 @@
             android:id="@+id/edit_love_year"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1" 
+           	android:maxLength="4"
+            android:inputType="number"
             android:background="#ffffffff"
             android:ems="10" >
 
@@ -78,6 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#ffffffff"
+            android:maxLength="2"
+            android:inputType="number"
             android:ems="10" />
 
         <TextView
@@ -95,6 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#ffffffff"
+            android:maxLength="2"
+            android:inputType="number"
             android:ems="10" />
 
         <TextView

@@ -31,15 +31,6 @@ public class PropertyManager {
 		mEditor.putString(FIELD_REG_ID, regid);
 		mEditor.commit();
 	} 
-
-	private static final String CHIP_COUNT="chip_count";
-	public void setChipCount(int chipCount){
-		mEditor.putInt(CHIP_COUNT,chipCount);
-	}
-	public int getChipCount()
-	{
-		return mPrefs.getInt(CHIP_COUNT, 0);
-	}
 	public String getRegistrationId() {
 		return mPrefs.getString(FIELD_REG_ID, "");
 	} 
@@ -69,4 +60,66 @@ public class PropertyManager {
 	public String getUserGender() {
 		return mPrefs.getString(KEY_GENDER, "");
 	}
+
+
+	private static final String CHIP_COUNT = "chip_count";
+	public void setChipCount(int chipCount){
+		mEditor.putInt(CHIP_COUNT, chipCount);
+		mEditor.commit();
+	}
+	public int getChipCount()
+	{
+		return mPrefs.getInt(CHIP_COUNT, -1);
+	}
+	
+	private static final String COUPLE_CONDOM = "couple_condom";
+	public void setCoupleCondom(int coupleCondom) {
+		mEditor.putInt(COUPLE_CONDOM, coupleCondom);
+		mEditor.commit();
+	}
+	public int getCoupleCondom() {
+		
+		return mPrefs.getInt(COUPLE_CONDOM, -1);
+	}
+	
+	private static final String COUPLE_DAYS = "coupleDays";
+	public void setCoupleDays(int coupledays) {
+		mEditor.putInt(COUPLE_DAYS, coupledays);
+		mEditor.commit();
+	}
+	public int getCoupleDays() {
+		
+		return mPrefs.getInt(COUPLE_DAYS, 0);
+	}
+	
+	
+	private static final String ALARM_HOUR = "hour";
+	public void setHour(int hour) {
+		mEditor.putInt(ALARM_HOUR, hour); 
+		mEditor.commit();
+	}
+	
+	public int getHour() {
+		return mPrefs.getInt(ALARM_HOUR, -1);
+	}
+	
+	private static final String ALARM_MINUTE = "minute";
+	public void setMinute(int minute) {
+		mEditor.putInt(ALARM_MINUTE, minute); 
+		mEditor.commit();
+	}
+	
+	public int getMinute() {
+		return mPrefs.getInt(ALARM_MINUTE, -1);
+	} 
+	private static final String ALARM_COUNT = "alarm_count";
+	public void setAlarmCount(int count) {
+		mEditor.putInt(ALARM_COUNT, count); 
+		mEditor.commit();
+	}
+	
+	public int getAlarmCount() {
+		return mPrefs.getInt(ALARM_COUNT, -1);
+	} 
+	
 }

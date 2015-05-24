@@ -2,11 +2,13 @@ package com.banana.banana.mission;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.banana.banana.R;
@@ -14,10 +16,22 @@ public class MissionShowHint extends ActionBarActivity {
 	String hint;
 	TextView hintView;
 	Button btn_ok;
+	TextView titleView;
+	ImageView settingImg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission_show_hint);
+		ActionBar actionBar = getSupportActionBar(); 
+	      actionBar.setDisplayHomeAsUpEnabled(false);
+	      actionBar.setDisplayShowTitleEnabled(false);
+	      actionBar.setDisplayShowHomeEnabled(false);
+	      actionBar.setDisplayShowCustomEnabled(true); // Custom메뉴 설정 true
+	      actionBar.setCustomView(R.layout.custom_action_bar); 
+	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
+	      titleView.setText("MISSION");
+	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
+	      settingImg.setVisibility(View.GONE);
 		Intent intent=getIntent();
 		hint=intent.getStringExtra("mission_hint");
 		hintView=(TextView)findViewById(R.id.text_hint);
@@ -27,8 +41,8 @@ public class MissionShowHint extends ActionBarActivity {
 			
 			@Override
 			public void onClick(View v) {
-			Intent intent=new Intent(MissionShowHint.this,MissionActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			Intent intent=new Intent(MissionShowHint.this,MissionActivity.class); 
+			finish();
 			startActivity(intent);
 				
 			}

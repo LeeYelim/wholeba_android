@@ -57,22 +57,24 @@
                 android:orientation="horizontal" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="136dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="46dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginLeft="38dp"
                     android:orientation="vertical" >
 
                     <ImageView
                         android:id="@+id/img_male"
-                        android:layout_width="106dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="206dp"
+                        android:gravity="right"
                         android:src="@drawable/main_banana_character_man" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="15dp"
                         android:layout_marginTop="26dp" >
 
                         <ImageView
@@ -95,19 +97,21 @@
 
                 <LinearLayout
                     android:id="@+id/LinearLayout2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="137dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <FrameLayout 
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" >
+                    <FrameLayout
+                        android:layout_width="137dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:gravity="left" >
 
                         <ImageView
                             android:id="@+id/img_female"
-                            android:layout_width="106dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="206dp"
-                            android:layout_gravity="left"
+                            android:gravity="left"
                             android:src="@drawable/main_banana_character_woman" />
 
                         <ImageView
@@ -115,25 +119,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|right"
-                            android:layout_marginLeft="70dp"
+                            android:visibility="invisible"
+                            android:layout_marginLeft="70dp" 
+                            
                             android:src="@drawable/warningday_icon" />
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/img_bust_band"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="64dp"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginLeft="16dp" 
+                            android:visibility="gone"
                             android:src="@drawable/bust_band" />
 
                         <ImageView
-                            android:id="@+id/imageView3"
+                            android:id="@+id/img_pimple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="80dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="10dp" 
+                            android:visibility="gone"
                             android:src="@drawable/pimple" />
 
                         <ImageView
@@ -141,7 +149,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="38dp"
-                            android:layout_marginLeft="4dp"
+                            android:layout_marginLeft="4dp" 
+                            android:visibility="gone"
                             android:src="@drawable/headache1" />
 
                         <ImageView
@@ -150,7 +159,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginRight="50dp"
-                            android:layout_marginTop="47dp"
+                            android:layout_marginTop="47dp" 
+                            android:visibility="gone"
                             android:src="@drawable/band" />
 
                     </FrameLayout>
@@ -159,6 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="16dp"
                         android:layout_marginTop="26dp" >
 
                         <ImageView
@@ -191,8 +202,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/main_item_select_under_bar"
+            android:layout_height="wrap_content" 
             android:orientation="horizontal" >
 
             <TextView
@@ -201,8 +211,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="미션다시뽑기"
-                android:textSize="12sp" />
+                android:text="다시뽑기"
+               android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/item2"
@@ -210,8 +220,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="미션유효기간 늘리기"
-                android:textSize="12sp" />
+                android:text="유효기간\n늘리기"
+                android:textSize="10sp"  />
 
             <TextView
                 android:id="@+id/item3"
@@ -219,8 +229,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="데이트 미션으로 다시 뽑기"
-                android:textSize="12sp" />
+                android:text="악마테마로\n다시 뽑기"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/item4"
@@ -228,8 +238,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="섹시미션으로 다시 뽑기"
-                android:textSize="12sp" />
+                android:text="섹시테마로\n다시 뽑기"
+                android:textSize="10sp"  />
 
             <TextView
                 android:id="@+id/item5"
@@ -237,8 +247,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="애교미션으로 다시 뽑기"
-                android:textSize="12sp" />
+                android:text="천사테마로\n다시 뽑기"
+                android:textSize="10sp"  />
 
             <TextView
                 android:id="@+id/item6"
@@ -246,8 +256,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="천사미션으로 다시 뽑기"
-                android:textSize="12sp" />
+                android:text="애교테마로\n다시 뽑기"
+                android:textSize="10sp"  />
 
             <TextView
                 android:id="@+id/item7"
@@ -255,8 +265,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="처음미션으로 다시 뽑기"
-                android:textSize="12sp" />
+                android:text="처음테마로\n다시 뽑기"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/item8"
@@ -264,8 +274,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="미션패스"
-                android:textSize="12sp" />
+                android:text="미션Pass"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/item9"
@@ -273,8 +283,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="미션 내맘대로 쓰기"
-                android:textSize="12sp" />
+                android:text="미션\n내가 쓰기"
+                android:textSize="10sp"  />
         </LinearLayout>
     </HorizontalScrollView>
 

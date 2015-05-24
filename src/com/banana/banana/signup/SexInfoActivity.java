@@ -3,12 +3,14 @@ package com.banana.banana.signup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.banana.banana.JoinCodeInfoParcel;
@@ -20,27 +22,53 @@ public class SexInfoActivity extends ActionBarActivity {
 	Button btn_before, btn_next;
 	RadioButton radioMale, radioFemale; 
 	RadioGroup radioGender;
-	String gender = "M"; 
+	String gender=""; 
+	Boolean isSelected = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sex_info);
-		radioGender = (RadioGroup)findViewById(R.id.radioGroup1);
+		radioMale = (RadioButton)findViewById(R.id.radio_male);
+		radioFemale = (RadioButton)findViewById(R.id.radio_female);
+		radioMale.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setGender(true);
+			}
+		});
+		
+		radioFemale.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setGender(false);
+			}
+		});
+		
+		
+		/*radioGender = (RadioGroup)findViewById(R.id.radioGroup1);
 		radioGender.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch (checkedId) {
 				case R.id.radio_female:
-					gender = "F";
+					//gender = "F";
+					//radioMale.setChecked(false);
+					setGender(true);
 					break;
 
 				case R.id.radio_male:
-					gender = "M";
+					//gender = "M";
+					//radioFemale.setChecked(false);
+					setGender(false);
 					break;
 				} 
 			}
-		}); 
+		}); */
 		 
 		
 		btn_before = (Button)findViewById(R.id.btn_before);
@@ -60,23 +88,38 @@ public class SexInfoActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				Bundle bundle = getIntent().getExtras();
-				if (bundle == null) {
-					bundle = new Bundle();
+				if(gender.equals("")) {
+					
+				} else { 
+					Bundle bundle = getIntent().getExtras();  
+					if (bundle == null) {
+						bundle = new Bundle();
+					}
+					JoinCodeInfoParcel joinData = bundle.getParcelable("joinData");
+					PropertyManager.getInstance().setUserGender(gender);
+					Intent intent = new Intent(SexInfoActivity.this, CoupleRequestActivity.class);
+					intent.putExtra("joinData", joinData);
+					startActivity(intent);
 				}
-				JoinCodeInfoParcel joinData = bundle.getParcelable("joinData");
-				PropertyManager.getInstance().setUserGender(gender);
-				Intent intent = new Intent(SexInfoActivity.this, CoupleRequestActivity.class);
-				intent.putExtra("joinData", joinData);
-				startActivity(intent);
 			}
 		});
 		
 	}
 	
-	
-	 
-
+	private void setGender(boolean isChecked) {
+		isSelected = isChecked;
+		
+		if (isSelected == true) {
+			radioMale.setChecked(true);	// image
+			radioFemale.setChecked(false);	// clicked
+			gender = "M";
+																	
+		} else {
+			radioMale.setChecked(false);	// clicked 
+			radioFemale.setChecked(true);  // image
+			gender = "F";
+		}
+	} 
 
 
 	@Override

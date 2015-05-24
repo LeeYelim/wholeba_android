@@ -51,14 +51,11 @@
     <string name="findpassword"><n>암호를 잊어버리셨나요?</n></string>
     <string name="title_activity_period_dose_info">PeriodDoseInfoActivity</string>
     <string name="title_activity_mission_card_scratch">ActivityMissionCardScratch</string>
+     <string name="send_mission_push_text">미션수행을 위해 상대방에게 Push하세요</string>
     <string name="terms">
-<![CDATA[ 이용약관 동의
-=======
-    <string name="terms">
-<![CDATA[이용약관 동의
->>>>>>> yelim
+<![CDATA[ 이용약관 동의  <br> 
  
-제 1 조 (목적)
+제 1 조 (목적) 
 이 약관은 홀딱 바나나 ("회사" 또는 "홀바")가 제공하는 홀바 및 홀바 관련 제반 서비스의 이용과 관련하여 회사와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
 제 2 조 (정의)
 이 약관에서 사용하는 용어의 정의는 다음과 같습니다.

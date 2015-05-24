@@ -5,6 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:layout_width="400dp"
+        android:layout_height="75dp" >
+   
+
     <TextView
         android:id="@+id/text_love_date"
         android:layout_width="wrap_content"
@@ -13,6 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="44dp"
         android:layout_marginTop="20dp"
+        android:textSize="12sp"
         android:text="TextView" />
 
     <ImageView
@@ -23,18 +29,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="44dp"
         android:layout_marginTop="40dp"
+        android:layout_marginRight="44dp"
         android:background="@drawable/love_graphbar1"
         android:src="@drawable/love_clip" />
-
-    <TextView
-        android:id="@+id/text_love_possibility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/text_love_date"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="40dp"
-        android:text="가임률" />
 
     <TextView
         android:id="@+id/num_love_possibility"
@@ -43,6 +40,20 @@
         android:layout_alignBaseline="@+id/text_love_possibility"
         android:layout_alignBottom="@+id/text_love_possibility"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:layout_margin="44dp"
+        android:text="xx%"
+        android:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/text_love_possibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_love_date"
+        android:layout_alignBottom="@+id/text_love_date"
+        android:layout_alignRight="@+id/num_love_possibility"
+        android:layout_marginRight="23dp"
+        android:textSize="12sp"
+        android:text="가임률" />
+
+ </RelativeLayout>
 </RelativeLayout>

@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context="com.banana.banana.setting.NoticeActivity" >
 
-    <TextView
-        android:id="@+id/text_notice_contents"
-        android:layout_width="match_parent"
-        android:layout_height="127dp"
-        android:text="버전 업데이트 1.0" />
-
     <ListView
         android:id="@+id/notice_contentsListView"
         android:layout_width="match_parent"

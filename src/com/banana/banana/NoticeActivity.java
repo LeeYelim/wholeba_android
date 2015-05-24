@@ -19,7 +19,7 @@ public class NoticeActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notice);
 		init();
-		Textnotice = (TextView)findViewById(R.id.text_notice_contents); 
+		//Textnotice = (TextView)findViewById(R.id.text_notice_contents); 
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.banana.banana.signup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,7 @@ public class UseInfoActivity extends ActionBarActivity {
 	TextView iv; 
 	Button btn_before, btn_next;
 	RadioGroup groupView; 
-	int use = 1;
+	int use=1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,13 @@ public class UseInfoActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				switch (checkedId) {
 				case R.id.radio_yes:
-					use = 1;
+					use = 1; 
+					Log.i("use", ""+use);
 					break;
 
 				case R.id.radio_no:
-					use = 0;
+					use = 0; 
+					Log.i("use", ""+use);
 					break;
 				} 
 			}

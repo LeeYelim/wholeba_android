@@ -17,18 +17,17 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text="무기력"
             android:textSize="13sp" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_alignBaseline="@+id/textView4"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/textView4"
             android:gravity="center"
             android:text="생리전"
@@ -39,23 +38,31 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/textView1"
             android:background="@null"
+            android:ems="10"
             android:gravity="right|center_vertical"
             android:hint="일"
-            android:textSize="13sp" >
-
-            <requestFocus />
-        </EditText>
+            android:inputType="number"
+            android:maxLength="2" 
+            android:textSize="13sp" />
+        <requestFocus />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="19dp"
+            android:layout_toRightOf="@+id/edit_before"
+            android:text="~" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="18dp"
-            android:layout_toRightOf="@+id/editText1"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/textView2"
             android:gravity="center"
             android:text="생리후"
             android:textSize="13sp" />
@@ -70,7 +77,12 @@
             android:ems="10"
             android:gravity="right|center"
             android:hint="일"
-            android:textSize="13sp" />
+            android:inputType="number" 
+            android:maxLength="2"
+            android:textSize="13sp" >
+
+    
+        </EditText>
 
     </RelativeLayout>
 

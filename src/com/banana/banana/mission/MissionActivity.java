@@ -60,6 +60,7 @@ public class MissionActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MissionActivity.this, SettingActivity.class);
+				finish();
 				startActivity(intent);
 			}
 		});
@@ -119,7 +120,7 @@ public class MissionActivity extends ActionBarActivity {
 			public void onClick(View v) {
 			
 				Intent intent=new Intent(MissionActivity.this,AddMissionActivity.class);
-				
+				finish();
 				startActivity(intent);
 			}
 		});

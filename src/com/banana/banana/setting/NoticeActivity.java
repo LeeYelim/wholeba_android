@@ -18,8 +18,8 @@ import com.banana.banana.love.NetworkManager.OnResultListener;
 
 public class NoticeActivity extends ActionBarActivity {
 
-	TextView Textnotice; 
-	ListView NoticeListView;
+	TextView textnotice; 
+	ListView noticeListView;
 	
 	NoticeAdapter nAdapter;
 	@Override
@@ -27,10 +27,9 @@ public class NoticeActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notice);
 		init();
-		NoticeListView=(ListView)findViewById(R.id.notice_contentsListView);
+		noticeListView=(ListView)findViewById(R.id.notice_contentsListView);
 		nAdapter=new NoticeAdapter(this);
-		NoticeListView.setAdapter(nAdapter);
-		Textnotice = (TextView)findViewById(R.id.text_notice_contents); 
+		noticeListView.setAdapter(nAdapter); 
 		
 	}
 	

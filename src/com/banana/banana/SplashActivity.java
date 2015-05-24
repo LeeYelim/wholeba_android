@@ -172,7 +172,7 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 	private void Login() {
 		// TODO Auto-generated method stub
 		TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
-	 	String user_phone = telManager.getLine1Number();
+	 	/*String user_phone = telManager.getLine1Number();
 	 	if(user_phone.startsWith("+82")){
 	 		user_phone = user_phone.replace("+82", "0");
 	 	}
@@ -180,6 +180,9 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 		String num2 = user_phone.substring(3, 7);
 		String num3 = user_phone.substring(7, 11);
 		user_phone = num1+"-"+num2+"-"+num3; 
+		*/
+		String user_phone; 
+		user_phone = "010-9988-4166";
 		NetworkManager.getInstnace().login(SplashActivity.this, user_id, user_pass, user_phone, reg_id, new OnResultListener<LoginResult>() {
 
 			@Override

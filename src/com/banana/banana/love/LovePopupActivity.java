@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 
@@ -27,21 +28,16 @@ public class LovePopupActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_love_popup); 
-		toggleCondom = (ToggleButton)findViewById(R.id.toggle_love_condom);
-		
-		Intent i = getIntent();
-		is_condom = i.getIntExtra("couple_condom", -1);
-		Toast.makeText(LovePopupActivity.this, ""+is_condom, Toast.LENGTH_SHORT).show();
+		toggleCondom = (ToggleButton)findViewById(R.id.toggle_love_condom); 
+		btn_popUpOk = (Button)findViewById(R.id.btn_popup_ok);
+		is_condom = PropertyManager.getInstance().getCoupleCondom();
 		
 		if(is_condom == 0) {
 			toggleCondom.setChecked(false);
 		} else if(is_condom == 1) {
 			toggleCondom.setChecked(true);
 		}
-		
-		
-		
-		btn_popUpOk = (Button)findViewById(R.id.btn_popup_ok);
+		 
 		btn_popUpOk.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -51,11 +47,7 @@ public class LovePopupActivity extends ActionBarActivity {
 					is_condom = 1;
 				} else {
 					is_condom = 0;
-				}				
-				/*Intent intent = new Intent(LovePopupActivity.this, LovePopupOk.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				intent.putExtra("is_condom", is_condom);
-				startActivity(intent);*/
+				}				 
 				Date today = new Date(); 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(today); 
@@ -68,23 +60,28 @@ public class LovePopupActivity extends ActionBarActivity {
 					public void onSuccess(LoveSearchResult result) {
 						// TODO Auto-generated method stub
 						Intent intent = new Intent(LovePopupActivity.this, PopupOk.class);
-						intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); 
-						intent.putExtra("loves_no", ""+result.result.items.loves_no);
+						finish();
+						intent.putExtra("loves_no", result.result.items.loves_no);
 						startActivity(intent);
 					}
 					
 					@Override
-					public void onFail(int code) {
-						// TODO Auto-generated method stub
-						
+					public void onFail(int code) { 
 					}
 				});
 				
 			}
 		});
 		
-		btn_close = (Button)findViewById(R.id.btn_close);
-		
+		btn_close = (Button)findViewById(R.id.btn_delete);
+		btn_close.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 
 	@Override

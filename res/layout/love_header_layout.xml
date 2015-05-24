@@ -2,10 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
-    android:layout_height="345dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="#ffe100"
-    android:orientation="vertical" > 
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/love_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="345dp" >
+   
     
     <TextView
         android:id="@+id/textView1"
@@ -54,8 +60,9 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="250dp"
         android:text="미사용"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        android:textColor="#6a3906"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
         android:textSize="13sp" />
    
    <TextView
@@ -77,6 +84,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/text_nocondom"
         android:layout_marginLeft="32dp"
+        android:textStyle="bold"
         android:text="가임률"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -90,62 +98,10 @@
         android:layout_marginRight="40dp"
         android:layout_weight="0.44"
         android:text="가임률"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
- <LinearLayout
-	           android:id="@+id/Sort_layout"
-	           android:layout_width="match_parent"
-	           android:layout_height="wrap_content"
-	           android:orientation="vertical" 
-	           android:visibility="gone" >
-
-	           <RelativeLayout
-	               android:id="@+id/Sort_year_Layout"
-	               android:layout_width="match_parent"
-	               android:layout_height="64dp"
-	               android:visibility="visible" >
-
-	               <com.banana.banana.love.CustomGallery
-	                   android:id="@+id/gallery"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"
-	                   android:layout_alignParentBottom="true"
-	                   android:layout_alignParentLeft="true"
-	                   android:layout_marginBottom="10dp"
-	                   android:alpha="80" />
-
-	               <ImageView
-	                   android:id="@+id/imageView1"
-	                   android:layout_width="70dp"
-	                   android:layout_height="wrap_content"
-	                   android:layout_centerInParent="true"
-	                   android:alpha="80" />
-	           </RelativeLayout>
-
-	           <RelativeLayout
-	               android:id="@+id/Sort_month_Layout"
-	               android:layout_width="match_parent"
-	               android:layout_height="64dp"
-	               android:visibility="visible" >
-
-	               <com.banana.banana.love.CustomGallery
-	                   android:id="@+id/gallery2"
-	                   android:layout_width="match_parent"
-	                   android:layout_height="wrap_content"
-	                   android:layout_alignParentBottom="true"
-	                   android:layout_alignParentLeft="true"
-	                   android:layout_marginBottom="10dp"
-	                   android:alpha="80" />
-
-	               <ImageView
-	                   android:id="@+id/ImageView2"
-	                   android:layout_width="70dp"
-	                   android:layout_height="wrap_content"
-	                   android:layout_centerInParent="true"
-	                   android:alpha="80" />
-	           </RelativeLayout>
-
-	       </LinearLayout>
+ 
 
 	       <LinearLayout
 	           android:layout_width="match_parent"
@@ -162,9 +118,9 @@
 
 	               <TextView
 	                   android:id="@+id/text_sort_year"
-	                   android:layout_width="wrap_content"
+	                   android:layout_width="90dp"
 	                   android:layout_height="wrap_content"
-	                   android:layout_weight="0.11"
+	                   android:paddingLeft="20dp"
 	                   android:text="Medium Text"
 	                   android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -181,7 +137,45 @@
 	               android:id="@+id/love_sort"
 	               android:layout_width="68dp"
 	               android:layout_height="25dp"
-	                android:background="#fffcdb"
-	               android:layout_weight="0.11" />
+	               android:layout_gravity="right"
+	               android:layout_weight="0.01"
+	               android:background="#fffcdb" />
+	      
+	       </LinearLayout>
+	            
+	            </RelativeLayout>
+
+	       <LinearLayout
+	           android:id="@+id/Sort_layout"
+	           android:layout_width="match_parent"
+	           android:layout_height="96dp"
+	           android:layout_below="@id/love_layout"
+	           android:background="#fcf5a3"
+	           android:gravity="bottom"
+	           android:orientation="vertical"
+	           android:visibility="gone" >
+
+	           <RelativeLayout
+	               android:id="@+id/Sort_year_Layout"
+	               android:layout_width="match_parent"
+	               android:layout_height="48dp"
+	               android:visibility="visible" >
+
+	               <com.banana.banana.love.CustomGallery android:id="@+id/gallery" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:layout_marginBottom="10dp" android:alpha="80" />
+
+	               <ImageView android:id="@+id/imageView1" android:layout_width="70dp" android:layout_height="wrap_content" android:layout_centerInParent="true" android:alpha="80" />
+	           </RelativeLayout>
+
+	           <RelativeLayout
+	               android:id="@+id/Sort_month_Layout"
+	               android:layout_width="match_parent"
+	               android:layout_height="48dp"
+	               android:visibility="visible" >
+
+	               <com.banana.banana.love.CustomGallery android:id="@+id/gallery2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:layout_marginBottom="10dp" android:alpha="80" />
+
+	               <ImageView android:id="@+id/ImageView2" android:layout_width="70dp" android:layout_height="wrap_content" android:layout_centerInParent="true" android:alpha="80" />
+	           </RelativeLayout>
+
 	       </LinearLayout>
 </RelativeLayout>

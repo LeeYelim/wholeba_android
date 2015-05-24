@@ -30,7 +30,8 @@
         android:background="#fffde5"
         android:ems="10"
         android:gravity="center_vertical|center_horizontal"
-        android:hint="EX)바나 생일"
+        android:hint="EX)바나 생일" 
+        android:inputType="text"
         android:textSize="13sp" />
 
     <RelativeLayout
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3.14"
             android:inputType="number"
-            android:maxLength="4"
+            android:maxLength="4"  
             android:background="#ffffffff"
             android:ems="10" />
 
@@ -121,7 +122,8 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:maxLength="2"
+            android:maxLength="2" 
+            android:inputType="number"
             android:background="#ffffffff"
             android:ems="10" />
 

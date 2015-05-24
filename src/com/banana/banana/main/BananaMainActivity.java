@@ -4,11 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +22,10 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.banana.banana.AlarmData;
+import com.banana.banana.AlarmService;
+import com.banana.banana.DBManager;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.dday.DdayActivity;
@@ -37,24 +41,28 @@ import com.banana.banana.setting.SettingActivity;
 
 public class BananaMainActivity extends ActionBarActivity {
 
-	ImageView coinView, ManChar, WomanChar, WcoinView;
+	ImageView coinView, ManChar, WomanChar, WcoinView, img_isperiod, img_headache, img_band, img_bust_band, img_pimple;
 	ListView contentsList;
 	MainAdapter mAdapter; 
 	TextView ddayView, TextMlevel, TextFlevel, titleView;
+	View dView;
 	HorizontalScrollView hView; 
 	MainDialog dialog1; 
 	String couple_birth,gender;
 	int f_reward, m_reward, m_condition, f_condition, ddays;  
 	ImageView settingImg;
-	int couple_condom;
+	int couple_condom, chipCount;
 	
+	private static final int[] ITEM_COIN_COUNT = { 1, 1, 2, 2,2,2,2,3,5};
+	private int resIds[] = {R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5, R.id.item6, R.id.item7, R.id.item8, R.id.item9};
+	TextView[] items = new TextView[resIds.length];
 	
 	
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_banana_main); ;  
+			setContentView(R.layout.activity_banana_main);
 			ActionBar actionBar = getSupportActionBar(); 
 		      actionBar.setDisplayHomeAsUpEnabled(false);
 		      actionBar.setDisplayShowTitleEnabled(false);
@@ -75,8 +83,29 @@ public class BananaMainActivity extends ActionBarActivity {
 			}); 
 		      
 		    gender = PropertyManager.getInstance().getUserGender();
+		    img_isperiod = (ImageView)findViewById(R.id.img_isperiod);
+		    img_band = (ImageView)findViewById(R.id.img_band);
+		    img_bust_band = (ImageView)findViewById(R.id.img_bust_band);
+		    img_pimple = (ImageView)findViewById(R.id.img_pimple);
+		    img_headache = (ImageView)findViewById(R.id.img_headache);
 		    
-			init();
+			init();  
+			 
+			/*--------hView 아이템 코인에 따라 채우기--------*/
+			chipCount = PropertyManager.getInstance().getChipCount();
+			for (int i = 0; i < resIds.length;i++) {
+				items[i] = (TextView)findViewById(resIds[i]); 
+			}
+			 
+			for (int i = 0; i < items.length; i++) {
+				if (chipCount >= ITEM_COIN_COUNT[i] ) {
+					items[i].setBackgroundResource(R.drawable.mission_item_select_bananachip_unselected);
+				} else {
+					items[i].setBackgroundResource(R.drawable.mission_item_select_bananachip_gray);
+				}
+			}
+			
+			
 			//initMyInfo();
 			TextMlevel = (TextView)findViewById(R.id.text_male_level);
 			TextFlevel = (TextView)findViewById(R.id.text_female_level);
@@ -95,13 +124,12 @@ public class BananaMainActivity extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					if(data.category == "Love") {
 					Intent intent = new Intent(BananaMainActivity.this, LovePopupActivity.class);
-					intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
-					intent.putExtra("couple_condom", couple_condom);
-					startActivity(intent);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); 
+					startActivity(intent); 
 					} else if (data.category == "Mission") {
 						Intent intent = new Intent(BananaMainActivity.this, SimpleExample.class);
-						intent.addFlags(intent.FLAG_ACTIVITY_NO_HISTORY);
-						startActivity(intent);
+						intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+						startActivity(intent); 
 					}
 				}
 			});
@@ -116,7 +144,6 @@ public class BananaMainActivity extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					if(id==0) {
 						Intent intent = new Intent(BananaMainActivity.this, LoveActivity.class); 
-						intent.putExtra("couple_condom", couple_condom);
 						startActivity(intent);
 					} else {
 						Intent intent = new Intent(BananaMainActivity.this, MissionActivity.class);
@@ -151,15 +178,14 @@ public class BananaMainActivity extends ActionBarActivity {
 			});
 			
 			ddayView = (TextView)findViewById(R.id.text_dday);
-			
-			ddayView.setOnClickListener(new View.OnClickListener() {
+			dView = (View)findViewById(R.id.LayoutDday);
+			dView.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(BananaMainActivity.this, DdayActivity.class);
-					intent.addFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
-					intent.putExtra("dday", ddays);
+					intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP); 
 					startActivity(intent);
 				}
 			});
@@ -198,7 +224,8 @@ public class BananaMainActivity extends ActionBarActivity {
 						ChangeFeel(view); //내 캐릭터 변경 기능들
 						 
 				}
-			}); 
+			});  
+			
 		}
 		
 		
@@ -216,30 +243,69 @@ public class BananaMainActivity extends ActionBarActivity {
 						TextMlevel.setText(""+m_reward);
 						TextFlevel.setText(""+f_reward); 
 						couple_condom = result.items.couple_condom;
+						PropertyManager.getInstance().setCoupleCondom(couple_condom);
+						
 						if(f_condition == 1) {
-							//WomanChar.setImageResource(R.drawable);
+							WomanChar.setImageResource(R.drawable.woman_basic);
 						} else if(f_condition == 2) {
-							WomanChar.setImageResource(R.drawable.woman_angry_137_206);
+							WomanChar.setImageResource(R.drawable.woman_angry_133_206);
 						} else if(f_condition == 3) {
 							WomanChar.setImageResource(R.drawable.woman_sick);
 						} else if(f_condition == 4) {
-							WomanChar.setImageResource(R.drawable.woman_happy);
-						} else if(f_condition == 5) {
 							WomanChar.setImageResource(R.drawable.woman_sexy);
+						} else if(f_condition == 5) {
+							WomanChar.setImageResource(R.drawable.woman_happy);
 						}
 						if(m_condition == 1) {
-							//ManChar.setImageResource(R.drawable.profile4);
+							ManChar.setImageResource(R.drawable.man_basic);
 						} else if(m_condition == 2) {
-							ManChar.setImageResource(R.drawable.man_angry_137_206);
+							ManChar.setImageResource(R.drawable.man_angry_133_206);
 						} else if(m_condition == 3) {
 							ManChar.setImageResource(R.drawable.man_sick);
 						} else if(m_condition == 4) {
-							ManChar.setImageResource(R.drawable.man_happy);
-						} else if(m_condition == 5) {
 							ManChar.setImageResource(R.drawable.man_sexy);
+						} else if(m_condition == 5) {
+							ManChar.setImageResource(R.drawable.man_happy);
+						}
+						if(gender.equals("F")) {
+							PropertyManager.getInstance().setChipCount(f_reward);
+						} else if(gender.equals("M")) {
+							PropertyManager.getInstance().setChipCount(m_reward);
+						}
+						subDdate(couple_birth);  
+						
+						
+						
+						if(result.items.f_isperiod == 1) {
+							img_isperiod.setVisibility(View.VISIBLE);
+							img_isperiod.setImageResource(R.drawable.magicday_icon);
+						}
+						if(result.items.f_isdanger == 1) {
+							img_isperiod.setVisibility(View.VISIBLE);
+							img_isperiod.setImageResource(R.drawable.warningday_icon);
 						}
 						
-						subDdate(couple_birth);  
+						int[] syndrom = result.items.f_syndno;
+						
+						if(syndrom.length != 0) {
+							for(int i = 0; i <= syndrom.length; i++) { 
+								if(syndrom[i] == 14) {
+									img_band.setVisibility(View.VISIBLE);
+								} else if(syndrom[i] == 12) {
+									img_headache.setVisibility(View.VISIBLE);
+								} else if(syndrom[i] == 8) {
+									img_pimple.setVisibility(View.VISIBLE);
+								} else if(syndrom[i] == 10) {
+									img_bust_band.setVisibility(View.VISIBLE);
+								} else if(syndrom[i] == 5) {
+									img_bust_band.setVisibility(View.VISIBLE);
+								}
+							}
+						}
+						
+						if(gender.equals("F")) {
+							setAlarm();
+						}
 				}
 
 				@Override
@@ -249,6 +315,9 @@ public class BananaMainActivity extends ActionBarActivity {
 			
 			});
 		} 
+		
+		
+		
 		
 		protected void subDdate(String d) { //사귄일수 구함
 			// TODO Auto-generated method stub 
@@ -274,6 +343,7 @@ public class BananaMainActivity extends ActionBarActivity {
 			
 			ddays = (int)((d1-d2)/(1000*60*60*24)); 
 			ddayView.setText(""+ddays);
+			PropertyManager.getInstance().setCoupleDays(ddays);
 			
 		}
 
@@ -293,23 +363,29 @@ public class BananaMainActivity extends ActionBarActivity {
 		
 	public void ChangeFeel(View v) {
 		if(gender.equals("F")) {
-			if(v.getId() == R.id.img_feel1) {
+			if(v.getId() == R.id.img_feel5) {
+				myCondition(1);
+				WomanChar.setImageResource(R.drawable.woman_basic);
+			} else if(v.getId() == R.id.img_feel1) {
 				myCondition(2);
-				WomanChar.setImageResource(R.drawable.woman_angry_137_206);
+				WomanChar.setImageResource(R.drawable.woman_angry_133_206);
 			} else if (v.getId() == R.id.img_feel2) {
 				myCondition(3);
 				WomanChar.setImageResource(R.drawable.woman_sick);
 			}  else if (v.getId() == R.id.img_feel3) {
 				myCondition(4);
-				WomanChar.setImageResource(R.drawable.woman_happy);
+				WomanChar.setImageResource(R.drawable.woman_sexy);
 			}  else if (v.getId() == R.id.img_feel4) {
 				myCondition(5);
-				WomanChar.setImageResource(R.drawable.woman_sexy);
+				WomanChar.setImageResource(R.drawable.woman_happy);
 			}
 		} else if(gender.equals("M")) {
-			if(v.getId() == R.id.img_feel1) {
+			if(v.getId() == R.id.img_feel5) {
+				myCondition(1);
+				ManChar.setImageResource(R.drawable.man_basic);
+			} else if(v.getId() == R.id.img_feel1) {
 				myCondition(2);
-				ManChar.setImageResource(R.drawable.man_angry_137_206);
+				ManChar.setImageResource(R.drawable.man_angry_133_206);
 			} else if (v.getId() == R.id.img_feel2) {
 				myCondition(3);
 				ManChar.setImageResource(R.drawable.man_sick);
@@ -322,6 +398,20 @@ public class BananaMainActivity extends ActionBarActivity {
 			}
 		}
 	} 
+	
+		private void setAlarm() {
+		int hh = 11; //알람 시간
+		int mm = 00; //알람 분 설정  
+		
+		PropertyManager.getInstance().setHour(hh);
+		PropertyManager.getInstance().setMinute(mm);  
+		PropertyManager.getInstance().setAlarmCount(0);
+		
+		Intent intent = new Intent(BananaMainActivity.this, AlarmService.class); 
+		startService(intent);
+	}
+	
+	
 	
 	private void myCondition(int condition_no) {
 		NetworkManager.getInstnace().myCondition(BananaMainActivity.this, condition_no, new OnResultListener<UserInfoResult>() {

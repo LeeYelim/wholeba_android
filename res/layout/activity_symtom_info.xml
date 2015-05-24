@@ -266,8 +266,9 @@
 
         <com.banana.banana.signup.ListLinearLayout
             android:id="@+id/list_Symtom"
-            android:layout_width="224dp"
+            android:layout_width="312dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp" >
 
         </com.banana.banana.signup.ListLinearLayout>

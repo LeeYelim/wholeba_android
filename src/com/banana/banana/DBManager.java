@@ -8,8 +8,9 @@ import java.util.TimeZone;
 import android.content.Intent;
 
 public class DBManager {
-	static List<AlarmData> list = new ArrayList<AlarmData>();
-	static int add(AlarmData data) {
+	static List<AlarmData> list = new ArrayList<AlarmData>(); 
+	
+	public static int add(AlarmData data) {
 		if (data.id == -1) {
 			data.id = list.size();
 			list.add(data);
@@ -38,8 +39,8 @@ public class DBManager {
 		AlarmData ad = new AlarmData();
 		ad.message = "test alarm";
 		
-		int hh = 8;
-		int mm = 39;
+		int hh = 17;
+		int mm = 6;
 		long time;
 		
 		Calendar c = Calendar.getInstance(TimeZone.getDefault());

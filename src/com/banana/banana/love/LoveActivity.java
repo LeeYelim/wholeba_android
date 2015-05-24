@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.login.LoginActivity;
 import com.banana.banana.love.NetworkManager.OnResultListener;
@@ -40,7 +41,7 @@ public class LoveActivity extends ActionBarActivity {
 	LoveAdapter mLAdapter; 
 	View headerView; 
 	Button btn_LoveAdd; 
-	TextView noCondomView, isCondomView, LoveDayView, YearView, monthView, titleView; 
+	TextView noCondomPercentView, isCondomPercentView, isCondomView, noCondomView, LoveDayView, YearView, monthView, titleView; 
 	int orderby=0, count = 0, year, month, couple_condom; 
 	float isCondom, notCondom;
 	Spinner lovesort;
@@ -50,7 +51,7 @@ public class LoveActivity extends ActionBarActivity {
 	CustomGalleryImageAdapter cAdapter;
 	CustomGalleryImageAdapter2 cAdapter2;
 	LoveDialog dialog;   
-	ImageView settingImg;
+	ImageView settingImg, img_posibility;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class LoveActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(LoveActivity.this, SettingActivity.class);
+				finish();
 				startActivity(intent);
 			}
 		});
@@ -84,8 +86,11 @@ public class LoveActivity extends ActionBarActivity {
 		loveList.setAdapter(mLAdapter);
 		loveList.requestFocus();
 		LoveDayView = (TextView)findViewById(R.id.text_love_date);
-		isCondomView = (TextView)headerView.findViewById(R.id.text_iscondom1);
-		noCondomView = (TextView)headerView.findViewById(R.id.text_nocondom1);
+		isCondomPercentView = (TextView)headerView.findViewById(R.id.text_iscondom1);
+		noCondomPercentView = (TextView)headerView.findViewById(R.id.text_nocondom1);
+		isCondomView = (TextView)headerView.findViewById(R.id.text_iscondom);
+		noCondomView = (TextView)headerView.findViewById(R.id.text_nocondom);
+		
 		lovesort = (Spinner)headerView.findViewById(R.id.love_sort);
 		layoutSort = (View)headerView.findViewById(R.id.layout_sort);
 		sortLayout = (View)headerView.findViewById(R.id.Sort_layout);
@@ -96,9 +101,8 @@ public class LoveActivity extends ActionBarActivity {
 		sortAdapter = ArrayAdapter.createFromResource(this, R.array.list_love_sort, android.R.layout.simple_spinner_item);
 		cAdapter = new CustomGalleryImageAdapter(this);
 		cAdapter2 = new CustomGalleryImageAdapter2(this);
-		 
-		Intent i = getIntent();
-		couple_condom = i.getIntExtra("couple_condom", -1); 
+		  
+		couple_condom = PropertyManager.getInstance().getCoupleCondom();
 		
 		 Calendar oCalendar = Calendar.getInstance();
 		 year = oCalendar.get(Calendar.YEAR);
@@ -107,23 +111,39 @@ public class LoveActivity extends ActionBarActivity {
 		 YearView.setText(""+year);
 		 monthView.setText(""+month);
 		
+		 img_posibility = (ImageView)findViewById(R.id.img_posibility);
+		 
+		 
 		initData(); 
 		
 		layoutTodayPercent.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				if(count % 2 == 0) {
-					animate(mHoloCircularProgressBar, null, (float)isCondom/100, 1000);
-					mHoloCircularProgressBar.setProgress((float)isCondom/100);
-					count++;
-				} else if(count % 2 == 1) {
-					animate(mHoloCircularProgressBar, null, (float)notCondom/100, 1000);
-				mHoloCircularProgressBar.setProgress((float)notCondom/100);
-					count++;
+				if(couple_condom == 0) {
+					animate(mHoloCircularProgressBar, null, (float)isCondom, 1000);
+					mHoloCircularProgressBar.setProgress((float)isCondom); 
+					img_posibility.setImageResource(R.drawable.popup_bt_condorm);
+					couple_condom = 1;   
+					isCondomView.setTextColor(getResources().getColor(R.color.font_red));
+					isCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
+					noCondomPercentView.setTextColor(getResources().getColor(R.color.color_white)); 
+					noCondomView.setTextColor(getResources().getColor(R.color.color_white));
+				} else if(couple_condom == 1) {
+					animate(mHoloCircularProgressBar, null, (float)notCondom, 1000);
+					mHoloCircularProgressBar.setProgress((float)notCondom);
+					img_posibility.setImageResource(R.drawable.popup_bt_banana); 
+					couple_condom = 0; 
+					noCondomPercentView.setTextColor(getResources().getColor(R.color.font_black)); 
+					noCondomView.setTextColor(getResources().getColor(R.color.font_red));
+					isCondomView.setTextColor(getResources().getColor(R.color.color_white));
+					isCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
 				}
 			}
 		});
+		
+		
+		
 
 
 		lovesort.setAdapter(sortAdapter);
@@ -187,10 +207,7 @@ public class LoveActivity extends ActionBarActivity {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position,
-				long id) { 
-			
-			 Toast.makeText(getBaseContext(), (position + 1) + "년도",
-			    	 Toast.LENGTH_SHORT).show();
+				long id) {  
 			 
 			 YearView.setText(""+cAdapter.mImageID[position]);
 			 year = Integer.parseInt(cAdapter.mImageID[position]);
@@ -210,11 +227,7 @@ public class LoveActivity extends ActionBarActivity {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position,
-					long id) {
-				
-				 Toast.makeText(getBaseContext(), (position + 1) + "월",
-				    	 Toast.LENGTH_SHORT).show();
-				 
+					long id) { 
 				 monthView.setText(""+cAdapter2.mImageID[position]);
 				 month = Integer.parseInt(cAdapter2.mImageID[position]);
 				 initData();
@@ -247,12 +260,23 @@ public class LoveActivity extends ActionBarActivity {
 						mLAdapter.addAll(result.result.items.item); 
 						isCondom = result.result.items.today_condom;
 						notCondom = result.result.items.today_notcondom; 
-						isCondomView.setText(""+isCondom);
-						noCondomView.setText(""+notCondom);     
+						isCondomPercentView.setText("가임률"+(int)(isCondom*100)+"%");
+						noCondomPercentView.setText("가임률"+(int)(notCondom*100)+"%");     
 						if(couple_condom == 0) {
-							mHoloCircularProgressBar.setProgress((float)result.result.items.today_notcondom/100); 
-						} else {
-							mHoloCircularProgressBar.setProgress((float)result.result.items.today_condom/100); 
+							mHoloCircularProgressBar.setProgress((float)result.result.items.today_notcondom); 
+							img_posibility.setImageResource(R.drawable.popup_bt_banana);
+							noCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
+							noCondomView.setTextColor(getResources().getColor(R.color.font_red));
+							isCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
+							isCondomView.setTextColor(getResources().getColor(R.color.color_white));
+						} else if(couple_condom == 1){
+							mHoloCircularProgressBar.setProgress((float)result.result.items.today_condom); 
+							img_posibility.setImageResource(R.drawable.popup_bt_condorm);  
+							isCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
+							isCondomView.setTextColor(getResources().getColor(R.color.font_red));
+							noCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
+							noCondomView.setTextColor(getResources().getColor(R.color.color_white));
+							
 						}
 					} 
 			@Override

@@ -88,10 +88,10 @@ import com.loopj.android.http.TextHttpResponseHandler;
 			public void onFail(int code); 
 		}
 		
-		public static final String SERVER = "http://zzanghansol.mooo.com";
-		public static final String HTTPS_SERVER = "https://zzanghansol.mooo.com";
-		//public static final String SERVER = "http://yeolwoo.mooo.com";
-		//public static final String HTTPS_SERVER = "https://yeolwoo.mooo.com";
+		//public static final String SERVER = "http://zzanghansol.mooo.com";
+		//public static final String HTTPS_SERVER = "https://zzanghansol.mooo.com";
+		public static final String SERVER = "http://yeolwoo.mooo.com";
+		public static final String HTTPS_SERVER = "https://yeolwoo.mooo.com";
 		
 		
 		/*-----------로그인---------*/			
@@ -979,11 +979,12 @@ import com.loopj.android.http.TextHttpResponseHandler;
 			});
 		}  
 		
-		public static final String EDIT_PERIOD_URL = SERVER + "/setting/herself/%s";
-		public void editPeriod(Context context, List<PeriodItems> items, final OnResultListener<WomanInfoResponse> listener) {
-			
-			String url = String.format(EDIT_PERIOD_URL, ""+items);
-			client.post(context, url, null, new TextHttpResponseHandler() {
+		public static final String SET_PUBLIC_URL = SERVER + "/setting/public";
+		public void setPublic(Context context, int user_public, final OnResultListener<WomanInfoResponse> listener) {
+			RequestParams params = new RequestParams();
+			params.add("user_public", ""+user_public);
+
+			client.post(context, SET_PUBLIC_URL, params, new TextHttpResponseHandler() {
 				
 				@Override
 				public void onSuccess(int statusCode, Header[] headers,
@@ -1001,6 +1002,36 @@ import com.loopj.android.http.TextHttpResponseHandler;
 					listener.onFail(statusCode);
 				}
 			});
+		}
+		
+		
+		
+		public static final String EDIT_PERIOD_URL = SERVER + "/setting/herself/period";
+		public void editPeriod(Context context, List<PeriodItems> items, final OnResultListener<WomanInfoResponse> listener) {
+			
+			RequestParams params = new RequestParams();
+			for(int i = 0; i<=items.size(); i++) {
+				params.add("periods", ""+items.get(i)); 
+			}
+				client.post(context, EDIT_PERIOD_URL, params, new TextHttpResponseHandler() {
+					
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							String responseString) {
+						// TODO Auto-generated method stub
+						Gson gson = new Gson();
+						WomanInfoResponse results = gson.fromJson(responseString, WomanInfoResponse.class);
+						listener.onSuccess(results);
+					}
+					
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							String responseString, Throwable throwable) {
+						// TODO Auto-generated method stub
+						listener.onFail(statusCode);
+					}
+				});
+			  
 		} 
 		
 		

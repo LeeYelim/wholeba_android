@@ -14,7 +14,6 @@
     <Button
         android:id="@+id/btn_myinfo"
         android:layout_width="match_parent"
-
         android:layout_height="62dp"
         android:background="#Ffe100"
         android:text="내정보"
@@ -125,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible" >
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/text_popup"
@@ -140,7 +139,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/Button02"
+                    android:id="@+id/btn_message_on"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,7 +149,7 @@
                     android:textColor="#6a3906" />
 
                 <Button
-                    android:id="@+id/Button01"
+                    android:id="@+id/btn_message_off"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -158,24 +157,6 @@
                     android:background="#fffabc"
                     android:text="OFF"
                     android:textColor="#6a3906" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="172dp"
-                    android:layout_height="5dp"
-                    android:background="#f8b500" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="145dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/ic_launcher" />
 
             </LinearLayout>
 
@@ -192,7 +173,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/popup_on"
+                    android:id="@+id/btn_sound_on"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -202,7 +183,7 @@
                     android:textColor="#6a3906" />
 
                 <Button
-                    android:id="@+id/popup_off"
+                    android:id="@+id/btn_sound_off"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -215,24 +196,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/ImageView01"
-            android:layout_width="172dp"
-            android:layout_height="5dp"
-            android:background="#f8b500" />
-
-        <ImageView
-            android:id="@+id/ImageView02"
-            android:layout_width="145dp"
-            android:layout_height="5dp"
-            android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
     <Button
