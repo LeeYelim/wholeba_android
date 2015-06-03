@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.banana.banana.R;
@@ -32,12 +33,15 @@ public class PopupOk extends ActionBarActivity implements SensorEventListener {
 	SensorListener mListener;
 	int loves_no, mlist_no;
 	Button btn_out;
+	TextView text;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_love_popup_ok); 
 		mSM = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		mProximitySensor = mSM.getDefaultSensor(Sensor.TYPE_PROXIMITY); 
+		text = (TextView)findViewById(R.id.textChoice);
 		btn_out = (Button)findViewById(R.id.btn_delete);
 		btn_out.setOnClickListener(new View.OnClickListener() {
 			
@@ -48,7 +52,7 @@ public class PopupOk extends ActionBarActivity implements SensorEventListener {
 		});
 		
 		Intent i = getIntent(); 
-		loves_no = i.getIntExtra("loves_no", -1);
+		loves_no = i.getIntExtra("loves_no", -1); 
 		mlist_no = i.getIntExtra("mlist_no", -1);  
 	}
 
@@ -67,7 +71,7 @@ public class PopupOk extends ActionBarActivity implements SensorEventListener {
 			@Override
 			public void onFail(int code) {
 				// TODO Auto-generated method stub
-				
+				Toast.makeText(PopupOk.this, "기록 실패 하였습니다.", Toast.LENGTH_SHORT).show();
 			}
 		}); 
 	}
@@ -94,7 +98,7 @@ public class PopupOk extends ActionBarActivity implements SensorEventListener {
 			@Override
 			public void onFail(int code) {
 				// TODO Auto-generated method stub
-				
+				Toast.makeText(PopupOk.this, "기록 실패 하였습니다.", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

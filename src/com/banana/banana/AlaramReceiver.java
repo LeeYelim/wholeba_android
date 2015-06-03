@@ -10,7 +10,7 @@ public class AlaramReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 	    // TODO Auto-generated method stub
 		if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-			Intent i = new Intent(context, AlarmService.class);
+			Intent i = new Intent(context, AlarmService.class);  
 			context.startService(i);
 		}
 	}

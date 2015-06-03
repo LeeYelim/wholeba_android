@@ -1,6 +1,9 @@
 package com.banana.banana.mission.scratch;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,8 +40,8 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 	ImageView themeView;
 	TextView text_ThemeView,text_missionName, chip_countView;  
 	
-	private static final int[] ITEM_COIN_COUNT = { 1, 1, 2, 2, 2, 2, 2, 3, 5 };
-	private int resIds[] = {R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5, R.id.item6, R.id.item7, R.id.item8, R.id.item9};
+	private static final int[] ITEM_COIN_COUNT = { 1, 1, 2, 2, 2, 2, 2, 3};
+	private int resIds[] = {R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5, R.id.item6, R.id.item7, R.id.item8};
 	TextView[] items = new TextView[resIds.length];
 	int selectedIndex = -1;
 	
@@ -76,7 +79,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 		
 		scratchView.setScratchable(true);
 		scratchView.setRevealSize(50);
-		scratchView.setAntiAlias(true);
+		scratchView.setAntiAlias(true); 
 		scratchView.setScratchDrawable(getResources().getDrawable(R.drawable.mission_lotto_scratch));
 		scratchView.setBackgroundClickable(true);
 		lottoView=(ImageView)findViewById(R.id.imageView2);
@@ -160,62 +163,67 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 			
-					NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
+			NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
 
-						@Override
-						public void onSuccess(MissionResult result) {
-							if(result.success==1){
-								Toast.makeText(MissionCardScratchActivity.this, "미션 확인 완료", Toast.LENGTH_SHORT).show();
-								Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
-								finish();
-								startActivity(intent);
-							}
-							
-						}
-
-						@Override
-						public void onFail(int code) {
-							// TODO Auto-generated method stub
-							
-						}
-					});
+			@Override
+			public void onSuccess(MissionResult result) {
+				if(result.success==1){
+					Toast.makeText(MissionCardScratchActivity.this, "미션 확인 완료", Toast.LENGTH_SHORT).show();
+					Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
+					finish();
+					startActivity(intent);
 				}
-			
+						
+			}
+
+			@Override
+			public void onFail(int code) {
+			// TODO Auto-generated method stub
+					
+			}
 		});
+		}
+			
+	});
 		
 		btn_ok2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				if(item_no!=-1){
-				NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
+			if(item_no!=-1){
+			NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
 
-				@Override
-				public void onSuccess(MissionResult result) {
+			@Override
+			public void onSuccess(MissionResult result) {
 					
-					if(result.success==1){
-						if(item_no!=9){
-							mission_name="";
-						}
-						NetworkManager.getInstnace().useItem(MissionCardScratchActivity.this, selectedIndex+1 , mlist_no,mission_name, new OnResultListener<BananaItemResponse>() {
+				if(result.success==1){
+					if(item_no!=9){
+					mission_name="";
+					}
+					Date today = new Date(); 
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(today); 
+					String item_usedate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(cal.getTime());
+						
+					NetworkManager.getInstnace().useItem(MissionCardScratchActivity.this, item_usedate, selectedIndex+1 , mlist_no,mission_name, new OnResultListener<BananaItemResponse>() {
 
-							@Override
-							public void onSuccess(BananaItemResponse result) {
-							if(result.success==1){
-								Toast.makeText(MissionCardScratchActivity.this, "아이템 사용 완료", Toast.LENGTH_SHORT).show();
-								Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
-								finish();
-								startActivity(intent);
-							}
-						}
-
-							@Override
-							public void onFail(int code) {
-												
-							}
-							});
+					@Override
+					public void onSuccess(BananaItemResponse result) {
+						if(result.success==1){
+							Toast.makeText(MissionCardScratchActivity.this, "아이템 사용 완료", Toast.LENGTH_SHORT).show();
+							Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
+							finish();
+							startActivity(intent);
 						}
 					}
+
+					@Override
+					public void onFail(int code) {
+												
+					}
+				});
+				}
+				}
 
 					@Override
 					public void onFail(int code) {
@@ -278,8 +286,7 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 	public void setTheme()
 	{
 		if(theme_no==1)//악마
-		{
-			themeView.setImageResource(R.drawable.mission_devil_icon);
+		{	themeView.setImageResource(R.drawable.mission_devil_icon);
 			text_ThemeView.setText("악마미션");
 		}else if(theme_no==2){//처음
 			themeView.setImageResource(R.drawable.mission_fist_icon);

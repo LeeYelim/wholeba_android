@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_marginLeft="125dp"
-            android:text="기념일 추가"
+            android:text="러브 추가"
             android:textColor="#6a3906"
             android:textSize="13sp" />
     </LinearLayout>

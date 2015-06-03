@@ -44,6 +44,7 @@
             android:layout_marginRight="23dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="NO"
+            android:checked="true"
             android:textColor="#ffffffff" />
 
     </RadioGroup>

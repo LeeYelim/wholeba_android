@@ -36,62 +36,21 @@ public class LoginActivity extends ActionBarActivity {
 	int join_code;  
 	int user_req;
 	int user_no;
-	String gender, user_phone, userid, password;
+	String gender, user_phone, userid, password, user_regid_old, user_phone_old;
 	String reg_id ; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		reg_id=PropertyManager.getInstance().getRegistrationId();
-		Log.i("reg_id", reg_id);
+		reg_id=PropertyManager.getInstance().getRegistrationId(); 
 		idView = (EditText)findViewById(R.id.edit_userid);
 		pwdView = (EditText)findViewById(R.id.edit_password);
 		btn_login_ok = (Button)findViewById(R.id.btn_login_ok);
 		btn_login_ok.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				userid = idView.getText().toString();
-				password = pwdView.getText().toString();
-				TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
-			 	user_phone = telManager.getLine1Number();
-			 	if(user_phone.startsWith("+82")){
-			 		user_phone = user_phone.replace("+82", "0");
-			 	}
-			 	String num1 = user_phone.substring(0, 3);
-				String num2 = user_phone.substring(3, 7);
-				String num3 = user_phone.substring(7, 11);
-				user_phone = num1+"-"+num2+"-"+num3;
-				
-				 
-				NetworkManager.getInstnace().login(LoginActivity.this, userid, password, user_phone, reg_id, new OnResultListener<LoginResult>() {
-					
-					@Override
-					public void onSuccess(LoginResult result) {  
-						if(result.success == 2) { 
-							//user_phone = result.result.items.user_phone;
-							reg_id = result.result.items.user_regid;
-							
-							acceptLoginDialog();
-							
-						} else if(result.success == 1){
-
-							PropertyManager.getInstance().setUserId(userid);
-							PropertyManager.getInstance().setPassword(password);
-							getJoinInfo();
-						}
-					} 
- 
-
-					@Override
-					public void onFail(int code) { 
-						
-					}
-				});
-				
-			}
-		});
+			public void onClick(View v) {  
+				login(); 
 				/*NetworkManager.getInstance().login(LoginActivity.this, userid, password, new OnResultListener<String>() {
 					
 					@Override
@@ -112,8 +71,55 @@ public class LoginActivity extends ActionBarActivity {
 				}
 			});*/ 
 		 
-		}
-	
+		} 
+	});
+	}
+		
+		public void login() {
+			// TODO Auto-generated method stub
+			userid = idView.getText().toString();
+			password = pwdView.getText().toString();
+			TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
+		 	
+			try{ 
+				user_phone = telManager.getLine1Number();
+				if(user_phone.startsWith("+82")){
+			 		user_phone = user_phone.replace("+82", "0");
+			 	}
+			} catch (NullPointerException e) {
+				user_phone = "01012341234";
+			} 
+			
+		 	String num1 = user_phone.substring(0, 3);
+			String num2 = user_phone.substring(3, 7);
+			String num3 = user_phone.substring(7, 11);
+			user_phone = num1+"-"+num2+"-"+num3;
+			
+			NetworkManager.getInstnace().login(LoginActivity.this, userid, password, user_phone, reg_id, new OnResultListener<LoginResult>() {
+				
+				@Override
+				public void onSuccess(LoginResult result) { 
+					Toast.makeText(LoginActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
+					if(result.success == 2) {  
+						reg_id = result.result.items.user_regid;
+						user_no = result.result.items.user_no;
+						user_phone = result.result.items.user_phone;
+						user_regid_old = result.result.items.user_regid_old;
+						user_phone_old = result.result.items.user_phone_old;
+						acceptLoginDialog();
+						
+					} else if(result.success == 1) { 
+						PropertyManager.getInstance().setUserId(userid);
+						PropertyManager.getInstance().setPassword(password);
+						getJoinInfo();
+					}
+				}  
+				@Override
+				public void onFail(int code) { 
+					
+				}
+			});
+		} 
 	public void getJoinInfo() {  
 		NetworkManager.getInstnace().searchJoinInfo(LoginActivity.this, new OnResultListener<JoinResult>() {
 
@@ -132,25 +138,19 @@ public class LoginActivity extends ActionBarActivity {
 					intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK); 
 					PropertyManager.getInstance().setUserGender(gender);
 					startActivity(intent);
-				} else if (join_code == 1) {
-					//Bundle bundle = new Bundle();
-					//bundle.putInt("join_code", join_code);
+				} else if (join_code == 1) { 
 					JoinCodeInfoParcel joinData = new JoinCodeInfoParcel();
 					joinData.join_code = join_code; 
 					Intent intent = new Intent(LoginActivity.this, SexInfoActivity.class);
-					intent.putExtra("joinData", joinData); 
-					//intent.putExtras(bundle);
+					intent.putExtra("joinData", joinData);  
 					startActivity(intent);
 					finish();
-				} else if(join_code == 2) {
-					//Bundle bundle = new Bundle();
-					//bundle.putInt("join_code", join_code); 
+				} else if(join_code == 2) { 
 					PropertyManager.getInstance().setUserGender(result.result.items.user_gender);
 					JoinCodeInfoParcel joinData = new JoinCodeInfoParcel();
 					joinData.join_code = join_code;
 					Intent intent = new Intent(LoginActivity.this, CoupleRequestActivity.class);
-					//intent.putExtras(bundle); 
-					intent.putExtra("joinData", joinData); 
+ 					intent.putExtra("joinData", joinData); 
 					startActivity(intent);
 					finish();
 				}  
@@ -174,25 +174,7 @@ public class LoginActivity extends ActionBarActivity {
 				
 			}
 		});
-	}
-	
-	/*private void autoLogin() {
-		NetworkManager.getInstnace().autoLogin(LoginActivity.this, user_no, user_phone, new OnResultListener<AutoLoginResponse>() {
-
-			@Override
-			public void onSuccess(AutoLoginResponse result) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onFail(int code) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}*/
-		
+	} 
 	protected void notInputJoinDetail() {
 		// TODO Auto-generated method stub  
 			if(user_req == 1) {
@@ -216,9 +198,7 @@ public class LoginActivity extends ActionBarActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					Toast.makeText(LoginActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
 				}
-			});
-//			builder.setCancelable(false);
-			
+			}); 
 			builder.create().show();
 }
 		
@@ -231,42 +211,26 @@ public class LoginActivity extends ActionBarActivity {
 			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {   
-					NetworkManager.getInstnace().acceptLogin(LoginActivity.this, userid, password, user_phone, reg_id, new OnResultListener<LoginResult>() {
+					NetworkManager.getInstnace().acceptLogin(LoginActivity.this, user_no, reg_id, user_phone, user_regid_old, user_phone_old, new OnResultListener<LoginResult>() {
 
 						@Override
-						public void onSuccess(LoginResult result) {
-							// TODO Auto-generated method stub
-							//getJoinInfo();
+						public void onSuccess(LoginResult result) { 
+							finish();
+							login();
 						}
 
 						@Override
 						public void onFail(int code) {
-							// TODO Auto-generated method stub
-							
 						}
-					});
-					Toast.makeText(LoginActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
+					}); 
 				}
-			});
-			builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Toast.makeText(LoginActivity.this, "Cancel Click", Toast.LENGTH_SHORT).show();
-				}
-			});
+			}); 
 			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Toast.makeText(LoginActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
+					Toast.makeText(LoginActivity.this, "No Click", Toast.LENGTH_SHORT).show();
 				}
-			});
-			builder.setOnCancelListener(new OnCancelListener() {
-				
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					Toast.makeText(LoginActivity.this, "Dialog Canceled", Toast.LENGTH_SHORT).show();
-				}
-			});
+			}); 
 //			builder.setCancelable(false);
 			
 			builder.create().show();

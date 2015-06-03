@@ -9,7 +9,7 @@
     tools:context="com.banana.banana.setting.MyinfoActivity" >
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollWomanInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -37,11 +37,6 @@
                     android:layout_weight="1"
                     android:background="#fffabc"
                     android:text="커플에게 비공개" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="8dp" >
             </LinearLayout>
 
             <LinearLayout
@@ -85,27 +80,40 @@
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:text="시작" />
 
                     <EditText
                         android:id="@+id/edit_startYear"
-                        android:layout_width="wrap_content"
+                        android:layout_width="103dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textColor="#6a3906"
+                        android:textSize="13sp" />
 
                     <EditText
                         android:id="@+id/edit_startMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:inputType="number"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
+                        android:gravity="center" />
 
                     <EditText
                         android:id="@+id/edit_startDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center" 
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
+                        android:inputType="number"
                         android:ems="10" />
 
                 </LinearLayout>
@@ -119,26 +127,40 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:text="종료" />
 
                     <EditText
                         android:id="@+id/edit_endYear"
                         android:layout_width="101dp"
+                        android:gravity="center" 
                         android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:ems="10" />
 
                     <EditText
                         android:id="@+id/edit_endMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                         android:gravity="center" 
                         android:layout_weight="1"
+                        android:inputType="number"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:ems="10" />
 
                     <EditText
                         android:id="@+id/edit_endDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                         android:gravity="center" 
                         android:layout_weight="1"
+                        android:inputType="number"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:ems="10" />
 
                 </LinearLayout>
@@ -152,6 +174,8 @@
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#6a3906"
+                   		android:textSize="13sp"
                         android:text="주기" />
 
                     <EditText
@@ -159,11 +183,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:gravity="center"
+                        android:textColor="#6a3906"
+                        
+                   		android:textSize="13sp"
+                        android:inputType="number" />
+
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:id = "@+id/editPeriodView"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/set_my_head_list"
@@ -175,18 +206,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_marginLeft="28dp"
+                    android:layout_weight="0.27"
                     android:text="최근 평균 주기"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#6a3906"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginLeft="5dp"
-                    android:text="TextView"
                     android:textColor="#6a3906"
                     android:textSize="12sp" />
 
@@ -194,7 +216,9 @@
                     android:id="@+id/btn_update2"
                     android:layout_width="76dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="128dp"
+                    android:layout_marginLeft="128dp" 
+                    android:visibility="invisible"
+                   		android:textSize="13sp"
                     android:background="@drawable/set_my_head_list"
                     android:text="수정"
                     android:textColor="#6a3906" />
@@ -207,8 +231,10 @@
                 android:layout_height="wrap_content" >
 
                 <LinearLayout
+                    android:id="@+id/list_latest_period"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical" >  
                 
                     <com.banana.banana.setting.WomanLinearLayout
@@ -276,6 +302,8 @@
                     android:id="@+id/text_medicine_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#6a3906"
+                   		android:textSize="13sp"
                     android:text="시작일"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -284,6 +312,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#6a3906"
+                    android:inputType="number"
+                    	android:gravity="center"
+                   		android:textSize="13sp"
                     android:ems="10" >
 
                     <requestFocus />
@@ -294,6 +326,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#6a3906"
+                    android:inputType="number"
+                   		android:textSize="13sp"
+                   			android:gravity="center"
                     android:ems="10" />
 
                 <EditText
@@ -301,6 +337,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#6a3906"
+                    	android:gravity="center"
+                   		android:textSize="13sp"
+                   		android:inputType="number"
                     android:ems="10" />
             </LinearLayout>
 
@@ -315,7 +355,7 @@
                 android:orientation="horizontal" >
 
                 <ToggleButton
-                    android:id="@+id/toggleButton1"
+                    android:id="@+id/toggleAMPM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#fff100"
@@ -328,6 +368,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                      android:textColor="#6a3906"
+                   	android:textSize="13sp"
+                   	android:gravity="center"
+                   	android:inputType="number"
                     android:ems="10" />
 
                 <EditText
@@ -335,13 +379,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#6a3906"
+                   	android:textSize="13sp"
+                   	android:inputType="number"
+                   		android:gravity="center"
                     android:ems="10" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton2"
+                    android:id="@+id/toggle_onoff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#6a3906"
+                    android:textOn="on"
+                    android:textOff="off"
                     android:text="반복"
                     android:textColor="#ffffff" />
 

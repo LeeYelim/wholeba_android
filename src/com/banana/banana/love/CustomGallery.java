@@ -39,7 +39,7 @@ public class CustomGallery extends Gallery{
 				//super.onWindowFocusChanged(hasFocus);
 	    	 final int mCenter = (getWidth() - getPaddingLeft() - getPaddingRight()) / 2 + getPaddingLeft();
 	         
-        final int childCenter = child.getLeft() + child.getWidth() / 2;
+	    	 final int childCenter = child.getLeft() + child.getWidth() / 2;
 	          final int childWidth = child.getWidth();
 	 
 	          t.clear();

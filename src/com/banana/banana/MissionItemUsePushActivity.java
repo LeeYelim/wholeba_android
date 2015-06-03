@@ -35,6 +35,7 @@ public class MissionItemUsePushActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(MissionItemUsePushActivity.this, MissionActivity.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				finish();
 				startActivity(i);
 			}
@@ -84,14 +85,7 @@ public class MissionItemUsePushActivity extends ActionBarActivity {
 			hintView.setText("");
 		} else {
 			hintView.setText("힌트: "+hint);
-		}
-		
-		
-		
-		
-		
-		
-		
+		} 
 	}
 
 	@Override

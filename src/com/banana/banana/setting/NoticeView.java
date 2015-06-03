@@ -34,7 +34,7 @@ public class NoticeView extends FrameLayout{
 	public void setItemData(NoticeItems data) {
 		mData = data;
 		notice_no.setText(""+mData.notice_no);
-		notice_date.setText(mData.notice_date);
+		notice_date.setText(mData.notice_regdate);
 		notice_title.setText(mData.notice_title);
 		notice_contents.setText(mData.notice_content);
 		

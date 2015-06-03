@@ -92,7 +92,16 @@ public class PropertyManager {
 		return mPrefs.getInt(COUPLE_DAYS, 0);
 	}
 	
+	private static final String ALARM_ONOFF = "alarmOnoff";
+	public void setAlarmOnOff(boolean isOn) {
+		mEditor.putBoolean(ALARM_ONOFF, isOn); 
+		mEditor.commit();
+	}
 	
+	public boolean getAlarmOnOff() {
+		return mPrefs.getBoolean(ALARM_ONOFF, false);
+	}
+	 
 	private static final String ALARM_HOUR = "hour";
 	public void setHour(int hour) {
 		mEditor.putInt(ALARM_HOUR, hour); 

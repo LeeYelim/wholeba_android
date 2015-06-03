@@ -39,19 +39,19 @@ public class MissionCardView extends FrameLayout {
 		textCardView.setText(data.mlist_name);
 		
 		int theme = data.theme_no;
-		if(theme == 1) {
+		if(theme == 1) { // 악마
 			imgCardView.setImageResource(R.drawable.card1);
 		} else if(theme==2){//처음
-			imgCardView.setImageResource(R.drawable.card2);
-			
-		}else if(theme==3){//섹시
-			imgCardView.setImageResource(R.drawable.card3);
-			
-		}else if(theme==4){//애교
 			imgCardView.setImageResource(R.drawable.card4);
 			
-		}else if(theme==5){//천사
+		}else if(theme==3){//섹시
 			imgCardView.setImageResource(R.drawable.card5);
+			
+		}else if(theme==4){//애교
+			imgCardView.setImageResource(R.drawable.card3);
+			
+		}else if(theme==5){//천사
+			imgCardView.setImageResource(R.drawable.card2);
 			
 		} 
 		imgCardView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);

@@ -28,12 +28,12 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:text="뽀뽀가 완료된 후 사랑이 기록 됩니다."
+        android:text="뽀뽀가 완료된 후  기록 됩니다."
         android:textSize="12sp" />
 
     <Button

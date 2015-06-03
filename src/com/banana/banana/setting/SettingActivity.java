@@ -51,7 +51,7 @@ public class SettingActivity extends ActionBarActivity {
 	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
 	      titleView.setText("SETTING");
 	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
-	      settingImg.setVisibility(View.GONE);
+	      settingImg.setVisibility(View.INVISIBLE);
 	      
 		btn_myInfo = (Button)findViewById(R.id.btn_myinfo);
 		btn_logout = (Button)findViewById(R.id.btn_logout);
@@ -86,9 +86,8 @@ public class SettingActivity extends ActionBarActivity {
 							public void onSuccess(WithDrawReponse result) {
 								Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
 								Intent intent = new Intent(SettingActivity.this, IntroActivity.class);
-								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); 
-								startActivity(intent);
 								finish();
+								startActivity(intent); 
 								PropertyManager.getInstance().setUserId("");
 								PropertyManager.getInstance().setPassword("");
 							}
@@ -259,7 +258,7 @@ public class SettingActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.setting, menu);
+		//getMenuInflater().inflate(R.menu.setting, menu);
 		return true;
 	}
 
@@ -268,10 +267,10 @@ public class SettingActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		//int id = item.getItemId();
+		//if (id == R.id.action_settings) {
+		//	return true;
+		//}
 		return super.onOptionsItemSelected(item);
 	}
 }

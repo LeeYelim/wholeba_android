@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -57,7 +58,7 @@ public class SplashActivity extends ActionBarActivity {
 	     * Substitute you own sender ID here. This is the project number you got
 	     * from the API Console, as described in "Getting Started."
 	     */
-	    String SENDER_ID = "492958073196";
+	    String SENDER_ID = "1058820153157";
 
 	    /**
 	     * Tag used on log messages.
@@ -77,6 +78,15 @@ public class SplashActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_spalsh);
+		
+		Handler handler = new Handler() {
+        	@Override
+        	public void handleMessage(Message msg) {        		
+        		finish(); //현재 액티비티 즉 SplashActivity 종료 
+        	}
+        };
+        handler.sendEmptyMessageDelayed(0,2000); //2000 시간 설정 1000->1초
+
 		checkAndRegister();
 		user_id = PropertyManager.getInstance().getUserId();   //shared의 user_id확인
 		user_pass = PropertyManager.getInstance().getPassword();
@@ -172,17 +182,34 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 	private void Login() {
 		// TODO Auto-generated method stub
 		TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
-	 	/*String user_phone = telManager.getLine1Number();
-	 	if(user_phone.startsWith("+82")){
-	 		user_phone = user_phone.replace("+82", "0");
-	 	}
+		String user_phone;
+		try{ 
+			user_phone = telManager.getLine1Number();
+			if(user_phone.startsWith("+82")){
+		 		user_phone = user_phone.replace("+82", "0");
+		 	}
+		} catch (NullPointerException e) {
+			user_phone = "01012341234";
+		}
+		 
+		
 	 	String num1 = user_phone.substring(0, 3);
 		String num2 = user_phone.substring(3, 7);
 		String num3 = user_phone.substring(7, 11);
-		user_phone = num1+"-"+num2+"-"+num3; 
-		*/
-		String user_phone; 
-		user_phone = "010-9988-4166";
+		user_phone = num1+"-"+num2+"-"+num3;
+	 	
+//	 	if(user_phone.startsWith("+82")){
+//	 		user_phone = user_phone.replace("+82", "0");
+//	 		String num1 = user_phone.substring(0, 3);
+//			String num2 = user_phone.substring(3, 7);
+//			String num3 = user_phone.substring(7, 11);
+//			user_phone = num1+"-"+num2+"-"+num3; 
+//	 	} else {
+//	 		user_phone = "010-1234-1234";
+//	 	}
+	 	
+		
+		//user_phone = "010-9988-4166";
 		NetworkManager.getInstnace().login(SplashActivity.this, user_id, user_pass, user_phone, reg_id, new OnResultListener<LoginResult>() {
 
 			@Override

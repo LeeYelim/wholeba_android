@@ -29,8 +29,7 @@ public class AddMissionActivity extends ActionBarActivity {
 	ToggleButton[] btnGroup = new ToggleButton[BUTTON_SIZE];
 	ToggleButton selectedButton = null;
 	private int[] toggleResIds = {R.id.ToggleTheme1,R.id.ToggleTheme2,R.id.ToggleTheme3,R.id.ToggleTheme4,R.id.ToggleTheme5,R.id.ToggleTheme6};
-	int theme_no; //미션 테마 
-	boolean selected = false;
+	int theme_no = -1; //미션 테마  
 	TextView titleView;
 	ImageView settingImg;
 	
@@ -72,8 +71,11 @@ public class AddMissionActivity extends ActionBarActivity {
 		
 			@Override
 			public void onClick(View v) {  
-				addMission();
-				Toast.makeText(AddMissionActivity.this, "send", Toast.LENGTH_LONG).show();	 
+				if(theme_no!=-1) {
+					addMission();
+				} else {
+					Toast.makeText(AddMissionActivity.this, "테마를 선택해 주세요", Toast.LENGTH_SHORT).show();	
+				} 
 			}
 		}); 
 	}

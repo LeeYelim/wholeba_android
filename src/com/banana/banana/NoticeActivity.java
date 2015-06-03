@@ -1,23 +1,42 @@
 package com.banana.banana;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.banana.love.LoveActivity;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 import com.banana.banana.setting.NoticeResponse;
+import com.banana.banana.setting.SettingActivity;
 
 public class NoticeActivity extends ActionBarActivity {
 
-	TextView Textnotice; 
+	TextView Textnotice, titleView;
+	ImageView settingImg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notice);
+		ActionBar actionBar = getSupportActionBar(); 
+	      actionBar.setDisplayHomeAsUpEnabled(false);
+	      actionBar.setDisplayShowTitleEnabled(false);
+	      actionBar.setDisplayShowHomeEnabled(false);
+	      actionBar.setDisplayShowCustomEnabled(true); // Custom메뉴 설정 true
+	      actionBar.setCustomView(R.layout.custom_action_bar); 
+	      titleView = (TextView)actionBar.getCustomView().findViewById(R.id.text_title);
+	      titleView.setText("NOTICE");
+	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
+	      settingImg.setVisibility(View.INVISIBLE);
+	       
 		init();
 		//Textnotice = (TextView)findViewById(R.id.text_notice_contents); 
 	}
@@ -32,7 +51,7 @@ public class NoticeActivity extends ActionBarActivity {
 			public void onSuccess(NoticeResponse result) { 
 				 
 				int notice_no = result.result.items.get(0).notice_no;
-				String notice_date = result.result.items.get(0).notice_date;
+				String notice_date = result.result.items.get(0).notice_regdate;
 				String notice_title = result.result.items.get(0).notice_title;
 				String notice_content = result.result.items.get(0).notice_content;
 				Textnotice.setText("notice no : " + notice_no + " " + notice_date + " " + notice_title + notice_content);

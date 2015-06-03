@@ -21,7 +21,7 @@ public class CustomGalleryImageAdapter extends BaseAdapter {
     View mview;
 	    private int count;
 	
-	    String[] mImageID = (MyApplication.getContext().getResources().getStringArray(R.array.list_year));
+	    public String[] mImageID = (MyApplication.getContext().getResources().getStringArray(R.array.list_year));
 	       
 	    
 	    //private String[] mImageID = { "1", "2", "3", "4"};
@@ -63,10 +63,7 @@ public class CustomGalleryImageAdapter extends BaseAdapter {
 	         int height = 100;
 	         RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(width,height);
 	         image.setLayoutParams(parms);
-	         image.setText(mImageID[position]);
-	        
-	       
-
+	         image.setText(mImageID[position]);  
 	        
 	         return mview;
 	    }

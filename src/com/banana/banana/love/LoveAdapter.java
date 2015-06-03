@@ -3,6 +3,8 @@ package com.banana.banana.love;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.banana.banana.main.MainItemView;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,13 @@ public class LoveAdapter  extends BaseAdapter implements LoveItemView.OnMainView
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		LoveItemView lv=new LoveItemView(mcontext);
+		LoveItemView lv;
+		
+		if(convertView == null) {
+			lv =new LoveItemView(mcontext); 
+		} else {
+			lv = (LoveItemView)convertView;
+		}
 		lv.setData(loves.get(position));
 		return lv;
 		 

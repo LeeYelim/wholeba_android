@@ -4,13 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +22,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.banana.banana.AlarmData;
 import com.banana.banana.AlarmService;
-import com.banana.banana.DBManager;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.dday.DdayActivity;
@@ -52,12 +53,24 @@ public class BananaMainActivity extends ActionBarActivity {
 	int f_reward, m_reward, m_condition, f_condition, ddays;  
 	ImageView settingImg;
 	int couple_condom, chipCount;
-	
+	ScrollView sv1;
 	private static final int[] ITEM_COIN_COUNT = { 1, 1, 2, 2,2,2,2,3,5};
 	private int resIds[] = {R.id.item1, R.id.item2, R.id.item3, R.id.item4, R.id.item5, R.id.item6, R.id.item7, R.id.item8, R.id.item9};
 	TextView[] items = new TextView[resIds.length];
 	
+	public static final int MESSAGE_BACK_PRESSED_TIMEOUT = 0;
+	public static final int TIMEOUT_BACK_PRESSED = 2000;
 	
+	Handler mHandler = new Handler(Looper.getMainLooper()) {
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what) {
+			case MESSAGE_BACK_PRESSED_TIMEOUT :
+				isBackPressed = false;
+				break;
+			}
+		}
+	};
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +94,15 @@ public class BananaMainActivity extends ActionBarActivity {
 					startActivity(intent);
 				}
 			}); 
+		     
 		      
+		      
+		      
+		      
+		      
+		      
+		    sv1 = (ScrollView)findViewById(R.id.scrollView_main);  
+		    sv1.smoothScrollTo(0, 0);
 		    gender = PropertyManager.getInstance().getUserGender();
 		    img_isperiod = (ImageView)findViewById(R.id.img_isperiod);
 		    img_band = (ImageView)findViewById(R.id.img_band);
@@ -135,7 +156,7 @@ public class BananaMainActivity extends ActionBarActivity {
 			});
 			
 			contentsList.setAdapter(mAdapter); 
-			 
+			
 			contentsList.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -272,7 +293,11 @@ public class BananaMainActivity extends ActionBarActivity {
 						} else if(gender.equals("M")) {
 							PropertyManager.getInstance().setChipCount(m_reward);
 						}
-						subDdate(couple_birth);  
+						try{
+							subDdate(couple_birth);  
+						} catch(NullPointerException e) {
+							
+						}
 						
 						
 						
@@ -288,7 +313,7 @@ public class BananaMainActivity extends ActionBarActivity {
 						int[] syndrom = result.items.f_syndno;
 						
 						if(syndrom.length != 0) {
-							for(int i = 0; i <= syndrom.length; i++) { 
+							for(int i = 0; i < syndrom.length; i++) { 
 								if(syndrom[i] == 14) {
 									img_band.setVisibility(View.VISIBLE);
 								} else if(syndrom[i] == 12) {
@@ -314,10 +339,7 @@ public class BananaMainActivity extends ActionBarActivity {
 				}
 			
 			});
-		} 
-		
-		
-		
+		}  
 		
 		protected void subDdate(String d) { //사귄일수 구함
 			// TODO Auto-generated method stub 
@@ -434,6 +456,29 @@ public class BananaMainActivity extends ActionBarActivity {
 		hView.setVisibility(isVisible?View.VISIBLE:View.GONE);
 		}
 		
+    boolean isBackPressed = false;
+    @Override
+    public void onBackPressed() {
+    	if (!isBackPressed) {
+    		Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+    		mHandler.sendEmptyMessageDelayed(MESSAGE_BACK_PRESSED_TIMEOUT, TIMEOUT_BACK_PRESSED);
+    		isBackPressed = true;
+    	} else {
+    		mHandler.removeMessages(MESSAGE_BACK_PRESSED_TIMEOUT);
+    		super.onBackPressed();
+    	}
+    }
+    
+    int count = 0;
+    Runnable updateRunnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			// ....
+			count++;
+			mHandler.postDelayed(this, 1000);
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

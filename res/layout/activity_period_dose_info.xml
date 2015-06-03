@@ -36,7 +36,6 @@
             android:layout_height="40dp"
             android:layout_marginLeft="23dp"
             android:background="@drawable/join_bt031"
-            android:checked="true"
             android:gravity="center_vertical|center_horizontal"
             android:text="YES"
             android:textColor="#ffffffff"
@@ -49,6 +48,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="23dp"
+            android:checked="true"
             android:gravity="center_vertical|center_horizontal"
             android:text="NO"
             android:textColor="#ffffffff" />
@@ -160,7 +160,7 @@
         android:visibility="gone" > 
 
         <ToggleButton
-            android:id="@+id/toggleButton1"
+            android:id="@+id/toggleTime"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:background="#ffff00"

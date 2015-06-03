@@ -41,13 +41,21 @@ public class MissionItemView extends FrameLayout {
 		LayoutInflater.from(getContext()).inflate(R.layout.mission_itemdata, this);
 		GenderView = (ImageView)findViewById(R.id.img_mission1);
 		detailView=(View)findViewById(R.id.detailView);
-		view=(View)findViewById(R.id.RelativeLayout1);
+		view=(View)findViewById(R.id.layoutMissionList);
+		view.setBackgroundResource(R.drawable.list_selector);
+		view.setOnClickListener(new View.OnClickListener() {
 			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setVisibileDetailView(!isVisibleDetailView());
+			}
+		});
 		valid_view=(TextView)findViewById(R.id.text_date);
 		titleView = (TextView)findViewById(R.id.text_missionName);
 		stateView=(TextView)findViewById(R.id.missionState);
 		hintView=(TextView)findViewById(R.id.mission_hint);
-		missionValidView=(TextView)findViewById(R.id.Mission_valid);
+		//missionValidView=(TextView)findViewById(R.id.Mission_valid);
 		
 	}
 	
@@ -79,20 +87,19 @@ public class MissionItemView extends FrameLayout {
 		MissionState=mData.mlist_state;
 		if(MissionState==0){
 			stateView.setText("실패");
-			valid_view.setText(mData.mlist_expiredate);
+			valid_view.setText("만료기간 " + mData.mlist_expiredate);
 		}else if(MissionState==1){
 			stateView.setText("성공");
-			valid_view.setText(mData.mlist_successdate);
+			valid_view.setText("성공날짜 " + mData.mlist_successdate);
 		}else if(MissionState==2){
 			stateView.setText("확인안함");
-			valid_view.setText(mData.mlist_regdate);
-			
+			valid_view.setText("유효기간 " + mData.mlist_regdate); 
 		}else if(MissionState==3){
-			stateView.setText("진행중");
-			valid_view.setText(mData.mlist_regdate);
+			stateView.setBackgroundResource(R.drawable.mission_contents_yellow_icon);
+			valid_view.setText("유효기간 " + mData.mlist_regdate);
 		}else if(MissionState==4){
 			stateView.setText("패스");
-			valid_view.setText(mData.mlist_regdate);
+			valid_view.setText("유효기간 " +mData.mlist_regdate);
 		}
 		//성별
 		setGenderView();
@@ -108,7 +115,7 @@ public class MissionItemView extends FrameLayout {
 	}
 	public void setMissionHint()
 	{
-		hintView.setText(mData.mission_hint);//힌트 설정
+		hintView.setText("힌트 " + mData.mission_hint);//힌트 설정
 	}
 	/*public void setValidView() throws ParseException
 	{

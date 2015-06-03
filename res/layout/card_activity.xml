@@ -4,6 +4,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <TextView
@@ -26,25 +27,25 @@
         android:text="Select a your mission card"
         android:textColor="#575757" />
 
-    <at.technikum.mti.fancycoverflow.FancyCoverFlow
-        android:id="@+id/fancyCoverFlow"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="108dp"
-        android:visibility="visible" />
-
     <Button
         android:id="@+id/btn_ok"
-        android:layout_width="150dp"
+        android:layout_width="214dp"
         android:layout_height="42dp"
-        android:layout_alignLeft="@+id/textView2"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
         android:background="@drawable/popup_bt_unselected"
         android:text="ok"
         android:textColor="#6a3609"
         android:visibility="visible" />
 
+    <at.technikum.mti.fancycoverflow.FancyCoverFlow
+        android:id="@+id/fancyCoverFlow"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_above="@+id/btn_ok"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="29dp"
+        android:visibility="visible" />
 
 </RelativeLayout>

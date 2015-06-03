@@ -61,7 +61,7 @@ public class CoupleRequestFragment extends Fragment {
 					@Override
 					public void onSuccess(JoinResult result) {   
 						//버튼 비활성화
-						//sendSMS(auth_phone, "커플요청"); 
+						sendSMS(auth_phone, "홀딱 바나나 커플요청"); 
 						edit_request_number.setEnabled(false);
 						btnRequest.setEnabled(false);  
 						btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);

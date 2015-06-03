@@ -109,7 +109,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:background="@drawable/mission_pass_yellow_button"
-        android:text="Button"
+        android:text="확인"
         android:textColor="#230101"
         android:textSize="12sp" />
 

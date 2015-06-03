@@ -130,6 +130,7 @@
         </activity>
         <activity
             android:name=".mission.MissionActivity"
+            android:launchMode="singleTask"
             android:label="@string/title_activity_mission_popup" >
         </activity>
         <activity android:name=".mission.MissionPopupActivity" >
@@ -140,6 +141,7 @@
         </activity>
         <activity
             android:name=".love.PopupOk"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity android:name=".love.LoveActivity" >
@@ -171,7 +173,8 @@
         </activity>
         <activity
             android:name=".mission.MissionSendOkActivity"
-            android:label="@string/title_activity_mission_send_ok" >
+            android:label="@string/title_activity_mission_send_ok" 
+             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
             android:name=".mission.receive.MissionConfirmActivity"
@@ -225,6 +228,7 @@
         </activity>
         <activity
             android:name=".MissionItemUsePushActivity"
+            android:exported="true"
             android:label="@string/title_activity_mission_item_use_push"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"  >
         </activity>

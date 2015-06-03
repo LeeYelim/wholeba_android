@@ -64,6 +64,9 @@ public class GcmIntentService extends IntentService {
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
             	push_type=intent.getStringExtra(PUSH_TYPE);
+            	if(push_type == null) {
+            		
+            	}
             	push_type_num=(int) Integer.parseInt(push_type);
             	if(push_type_num!=8){
             		sendNotification(push_type_num,send_intent);
@@ -85,7 +88,7 @@ public class GcmIntentService extends IntentService {
     	  
     	 Intent intent=null;
     	  
-    	  if(push_type==1){ //다른 기기 로그인
+    	  if(push_type==1){ //다른 기기 로그인 
     		  intent =new Intent(this,SplashActivity.class);
     		  mHandler.post(new Runnable() {
 				
@@ -96,7 +99,8 @@ public class GcmIntentService extends IntentService {
 		  				@Override
 		  				public void onSuccess(LogoutResponse result) {
 		  					// TODO Auto-generated method stub
-		  					
+		  					PropertyManager.getInstance().setUserId("");
+		  					PropertyManager.getInstance().setPassword("");
 		  				}
 		  				
 		  				@Override
@@ -107,6 +111,20 @@ public class GcmIntentService extends IntentService {
 		  			});
 				}
 			});
+    		  
+    		  /*------gcm-----*/
+    		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                      intent, PendingIntent.FLAG_UPDATE_CURRENT);
+              NotificationCompat.Builder mBuilder =
+                      new NotificationCompat.Builder(this)
+              .setSmallIcon(R.drawable.magicday_woman_character_)
+              .setContentTitle("홀딱바나나") 
+              .setAutoCancel(true)
+              .setContentText("다른기기에서 같은 아이디로 로그인하였습니다.");
+              mNotificationManager = (NotificationManager)
+                      this.getSystemService(Context.NOTIFICATION_SERVICE);
+              mBuilder.setContentIntent(contentIntent);
+              mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     		  
     	  }else if(push_type==2){ //커플요청 - 상대방 번호, partner_phone 
     		  partner_phone=send_intent.getStringExtra("partner_phone");
@@ -120,9 +138,9 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("커플요청");
+              .setContentText("커플요청이 도착하였습니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);
@@ -138,9 +156,9 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("커플승인");
+              .setContentText("커플이 승인되었습니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);
@@ -160,9 +178,9 @@ public class GcmIntentService extends IntentService {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.magicday_woman_character_)
-                    .setContentTitle("GCM Notification") 
+                    .setContentTitle("홀딱바나나") 
                     .setAutoCancel(true)
-                    .setContentText("미션팝업");
+                    .setContentText("상대방이 미션팝업을 요청하였습니다.");
                     mNotificationManager = (NotificationManager)
                             this.getSystemService(Context.NOTIFICATION_SERVICE);
                     mBuilder.setContentIntent(contentIntent);
@@ -180,41 +198,22 @@ public class GcmIntentService extends IntentService {
                   NotificationCompat.Builder mBuilder =
                           new NotificationCompat.Builder(this)
                   .setSmallIcon(R.drawable.magicday_woman_character_)
-                  .setContentTitle("GCM Notification") 
+                  .setContentTitle("홀딱바나나") 
                   .setAutoCancel(true)
-                  .setContentText("뽀뽀팝업");
+                  .setContentText("상대방이 뽀뽀팝업을 요청하였습니다.");
                   mNotificationManager = (NotificationManager)
                           this.getSystemService(Context.NOTIFICATION_SERVICE);
                   mBuilder.setContentIntent(contentIntent);
                   mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     			  
     			  
-    		  }
-    		  //mlist_no=Integer.parseInt(send_intent.getStringExtra("mlist_no"));  
-    		  //loves_no=Integer.parseInt(send_intent.getStringExtra("loves_no")); 
-    		  
-    		  
-    		  
-    		  /*if(mlist_no != -1) {
-    		    intent=new Intent(this, PopupOk.class);
-    		    intent.putExtra("mlist_no", mlist_no);
-    		    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-    		  } else if(loves_no != -1) {
-    			  intent=new Intent(this,PopupOk.class);
-    			  intent.putExtra("loves_no", loves_no);
-    			  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-    		  }*/
-    		  
+    		  } 
     	}else if(push_type==5){ //미션 생성
     		  mlist_no=Integer.parseInt(send_intent.getStringExtra("mlist_no"));
     		  mission_name=send_intent.getStringExtra("mission_name");
     		  theme_no=Integer.parseInt(send_intent.getStringExtra("theme_no"));
     		  mlist_regdate=send_intent.getStringExtra("mlist_regdate");
-    		 
-    		  Log.i("mlist_no",""+mlist_no);
-    		  Log.i("mission_name",mission_name);
-    		  Log.i("theme_no",""+theme_no);
-    		  Log.i("mlist_regdate",mlist_regdate);
+    		  
     		  intent=new Intent(this,MissionCardScratchActivity.class);
     		  intent.putExtra("mlist_no",mlist_no);
     		  intent.putExtra("mission_name",mission_name);
@@ -229,16 +228,16 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("상대방이 미션 생성");
+              .setContentText("상대방으로 부터 미션이 도착하였습니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);
               mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     		  
     		  
-    	  }else if(push_type==6){ // 미션 확인
+    	  } else if(push_type==6){ // 미션 확인
     		  mission_hint=send_intent.getStringExtra("mission_hint");
     		  Log.i("mission_hint",mission_hint);
     		  intent=new Intent(this,MissionReceiveConfirmActivity.class);
@@ -251,9 +250,9 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("상대방이 미션확인함");
+              .setContentText("상대방이 미션을 확인하였습니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);
@@ -282,9 +281,9 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("상대방이 미션에 아이템 사용");
+              .setContentText("상대방이 아이템을 사용했습니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);
@@ -296,6 +295,8 @@ public class GcmIntentService extends IntentService {
     		  // 8번일땐 shared에 리워드 저장만
     	  }else if(push_type==9){ // 탈퇴 
     		  intent=new Intent(this,SplashActivity.class);
+    			PropertyManager.getInstance().setUserId("");
+					PropertyManager.getInstance().setPassword("");
     		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
     		  /*------gcm-----*/
     		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -303,9 +304,9 @@ public class GcmIntentService extends IntentService {
               NotificationCompat.Builder mBuilder =
                       new NotificationCompat.Builder(this)
               .setSmallIcon(R.drawable.magicday_woman_character_)
-              .setContentTitle("GCM Notification") 
+              .setContentTitle("홀딱바나나") 
               .setAutoCancel(true)
-              .setContentText("상대방이 탈퇴했습니다.");
+              .setContentText("상대방이 탈퇴했습니다. 모든 기록이 삭제 됩니다.");
               mNotificationManager = (NotificationManager)
                       this.getSystemService(Context.NOTIFICATION_SERVICE);
               mBuilder.setContentIntent(contentIntent);

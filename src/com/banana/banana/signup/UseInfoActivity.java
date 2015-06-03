@@ -3,27 +3,25 @@ package com.banana.banana.signup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.banana.banana.R;
-import com.banana.banana.love.NetworkManager;
-import com.banana.banana.love.NetworkManager.OnResultListener;
-import com.banana.banana.main.BananaMainActivity;
 
 public class UseInfoActivity extends ActionBarActivity {
 
 	TextView iv; 
 	Button btn_before, btn_next;
 	RadioGroup groupView; 
-	int use=1;
+	RadioButton btnYes, btnNo; 
+	int use = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +29,8 @@ public class UseInfoActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_use_info);
 		
 		
+		btnYes = (RadioButton)findViewById(R.id.radio_yes);
+		btnNo = (RadioButton)findViewById(R.id.radio_no);
 		
 		groupView = (RadioGroup)findViewById(R.id.radioGroup1);
 		groupView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -40,13 +40,13 @@ public class UseInfoActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				switch (checkedId) {
 				case R.id.radio_yes:
-					use = 1; 
-					Log.i("use", ""+use);
+					use = 1;  
+					Toast.makeText(UseInfoActivity.this, "피임기구 사용", Toast.LENGTH_SHORT).show();
 					break;
 
 				case R.id.radio_no:
-					use = 0; 
-					Log.i("use", ""+use);
+					use = 0;  
+					Toast.makeText(UseInfoActivity.this, "피임기구 미사용", Toast.LENGTH_SHORT).show();
 					break;
 				} 
 			}

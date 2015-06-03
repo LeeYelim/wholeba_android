@@ -19,10 +19,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.banana.banana.JoinCodeInfoParcel;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
+import com.banana.banana.login.LoginActivity;
 import com.banana.banana.login.LoginResult;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
@@ -72,17 +74,33 @@ public class SignUpActivity extends ActionBarActivity {
 				if(chk_agree.isChecked() && pwdOk() == true) {
 					user_id= idView.getText().toString();
 				    user_pass = pwdView.getText().toString();				
-				    /*TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
-				    user_phone = telManager.getLine1Number();
-				    if(user_phone.startsWith("+82")){
-			 			user_phone = user_phone.replace("+82", "0");
-			 		}*/
-				    user_phone = "01012341234";
+				    TelephonyManager telManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
+				    try{ 
+						user_phone = telManager.getLine1Number();
+						if(user_phone.startsWith("+82")){
+					 		user_phone = user_phone.replace("+82", "0");
+					 	}
+					} catch (NullPointerException e) {
+						user_phone = "01012341234"; 
+					}
 				    
-				    String num1 = user_phone.substring(0, 3);
+					 
+					
+				 	String num1 = user_phone.substring(0, 3);
 					String num2 = user_phone.substring(3, 7);
 					String num3 = user_phone.substring(7, 11);
 					user_phone = num1+"-"+num2+"-"+num3;
+//				    user_phone = telManager.getLine1Number();
+//				    if(user_phone.startsWith("+82")){
+//			 			user_phone = user_phone.replace("+82", "0");
+//			 		} else {
+//			 			user_phone = "01012341234";
+//			 		}
+//			
+//				    String num1 = user_phone.substring(0, 3);
+//					String num2 = user_phone.substring(3, 7);
+//					String num3 = user_phone.substring(7, 11);
+//					user_phone = num1+"-"+num2+"-"+num3;
 					
 					Date today = new Date(); 
 					Calendar cal = Calendar.getInstance();
@@ -94,6 +112,7 @@ public class SignUpActivity extends ActionBarActivity {
 					@Override
 					public void onSuccess(JoinResult result) {
 						// TODO Auto-generated method stub
+						Toast.makeText(SignUpActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
 						PropertyManager.getInstance().setUserId(user_id);
 						PropertyManager.getInstance().setPassword(user_pass);
 						login();

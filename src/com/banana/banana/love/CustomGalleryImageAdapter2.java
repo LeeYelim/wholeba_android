@@ -19,7 +19,7 @@ public class CustomGalleryImageAdapter2 extends BaseAdapter {
     View mview;
 	    private int count;
 	
-	    String[] mImageID = (MyApplication.getContext().getResources().getStringArray(R.array.list_month));
+	    public String[] mImageID = (MyApplication.getContext().getResources().getStringArray(R.array.list_month));
 	       
 	 
 	     public CustomGalleryImageAdapter2(Context c) {

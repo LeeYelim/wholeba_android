@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class ListLinearLayout extends LinearLayout {
 
@@ -33,17 +35,19 @@ public class ListLinearLayout extends LinearLayout {
 		mMax = max;
 	}
 	
-	public int set(SyndromeList data) {
+	public int set(SyndromeList data, View v) {
 		int index = -1;
 		for (int i = 0; i < list.size(); i++) {
 			SyndromeList item = list.get(i);
 			if (item.syndrome_no == data.syndrome_no) {
-				index = i;
+				index = i; 
+				v.setSelected(false);
 				break;
 			}
 		}
 		if (index != -1) {
 			list.remove(index);
+			v.setSelected(false);
 			notifyDataSetChanged();
 			return ITEM_REMOVED;
 		}
@@ -51,9 +55,12 @@ public class ListLinearLayout extends LinearLayout {
 		if (list.size() < mMax) {
 			SyndromeList item = new SyndromeList(data.syndrome_no, data.syndrome_before, data.syndrome_after);
 			list.add(item);
+			v.setSelected(true);
 			notifyDataSetChanged();
 			return ITEM_ADDED;
 		}
+		
+		Toast.makeText(getContext(), "최대 3개까지 선택 가능합니다.", Toast.LENGTH_SHORT).show();
 		return ITEM_NO_ACTION;
 	}
 	

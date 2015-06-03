@@ -50,9 +50,10 @@
                 android:id="@+id/text_missionName"
                 android:layout_width="262dp"
                 android:layout_height="88dp"
+                android:background="#ffffff"
+                android:gravity="center"
                 android:text="TextView"
                 android:textSize="19sp"
-                android:background="#ff0000"
                 android:visibility="visible" />
 
             <com.winsontan520.WScratchView
@@ -101,7 +102,7 @@
     <LinearLayout
         android:id="@+id/itemView"
         android:layout_width="301dp"
-        android:layout_height="194dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="49dp"
         android:orientation="vertical"
@@ -119,13 +120,14 @@
             android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="38dp"
+            android:layout_gravity="center" 
+            android:scrollbars="@null"
             android:background="@drawable/mission_item_select_gray" >
 
               <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/main_item_select_under_bar"
+            android:background="@drawable/main_item_select_under_bar" 
             android:orientation="horizontal" >
 
             <TextView
@@ -134,7 +136,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="미션다시뽑기"
+                android:layout_gravity="center_vertical"
+                android:text="다시\n뽑기"
                 android:textSize="12sp" />
 
             <TextView
@@ -143,7 +146,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="미션유효기간 늘리기"
+                android:layout_gravity="center_vertical"
+                android:text="유효기간\n늘리기"
                 android:textSize="12sp" />
 
             <TextView
@@ -152,7 +156,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="데이트 미션으로 다시 뽑기"
+                android:text="악마테마로\n다시 뽑기"
+                android:layout_gravity="center_vertical"
                 android:textSize="12sp" />
 
             <TextView
@@ -161,7 +166,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/main_item_select_banana_chip"
                 android:gravity="center"
-                android:text="섹시미션으로 다시 뽑기"
+                android:text="섹시테마로\n다시 뽑기"
+                android:layout_gravity="center_vertical"
                 android:textSize="12sp" />
 
             <TextView
@@ -170,7 +176,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="애교미션으로 다시 뽑기"
+                android:layout_gravity="center_vertical"
+                android:text="천사테마로\n다시 뽑기"
                 android:textSize="12sp" />
 
             <TextView
@@ -179,7 +186,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="천사미션으로 다시 뽑기"
+                android:layout_gravity="center_vertical"
+                android:text="애교테마로\n다시 뽑기"
                 android:textSize="12sp" />
 
             <TextView
@@ -188,7 +196,8 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="처음미션으로 다시 뽑기"
+                android:layout_gravity="center_vertical"
+                android:text="처음테마로\n다시 뽑기"
                 android:textSize="12sp" />
 
             <TextView
@@ -197,17 +206,10 @@
                 android:layout_height="64dp"
                 android:background="@drawable/mission_item_select_bananachip_gray"
                 android:gravity="center"
-                android:text="미션패스"
+                android:text="미션\nPass"
+                android:layout_gravity="center_vertical"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/item9"
-                android:layout_width="70dp"
-                android:layout_height="64dp"
-                android:background="@drawable/mission_item_select_bananachip_gray"
-                android:gravity="center"
-                android:text="미션 내맘대로 쓰기"
-                android:textSize="12sp" />
+ 
         </LinearLayout>
         </HorizontalScrollView>
 
@@ -221,7 +223,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/mission_item_select_gray"
+                android:background="@drawable/mission_gray_button"
                 android:text="cancel" />
 
             <Button

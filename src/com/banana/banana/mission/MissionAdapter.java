@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.banana.banana.love.LoveItemView;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +54,28 @@ public class MissionAdapter extends BaseAdapter{
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			MissionItemView v=new MissionItemView(mcontext);
+			MissionItemView v;
+			if(convertView == null) {
+				v = new MissionItemView(mcontext); 
+			} else {
+				//v = (MissionItemView)convertView;
+				v = new MissionItemView(mcontext); 
+			}
+			try {
+				v.setItemData(Missionitems.get(position));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return v;
+			/*
+			MissionItemView v;
+			if(convertView == null) {
+				v = new MissionItemView(mcontext); 
+			} else {
+				v = new MissionItemView(mcontext); 
+			}
 			try {
 				v.setItemData(Missionitems.get(position));
 			} catch (ParseException e) {
@@ -60,11 +83,18 @@ public class MissionAdapter extends BaseAdapter{
 				e.printStackTrace();
 			}
 			return v;
+		/*	MissionItemView v=new MissionItemView(mcontext);
+			try {
+				v.setItemData(Missionitems.get(position));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return v;*/
 		}
 
 		public void clear() {
 			Missionitems.clear();
 			notifyDataSetChanged();
 		}
-
 }

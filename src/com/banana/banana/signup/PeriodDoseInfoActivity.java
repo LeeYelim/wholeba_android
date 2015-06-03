@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +22,12 @@ import android.widget.ToggleButton;
 import com.banana.banana.AlarmData;
 import com.banana.banana.AlarmService;
 import com.banana.banana.DBManager;
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 import com.banana.banana.main.BananaMainActivity;
+import com.banana.banana.setting.MyinfoActivity;
 
 public class PeriodDoseInfoActivity extends ActionBarActivity {
 
@@ -34,7 +37,7 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 	EditText yearView, monthView, dayView, hourView, minuteView;
 	ToggleButton toggleTime;
 	Button btn_next, btn_before;
-	int user_pills;
+	int user_pills = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 		btn_before = (Button)findViewById(R.id.btn_before);
 		btn_next = (Button)findViewById(R.id.btn_next);
 		
-		
+		toggleTime = (ToggleButton)findViewById(R.id.toggleTime);
 		doseInfo = (RadioGroup)findViewById(R.id.radioGroup1);
 		doseDateView = (View)findViewById(R.id.linearLayout1);
 		doseTimeView = (View)findViewById(R.id.LinearLayout01);
@@ -96,6 +99,29 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 				String hour = hourView.getText().toString();
 				String minute = minuteView.getText().toString();
 				String pills_time = hour+":"+minute; 
+				  
+				if(!hour.equals("")) {
+					if(!toggleTime.isChecked() && 
+							Integer.parseInt(hour)<=12 && 
+								hour!= null) {
+						int h = Integer.parseInt(hour);
+						hour = Integer.toString((h+12));
+						pills_time = hour+":"+minute;   
+					} 
+			    
+					if(hour != null && minute != null && 
+							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=24 && 
+							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=60 ) {
+							PropertyManager.getInstance().setHour(Integer.parseInt(hour));
+							PropertyManager.getInstance().setMinute(Integer.parseInt(minute));  
+							PropertyManager.getInstance().setAlarmCount(0);								
+							Toast.makeText(PeriodDoseInfoActivity.this, "알람등록 설정", Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent(PeriodDoseInfoActivity.this, AlarmService.class); 
+							startService(intent);	
+					} else {
+						Toast.makeText(PeriodDoseInfoActivity.this, "정확한 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
+					}
+				}
 				
 				/*int h = Integer.parseInt(hour);
 				

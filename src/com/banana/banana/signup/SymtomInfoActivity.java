@@ -42,7 +42,7 @@ public class SymtomInfoActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View v) {
 			int index = (Integer)v.getTag();
-			symtomListView.set(dataList[index]);
+			symtomListView.set(dataList[index], v); 
 		}
 	};
 
