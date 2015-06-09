@@ -14,19 +14,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class CustomGallery extends Gallery{
-	   private static Camera mCamera;
-	  
-	 
+	   	private static Camera mCamera; 
 	    public CustomGallery(Context context) {
 	          this(context, null);
 	    }
 	 
-	      public CustomGallery(Context context, AttributeSet attrs) {
-	           this(context, attrs, 0);
-	      }
+	    public CustomGallery(Context context, AttributeSet attrs) {
+	       this(context, attrs, 0);
+	    }
 	   
-	        public CustomGallery(Context context, AttributeSet attrs, int defStyle) {
-	            super(context, attrs, defStyle);
+	    public CustomGallery(Context context, AttributeSet attrs, int defStyle) {
+	         super(context, attrs, defStyle);
 	    
 	           mCamera = new Camera();
 	          setSpacing(60);

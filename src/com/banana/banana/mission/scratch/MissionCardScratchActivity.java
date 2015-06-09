@@ -219,6 +219,11 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 
 					@Override
 					public void onFail(int code) {
+						if(code == 0) {
+							Toast.makeText(MissionCardScratchActivity.this, "아이템 사용 실패!", Toast.LENGTH_SHORT).show();
+						} else if (code == 1) {
+							Toast.makeText(MissionCardScratchActivity.this, "리워드 갯수 부족!", Toast.LENGTH_SHORT).show();
+						}
 												
 					}
 				});

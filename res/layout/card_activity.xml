@@ -34,7 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="52dp"
-        android:background="@drawable/popup_bt_unselected"
+        android:background="@drawable/set_q_bt_ok"
         android:text="ok"
         android:textColor="#6a3609"
         android:visibility="visible" />
@@ -42,7 +42,7 @@
     <at.technikum.mti.fancycoverflow.FancyCoverFlow
         android:id="@+id/fancyCoverFlow"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="330dp"
         android:layout_above="@+id/btn_ok"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="29dp"

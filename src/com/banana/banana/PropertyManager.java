@@ -131,4 +131,12 @@ public class PropertyManager {
 		return mPrefs.getInt(ALARM_COUNT, -1);
 	} 
 	
+	private static final String USE_PUSH = "use_push";
+	public void setUsePush(int use) {
+		mEditor.putInt(USE_PUSH, use);
+		mEditor.commit();
+	}
+	public int getUsePush() {
+		return mPrefs.getInt(USE_PUSH, 1);
+	}
 }

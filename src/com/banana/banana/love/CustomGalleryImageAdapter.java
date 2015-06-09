@@ -28,8 +28,7 @@ public class CustomGalleryImageAdapter extends BaseAdapter {
 	 
 	     public CustomGalleryImageAdapter(Context c) {
 	         mContext = c;
-	      mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	 
+	         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	         count = mImageID.length;
 	     }
 	 
@@ -58,9 +57,10 @@ public class CustomGalleryImageAdapter extends BaseAdapter {
 	
 	         image = (TextView) mview.findViewById(R.id.image);
 	         
-	       
+	
 	         int width = 100;
 	         int height = 100;
+	        
 	         RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(width,height);
 	         image.setLayoutParams(parms);
 	         image.setText(mImageID[position]);  

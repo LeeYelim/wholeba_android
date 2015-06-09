@@ -1,18 +1,16 @@
 package com.banana.banana.mission;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.banana.banana.love.LoveItemView;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 
-public class MissionAdapter extends BaseAdapter{
-	ArrayList<MissionItemData> Missionitems =new ArrayList<MissionItemData>();
+public class MissionAdapter extends BaseAdapter implements MissionItemView.OnMissionListClickListener{
+	ArrayList<MissionItemData> missionitems =new ArrayList<MissionItemData>();
 		Context mcontext;
 		MissionItemView itemView;
 		public MissionAdapter(Context mcontext) {
@@ -24,26 +22,26 @@ public class MissionAdapter extends BaseAdapter{
 		public void add(MissionItemData item)
 		{
 			
-			Missionitems.add(item);
+			missionitems.add(item);
 			notifyDataSetChanged();
 			
 		}
 		public void addAll(List<MissionItemData> items)
 		{
-			this.Missionitems.addAll(items);
+			this.missionitems.addAll(items);
 			notifyDataSetChanged();
 		
 		}
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return Missionitems.size();
+			return missionitems.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
 			// TODO Auto-generated method stub
-			return Missionitems.get(position);
+			return missionitems.get(position);
 		}
 
 		@Override
@@ -51,6 +49,8 @@ public class MissionAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			return position;
 		}
+		 
+		
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -60,13 +60,9 @@ public class MissionAdapter extends BaseAdapter{
 			} else {
 				//v = (MissionItemView)convertView;
 				v = new MissionItemView(mcontext); 
-			}
-			try {
-				v.setItemData(Missionitems.get(position));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
+			v.setItemData(missionitems.get(position));
+			v.setOnMissionListClickListener(this);
 			
 			return v;
 			/*
@@ -92,9 +88,27 @@ public class MissionAdapter extends BaseAdapter{
 			}
 			return v;*/
 		}
-
+		
 		public void clear() {
-			Missionitems.clear();
+			missionitems.clear();
 			notifyDataSetChanged();
+		}
+
+
+		public interface OnAdapterMissionListener {
+			public void onAdapterMissionAction(Adapter adapter,View view, MissionItemData data);
+		}
+		
+		OnAdapterMissionListener missionAdapterListener;
+		public void setOnAdapterMissionListener(OnAdapterMissionListener listener) {
+			missionAdapterListener = listener;
+		} 
+		
+		@Override
+		public void OnMissionListClick(View view, MissionItemData data) {
+			// TODO Auto-generated method stub
+			if (missionAdapterListener != null) {
+				missionAdapterListener.onAdapterMissionAction(this, view, data);
+			}
 		}
 }

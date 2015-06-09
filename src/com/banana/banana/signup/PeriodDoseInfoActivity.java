@@ -114,7 +114,8 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=60 ) {
 							PropertyManager.getInstance().setHour(Integer.parseInt(hour));
 							PropertyManager.getInstance().setMinute(Integer.parseInt(minute));  
-							PropertyManager.getInstance().setAlarmCount(0);								
+							PropertyManager.getInstance().setAlarmCount(0);			
+							PropertyManager.getInstance().setAlarmOnOff(true);	
 							Toast.makeText(PeriodDoseInfoActivity.this, "알람등록 설정", Toast.LENGTH_SHORT).show();
 							Intent intent = new Intent(PeriodDoseInfoActivity.this, AlarmService.class); 
 							startService(intent);	

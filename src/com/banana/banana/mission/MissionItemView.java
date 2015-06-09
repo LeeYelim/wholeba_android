@@ -21,10 +21,11 @@ public class MissionItemView extends FrameLayout {
 	MissionItemData mData;
 	View detailView;
 	View view;
-	int MissionState,year,month,day;
+	int MissionState, year, month,day, theme_no;
+	int checked = 0;
 	String Mission_hint,Mission_valid;
-	String str_year,str_month,str_day;
-	int theme_no;
+	String str_year,str_month,str_day; 
+	
 	public MissionItemView(Context context) {
 		super(context);
 		init();
@@ -35,27 +36,48 @@ public class MissionItemView extends FrameLayout {
 		init();
 	}
 	
+	public interface OnMissionListClickListener {
+		public void OnMissionListClick(View view, MissionItemData data);
+	}
 	
+	OnMissionListClickListener viewlistener;
 	
+	public void setOnMissionListClickListener(
+			OnMissionListClickListener listener) {
+		viewlistener = listener;
+	}
+	 
 	private void init() {
 		LayoutInflater.from(getContext()).inflate(R.layout.mission_itemdata, this);
 		GenderView = (ImageView)findViewById(R.id.img_mission1);
 		detailView=(View)findViewById(R.id.detailView);
-		view=(View)findViewById(R.id.layoutMissionList);
-		view.setBackgroundResource(R.drawable.list_selector);
+		view=(View)findViewById(R.id.layoutMissionList);  
 		view.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
+				if(viewlistener != null) {
+					viewlistener.OnMissionListClick(v, mData);
+				}
+				
 				setVisibileDetailView(!isVisibleDetailView());
+				if(checked == 0) {
+					view.setBackgroundResource(R.drawable.mission_contents_bar1_selected);
+					checked++;
+				} else {
+					view.setBackgroundResource(R.drawable.mission_contents_bar1);
+					checked--;
+				}
 			}
 		});
+		
+		
+		
 		valid_view=(TextView)findViewById(R.id.text_date);
 		titleView = (TextView)findViewById(R.id.text_missionName);
 		stateView=(TextView)findViewById(R.id.missionState);
-		hintView=(TextView)findViewById(R.id.mission_hint);
-		//missionValidView=(TextView)findViewById(R.id.Mission_valid);
+		hintView=(TextView)findViewById(R.id.mission_hint); 
 		
 	}
 	
@@ -67,12 +89,15 @@ public class MissionItemView extends FrameLayout {
 		detailView.setVisibility(isVisible?View.VISIBLE:View.GONE);
 	}
 	
-	public void setItemData(MissionItemData data) throws ParseException {
+	
+	
+	
+	
+	public void setItemData(MissionItemData data) {
 		mData = data;
-		theme_no=mData.theme_no;
+		theme_no = mData.theme_no;
 		if(theme_no==1){
 			titleView.setText("악마미션");
-			
 		}else if(theme_no==3){
 			titleView.setText("섹시미션");
 		}else if(theme_no==2){
@@ -81,90 +106,45 @@ public class MissionItemView extends FrameLayout {
 			titleView.setText("애교미션");
 		}else if(theme_no==5){
 			titleView.setText("천사미션");
-		}
+		} 
 		
+		MissionState = mData.mlist_state;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat kdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
+		Date d;
 		
-		MissionState=mData.mlist_state;
+		try {
 		if(MissionState==0){
 			stateView.setText("실패");
-			valid_view.setText("만료기간 " + mData.mlist_expiredate);
+			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
 		}else if(MissionState==1){
 			stateView.setText("성공");
 			valid_view.setText("성공날짜 " + mData.mlist_successdate);
 		}else if(MissionState==2){
 			stateView.setText("확인안함");
-			valid_view.setText("유효기간 " + mData.mlist_regdate); 
+			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
 		}else if(MissionState==3){
 			stateView.setBackgroundResource(R.drawable.mission_contents_yellow_icon);
-			valid_view.setText("유효기간 " + mData.mlist_regdate);
+			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
 		}else if(MissionState==4){
 			stateView.setText("패스");
-			valid_view.setText("유효기간 " +mData.mlist_regdate);
+			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
+		}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		//성별
 		setGenderView();
 		//힌트처리 -------------------------
-		Mission_hint=mData.mission_hint;
-		//valid_view.setText("Zz");
-		setMissionHint();
-		
-		//hintView.setText(Mission_hint);
-		//미션 유효기간-------------------------------
-		//setValidView();
+		Mission_hint=mData.mission_hint; 
+		setMissionHint(); 
 		
 	}
 	public void setMissionHint()
 	{
-		hintView.setText("힌트 " + mData.mission_hint);//힌트 설정
+		hintView.setText("힌트  " + "#" + mData.mission_hint);//힌트 설정
 	}
-	/*public void setValidView() throws ParseException
-	{
-		if(mData.mlist_state==0){//실패
-			
-		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-		    
-		     Date dateexpiredate=formatter.parse(mData.mlist_expiredate);
-		    
-		    
-		    String Mission_expiredate = formatter.format(dateexpiredate);
-		    valid_view.setText(Mission_expiredate);//미션 유효기간 
-		}else if(mData.mlist_state==1){//성공
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-		    
-		     Date datesuccessdate=formatter.parse(mData.mlist_successdate);
-		    
-		    
-		    String Mission_success = formatter.format(datesuccessdate);
-		    valid_view.setText(Mission_success);//미션 유효기간 
-			Date today = mData.mlist_successdate;//유효기간
-		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		    String Mission_success= formatter.format(today);
-		    valid_view.setText(Mission_success); //미션 성공 날짜
-		}else if(mData.mlist_state==2){//미션 확인 안함 
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-    
-    Date dateregdate=formatter.parse(mData.mlist_regdate);
-   
-   
-   String Mission_regdate = formatter.format(dateregdate);
-   valid_view.setText(Mission_regdate);//미션 유효기간 
-			Date today = mData.mlist_regdate;//미션 생성 날짜
-		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		    String Mission_regdate= formatter.format(today);
-		    valid_view.setText(Mission_regdate); //미션 생성 날짜 
-		}else if(mData.mlist_state==3){//진행중
-	 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-	    
-     Date dateexpiredate=formatter.parse(mData.mlist_expiredate);
-    
-    
-    String Mission_expiredate = formatter.format(dateexpiredate);
-    valid_view.setText(mData.mlist_expiredate);//미션 유효기간 
-		}else if(mData.mlist_state==4){//패스
-			
-		}
-	
-	}*/
 	public void setGenderView(){
 		
 		if(mData.user_gender.equals("M"))//남자
@@ -186,9 +166,5 @@ public class MissionItemView extends FrameLayout {
 	}
 	public String getTitle() {
 		return mData.mlist_name;
-		
-	}
-	
-
-	
+	} 
 }

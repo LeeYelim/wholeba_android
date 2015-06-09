@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/set_my_list1"
     tools:context="com.banana.banana.setting.NoticeActivity" >
 
-    <ListView
-        android:id="@+id/notice_contentsListView"
+    
+     <ExpandableListView
+        android:id="@+id/expandablelist_notice"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:groupIndicator="@null" >
 
+    </ExpandableListView>
 
 </LinearLayout>

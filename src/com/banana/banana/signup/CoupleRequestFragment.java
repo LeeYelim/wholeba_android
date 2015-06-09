@@ -1,6 +1,7 @@
 package com.banana.banana.signup;
  
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,7 @@ public class CoupleRequestFragment extends Fragment {
 
 	EditText edit_request_number; 
 	Button btnRequest;
-	String user_gender, auth_phone;
+	String user_gender, auth_phone, partner_phone;
 	int join_code;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,10 +44,14 @@ public class CoupleRequestFragment extends Fragment {
 		JoinCodeInfoParcel joinData = bundle.getParcelable("joinData");
 		join_code = joinData.join_code;  
 		
-		if(join_code == 3) {
+		partner_phone = getActivity().getIntent().getStringExtra("partner_phone");
+		
+		
+			if(join_code == 3) {
 			edit_request_number.setEnabled(false);
 			btnRequest.setEnabled(false); 
 			btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);
+			edit_request_number.setText(partner_phone);
 		}
 		btnRequest.setOnClickListener(new View.OnClickListener() {
 			

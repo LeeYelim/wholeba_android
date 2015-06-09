@@ -110,17 +110,21 @@ public class SignUpActivity extends ActionBarActivity {
 					NetworkManager.getInstnace().addjoin(SignUpActivity.this, user_id, user_pass, user_phone, reg_id, user_regdate, new OnResultListener<JoinResult>() {
 					
 					@Override
-					public void onSuccess(JoinResult result) {
-						// TODO Auto-generated method stub
-						Toast.makeText(SignUpActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
-						PropertyManager.getInstance().setUserId(user_id);
-						PropertyManager.getInstance().setPassword(user_pass);
-						login();
+					public void onSuccess(JoinResult result) { 
+						if(result.success==1) {
+							Toast.makeText(SignUpActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
+							PropertyManager.getInstance().setUserId(user_id);
+							PropertyManager.getInstance().setPassword(user_pass);
+							login();
+						} 
 						
 						//Login();
 					} 
 					@Override
 					public void onFail(int code) { 
+						if(code == 1) {
+							Toast.makeText(SignUpActivity.this, "이미 존재하는 ID입니다.", Toast.LENGTH_SHORT).show();
+						}
 					}
 				}); 
 			}  

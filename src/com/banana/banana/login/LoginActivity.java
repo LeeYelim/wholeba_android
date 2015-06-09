@@ -36,8 +36,7 @@ public class LoginActivity extends ActionBarActivity {
 	int join_code;  
 	int user_req;
 	int user_no;
-	String gender, user_phone, userid, password, user_regid_old, user_phone_old;
-	String reg_id ; 
+	String gender, user_phone, userid, password, user_regid_old, user_phone_old, reg_id;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,7 +115,13 @@ public class LoginActivity extends ActionBarActivity {
 				}  
 				@Override
 				public void onFail(int code) { 
-					
+					if(code == 0) {
+						Toast.makeText(LoginActivity.this, "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show();
+					} else if (code == 1) {
+						Toast.makeText(LoginActivity.this, "아이디가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+					} else if (code == 2) {
+						Toast.makeText(LoginActivity.this, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 		} 

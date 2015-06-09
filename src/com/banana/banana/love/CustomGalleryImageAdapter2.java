@@ -46,14 +46,9 @@ public class CustomGalleryImageAdapter2 extends BaseAdapter {
 	 
 	     @Override
 	    public View getView(int position, View convertView, ViewGroup parent) {
-      
-	    	
 	        
-	            mview = mInflater.inflate(R.layout.gallery2, null);
-	         
-	
+	         mview = mInflater.inflate(R.layout.gallery2, null);
 	         image = (TextView)mview.findViewById(R.id.image);
-	         
 	       
 	         int width = 100;
 	         int height = 100;

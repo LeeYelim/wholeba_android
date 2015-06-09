@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:layout_width="360dp"
-                android:layout_height="346dp"
+                android:layout_height="337dp"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -84,6 +84,7 @@
                                 android:src="@drawable/main_banana_character_man" />
 
                             <LinearLayout
+                                android:id="@+id/maleCoinView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -177,6 +178,7 @@
                             </FrameLayout>
 
                             <LinearLayout
+                                android:id="@+id/femaleCoinView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -203,112 +205,128 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            
-            
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScroll_item"
+            <LinearLayout
+                android:id="@+id/layoutItem"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="@drawable/main_emotion_select_bar_tow"
-                android:visibility="gone"
-                android:scrollbars="@null" >
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
 
-           
-                    
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textcoinCount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:layout_height="15dp"
+                    android:background="@drawable/main_emotion_select_bar_tow"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="#ff9800" 
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/item1"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="다시\n뽑기"
-                        android:textSize="10sp" />
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScroll_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="@drawable/main_emotion_select_bar_tow"
+                    android:scrollbars="@null"
+                    android:visibility="visible" >
 
-                    <TextView
-                        android:id="@+id/item2"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="유효기간\n늘리기"
-                        android:textSize="10sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="3dp" >
 
-                    <TextView
-                        android:id="@+id/item3"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="악마테마로\n다시 뽑기"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item1"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="다시\n뽑기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item4"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="섹시테마로\n다시 뽑기"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item2"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="유효기간\n늘리기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item5"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="천사테마로\n다시 뽑기"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item3"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="악마테마로\n다시 뽑기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item6"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="애교테마로\n다시 뽑기"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item4"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="섹시테마로\n다시 뽑기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item7"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="처음테마로\n다시 뽑기"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item5"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="천사테마로\n다시 뽑기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item8"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="미션\nPass"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/item6"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="애교테마로\n다시 뽑기"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/item9"
-                        android:layout_width="70dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/main_item_select_banana_chip"
-                        android:gravity="center"
-                        android:text="미션\n내가 쓰기"
-                        android:textSize="10sp" />
-                </LinearLayout> 
-            </HorizontalScrollView>
+                        <TextView
+                            android:id="@+id/item7"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="처음테마로\n다시 뽑기"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/item8"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="미션\nPass"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/item9"
+                            android:layout_width="70dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/main_item_select_banana_chip"
+                            android:gravity="center"
+                            android:text="미션\n내가 쓰기"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/listView_main"
                 android:layout_width="wrap_content"
-                android:layout_height="232dp"
-                android:dividerHeight="0px" >
+                android:layout_height="222dp"
+                android:dividerHeight="0px" 
+                android:scrollbars="none" >
             </ListView>
         </LinearLayout>
 

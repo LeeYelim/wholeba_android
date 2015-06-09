@@ -31,6 +31,14 @@ public class DdayActivity extends ActionBarActivity {
 	Button btnAdd;
 	TextView titleView, textToday, ddayView;
 	ImageView settingImg;
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initData();
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,8 +61,7 @@ public class DdayActivity extends ActionBarActivity {
 				startActivity(intent);
 			}
 		}); 
-	      
-	    initData();
+	       
 	    
 	    textToday = (TextView)findViewById(R.id.today);
 	    long now = System.currentTimeMillis();

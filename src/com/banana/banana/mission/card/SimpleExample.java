@@ -46,7 +46,7 @@ public class SimpleExample extends Activity {
 	Button btn_ok;
 	private int item_cnt;
 	private int theme_no;//미션 테마 
-	private int mlist_no;
+	private int mlist_no = -1;
 	private String mlist_name;//미션명
 	MissionIngResult result;
 	IngItemData md;
@@ -69,26 +69,15 @@ public class SimpleExample extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_activity);
         init();
-        btn_ok=(Button)findViewById(R.id.btn_ok);
-        btn_ok.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-			Intent intent=new Intent(SimpleExample.this,MissionSendPushActivity.class);
-			intent.putExtra("mlist_no",mlist_no); 
-			finish();
-			startActivity(intent);
-			}
-		});
+        btn_ok=(Button)findViewById(R.id.btn_ok); 
         this.fancyCoverFlow = (FancyCoverFlow) this.findViewById(R.id.fancyCoverFlow);
         fAdapter=new FancyCoverFlowSampleAdapter();
         this.fancyCoverFlow.setAdapter(fAdapter);
        
         this.fancyCoverFlow.setUnselectedAlpha(100.0f);
         this.fancyCoverFlow.setUnselectedSaturation(0.0f);
-        this.fancyCoverFlow.setUnselectedScale(0.5f);
-        this.fancyCoverFlow.setSpacing(-150);
+        this.fancyCoverFlow.setUnselectedScale(0.5f); 
+        this.fancyCoverFlow.setSpacing(-290);
         this.fancyCoverFlow.setMaxRotation(0);
         this.fancyCoverFlow.setScaleDownGravity(0.2f);
         this.fancyCoverFlow.setActionDistance(FancyCoverFlow.ACTION_DISTANCE_AUTO);
@@ -99,8 +88,6 @@ public class SimpleExample extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {   
-					//mlist_no = list.get(position-1).mlist_no;
-					//Toast.makeText(SimpleExample.this, mlist_no, Toast.LENGTH_SHORT).show();
 					mlist_no = fAdapter.list.get(position).mlist_no;
 				}
 
@@ -108,6 +95,21 @@ public class SimpleExample extends Activity {
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
 				
+			}
+		});
+        
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(mlist_no != -1) {
+					Intent intent=new Intent(SimpleExample.this,MissionSendPushActivity.class);
+					intent.putExtra("mlist_no",mlist_no); 
+					finish();
+					startActivity(intent);
+				} else {
+					Toast.makeText(SimpleExample.this, "선택된 미션이 없습니다.", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
     }
@@ -121,6 +123,9 @@ public class SimpleExample extends Activity {
 				if(result.success==1){
 					fAdapter.clear();
 					item_cnt=result.result.item_cnt;//카드 총 갯수   
+					if(item_cnt == 0) {
+						Toast.makeText(SimpleExample.this, "진행 중인 미션이 없습니다.", Toast.LENGTH_SHORT).show();
+					}
 					//list = result.result.items;
 					 
 					

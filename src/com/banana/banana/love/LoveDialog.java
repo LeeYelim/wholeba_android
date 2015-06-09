@@ -1,21 +1,30 @@
 package com.banana.banana.love;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
@@ -25,11 +34,14 @@ public class LoveDialog extends DialogFragment {
 	
 	EditText LoveDayView, LoveYearView, LoveMonthView;
 	Button btnOk, btnDelete; 
-	int iscondom, relation_no;
+	int iscondom, relation_no, year, month, day;
 	String code;
-	String loveday, loves_date;
+	String lovedate, yearS, monthS, dayS;
 	RadioGroup isCondomView; 
 	RadioButton condomView, notCondomView;
+	Calendar cal;
+	boolean isTrue;
+	TextView text_love_title;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,7 +58,7 @@ public class LoveDialog extends DialogFragment {
 
 		Bundle b = getArguments();
 		code = b.getString("code");
-		
+		text_love_title = (TextView)view.findViewById(R.id.text_love_title);
 		btnOk = (Button)view.findViewById(R.id.btn_love_ok);
 		btnDelete = (Button)view.findViewById(R.id.btn_love_delete); 
 		LoveDayView = (EditText)view.findViewById(R.id.edit_love_day);
@@ -82,26 +94,62 @@ public class LoveDialog extends DialogFragment {
 			}
 		});  
 		
+		
+		long now = System.currentTimeMillis();
+		Date date = new Date(now);
+		cal = Calendar.getInstance();
+		cal.setTime(date); 
+		
+		
 			if(code.equals("1")) { 
 				LoveDayView.setText("");
+				LoveYearView.setText(""+cal.get(Calendar.YEAR));
+				btnDelete.setVisibility(View.GONE);
+				RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				param.addRule(Gravity.CENTER_HORIZONTAL);
+				btnOk.setLayoutParams(param);
 			} else { 
+				text_love_title.setText("러브 수정");
 				initLoveDialogData();
 			} 
+		
+		
 		
 		btnOk.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub 
-				if(!code.equals("1")) {  
-					String year = LoveYearView.getText().toString();
-					String month = LoveMonthView.getText().toString();
-					String day = LoveDayView.getText().toString();
-					loveday = year+"-"+month+"-"+day;
-					 modifyLove(relation_no, iscondom, loveday);
-				} else if(code.equals("1")){
-					addLove(iscondom);
-				}
+			public void onClick(View v) { 
+					yearS = LoveYearView.getText().toString();
+					monthS = LoveMonthView.getText().toString();
+					dayS = LoveDayView.getText().toString();
+					if(!(yearS.equals("") || monthS.equals("") || dayS.equals(""))) {
+						year = Integer.parseInt(yearS);
+						month = Integer.parseInt(monthS);
+						day = Integer.parseInt(dayS);
+					}
+					
+					String d = yearS+"-"+monthS+"-"+dayS+" 00:00:00";
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					try {
+						Date dateD = df.parse(d);
+						isTrue = subDate(dateD);
+						Log.i("dateD", ""+dateD);
+					} catch (ParseException e) { 
+						e.printStackTrace();
+					}
+					 
+					if(yearS.length() < 4 || yearS.equals("") || monthS.equals("") || dayS.equals("") || 
+							year>cal.get(Calendar.YEAR) || 
+							month > 12 || month <= 0 || day > 31 || day <= 0 || isTrue == false) {
+						Toast.makeText(getActivity(), "날짜를 다시 입력해 주세요", Toast.LENGTH_SHORT).show();
+					} else {
+						lovedate = yearS+"-"+monthS+"-"+dayS;
+						if(!code.equals("1")) {   
+							 modifyLove(relation_no, iscondom, lovedate);
+						} else if(code.equals("1")){
+							addLove(iscondom, lovedate);
+						}
+					}
 			}
 		});
 		
@@ -163,16 +211,9 @@ public class LoveDialog extends DialogFragment {
 			}
  
 		
-	protected void addLove(int iscondom) {
-		// TODO Auto-generated method stub
-		 
-		String year = LoveYearView.getText().toString();
-		String month = LoveMonthView.getText().toString();
-		String day = LoveDayView.getText().toString();
-		loves_date = year+"-"+month+"-"+day;
-		int loves_ispopup = 0;
-		
-		NetworkManager.getInstnace().addLove(getActivity(), iscondom, loves_date, loves_ispopup, new OnResultListener<LoveSearchResult>() {
+	protected void addLove(int iscondom, String love_date) { 
+		int loves_ispopup = 0; 
+		NetworkManager.getInstnace().addLove(getActivity(), iscondom, love_date, loves_ispopup, new OnResultListener<LoveSearchResult>() {
 
 			@Override
 			public void onSuccess(LoveSearchResult result) {
@@ -214,7 +255,19 @@ public class LoveDialog extends DialogFragment {
 		});
 	}
  
+	public boolean subDate(Date d1) {
+		Calendar car = Calendar.getInstance() ;
+		Date d = new Date();
+		d = car.getTime();
+		long subday = d1.getTime() - d.getTime(); 
 		
-	}
+		if(subday > 0) {
+			return false; 
+		} else {
+			return true;
+		}
+	} 
+		
+}
 	 
 	

@@ -2,16 +2,16 @@ package com.banana.banana.mission;
 import java.util.Calendar;
 
 import android.content.Intent;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,17 +21,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.CustomGallery;
 import com.banana.banana.love.CustomGalleryImageAdapter;
 import com.banana.banana.love.CustomGalleryImageAdapter2;
 import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
+import com.banana.banana.mission.MissionAdapter.OnAdapterMissionListener;
 import com.banana.banana.setting.SettingActivity;
 
 public class MissionActivity extends ActionBarActivity {
-	int orderby=0;
-	ListView MissionListView;
+	int orderby=0, yearCount, monthCount;
+	ListView missionListView;
 	MissionAdapter mAdapter;
 	Button btn ;	
 	Spinner mSpinner=null;
@@ -44,8 +46,8 @@ public class MissionActivity extends ActionBarActivity {
 	private CustomGallery mCustomGallery, mCustomGallery2; 
 	CustomGalleryImageAdapter cAdapter;
 	CustomGalleryImageAdapter2 cAdapter2;
-	View daySortLayout;
-	View sortLayout;
+	View daySortLayout, sortLayout, headerView;
+	String gender;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,40 +74,60 @@ public class MissionActivity extends ActionBarActivity {
 			}
 		}); 
 	      
-	   
+	    headerView = (View)getLayoutInflater().inflate(
+                R.layout.mission_header_view, null);  //headerview set
+		
+		missionListView=(ListView)findViewById(R.id.listView1);
+		missionListView.addHeaderView(headerView, null, false);
+		mAdapter=new MissionAdapter(this);
+		missionListView.setAdapter(mAdapter);  
+		
+		/*------headerview의 view----*/
+		yearView = (TextView)headerView.findViewById(R.id.todayYear);
+		monthView = (TextView)headerView.findViewById(R.id.todayMonth); 
 	    Calendar oCalendar = Calendar.getInstance();
 		year = oCalendar.get(Calendar.YEAR);
 		month = oCalendar.get(Calendar.MONTH)+1;  //오늘 날짜 가져옴
-		yearView = (TextView)findViewById(R.id.todayYear);
-		monthView = (TextView)findViewById(R.id.todayMonth);
 		
 		//toal score--------------------------------------------------------
-		manTotalScoreView=(TextView)findViewById(R.id.man_receiveTotal);
-		womanTotalScoreView=(TextView)findViewById(R.id.woman_receiveTotal); 
-		manCompleteView=(TextView)findViewById(R.id.manScore);
-		womanCompleteView=(TextView)findViewById(R.id.womanScore);
-		MissionListView=(ListView)findViewById(R.id.listView1);
-		mAdapter=new MissionAdapter(this);
-		MissionListView.setAdapter(mAdapter);
-		MissionListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		mSpinner=(Spinner)findViewById(R.id.sort);//정렬 spinner설정
+		manTotalScoreView=(TextView)headerView.findViewById(R.id.man_receiveTotal);
+		womanTotalScoreView=(TextView)headerView.findViewById(R.id.woman_receiveTotal); 
+		manCompleteView=(TextView)headerView.findViewById(R.id.manScore);
+		womanCompleteView=(TextView)headerView.findViewById(R.id.womanScore);
+		
+		mSpinner=(Spinner)headerView.findViewById(R.id.sort);//정렬 spinner설정
 		mData=getResources().getStringArray(R.array.list_sort);//string배열 얻어오기
-		mArrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,mData);
-		
-		
+		mArrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,mData);	
 		mSpinner.setAdapter(mArrayAdapter);
 		
 	    cAdapter = new CustomGalleryImageAdapter(this);
 		cAdapter2 = new CustomGalleryImageAdapter2(this);
 	    
-		sortLayout = (View)findViewById(R.id.Sort_layout);  
-		daySortLayout = (View)findViewById(R.id.daysortLayout);
+		sortLayout = (View)headerView.findViewById(R.id.Sort_layout);  
+		daySortLayout = (View)headerView.findViewById(R.id.daysortLayout);
 		daySortLayout.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				setVisibileDetailView(!isVisibleDetailView());
+				setVisibileDetailView(!isVisibleDetailView());  
+				yearCount = 0;
+				monthCount = 0;
+				
+				for(int i=2009; i<=2021; i++) {
+					if(i == year) {
+						mCustomGallery.setSelection(yearCount); 
+					} else {
+						yearCount++;
+					}
+				}
+				for(int i=1; i<=12; i++) {
+					if(i == month) {
+						mCustomGallery2.setSelection(monthCount); 
+					} else {
+						monthCount++;
+					}
+				} 
 			}
 		});
 		 
@@ -114,28 +136,7 @@ public class MissionActivity extends ActionBarActivity {
 		 
 		yearView.setText(""+year);
 		monthView.setText(""+month);
-		
-		
-		MissionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				
-				MissionItemView itemView = (MissionItemView)view; 
-				if(click==false){
-					itemView.view.setBackgroundResource(R.drawable.mission_contents_bar1_selected);
-					click=true;
-				} else {
-					itemView.view.setBackgroundResource(R.drawable.list_selector);
-					click=false;
-				}
-				
-				itemView.requestFocus();
-				itemView.setVisibileDetailView(!itemView.isVisibleDetailView());
-			
-			}
-		});
 		initData();
 		
 		btn=(Button)findViewById(R.id.btn_add);
@@ -150,14 +151,13 @@ public class MissionActivity extends ActionBarActivity {
 			}
 		}); 
 		
-		mCustomGallery = (CustomGallery) findViewById(R.id.gallery);
-	    mCustomGallery.setAdapter(cAdapter);
+		mCustomGallery=(CustomGallery)headerView.findViewById(R.id.gallery);
+	    mCustomGallery.setAdapter(cAdapter); 
 	    mCustomGallery.setOnItemSelectedListener(new OnItemSelectedListener() {
 	
 	    @Override
 		public void onItemSelected(AdapterView<?> parent, View view, int position,
 				long id) {  
-			 
 			 yearView.setText(""+cAdapter.mImageID[position]);
 			 year = Integer.parseInt(cAdapter.mImageID[position]);
 			 initData(); 
@@ -170,7 +170,7 @@ public class MissionActivity extends ActionBarActivity {
 		}
 	});
 	     
-	  mCustomGallery2 = (CustomGallery) findViewById(R.id.gallery2);  
+	  mCustomGallery2 = (CustomGallery)headerView.findViewById(R.id.gallery2);  
 	  mCustomGallery2.setAdapter(cAdapter2);
 	  mCustomGallery2.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -211,7 +211,19 @@ public class MissionActivity extends ActionBarActivity {
 				orderby = 0;
 			}
 		});
-	  
+	  	
+	  	mAdapter.setOnAdapterMissionListener(new OnAdapterMissionListener() {
+			
+			@Override
+			public void onAdapterMissionAction(Adapter adapter, View view,
+					MissionItemData data) { 
+				gender = PropertyManager.getInstance().getUserGender();
+				if(data.user_gender.equals(gender) && data.mlist_state == 2) {
+					setConfirm(data.mlist_no);
+				}
+			}
+		}); 
+	  	
 	  
 	}
 	
@@ -243,6 +255,21 @@ public class MissionActivity extends ActionBarActivity {
 			}
 		});
 	}
+	
+		public void setConfirm(int mlist_no) {
+			NetworkManager.getInstnace().confirmMission(MissionActivity.this, mlist_no, new OnResultListener<MissionResult>() {
+				
+				@Override
+				public void onSuccess(MissionResult result) { 
+					initData();
+				}
+				
+				@Override
+				public void onFail(int code) { 
+				}
+			});
+		}
+		
 		
 
 	public boolean isVisibleDetailView() {

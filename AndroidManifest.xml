@@ -116,7 +116,8 @@
         </activity>
         <activity
             android:name=".setting.MyinfoActivity"
-            android:label="@string/title_activity_myinfo" >
+            android:label="@string/title_activity_myinfo"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".setting.MyPartenerInfoActivity"
@@ -130,7 +131,7 @@
         </activity>
         <activity
             android:name=".mission.MissionActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:label="@string/title_activity_mission_popup" >
         </activity>
         <activity android:name=".mission.MissionPopupActivity" >
@@ -144,7 +145,8 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
-        <activity android:name=".love.LoveActivity" >
+        <activity android:name=".love.LoveActivity" 
+            android:launchMode="singleTop">
         </activity>
         <activity
             android:name=".love.LovePopupActivity"

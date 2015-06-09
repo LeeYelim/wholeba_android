@@ -66,8 +66,9 @@ public class GcmIntentService extends IntentService {
             	push_type=intent.getStringExtra(PUSH_TYPE);
             	if(push_type == null) {
             		
+            	} else {
+            		push_type_num=(int)Integer.parseInt(push_type);
             	}
-            	push_type_num=(int) Integer.parseInt(push_type);
             	if(push_type_num!=8){
             		sendNotification(push_type_num,send_intent);
             	}else {

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,13 +20,13 @@ import com.banana.banana.love.NetworkManager;
 import com.banana.banana.love.NetworkManager.OnResultListener;
 
 
-public class NoticeActivity extends ActionBarActivity {
-
-	TextView textnotice, titleView; 
-	ListView noticeListView;
-	ImageView settingImg;
+public class NoticeActivity extends ActionBarActivity { 
 	
+	ExpandableListView noticeListView;
+	ImageView settingImg;
 	NoticeAdapter nAdapter;
+	TextView titleView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class NoticeActivity extends ActionBarActivity {
 	      settingImg.setVisibility(View.INVISIBLE);
 		
 		init();
-		noticeListView=(ListView)findViewById(R.id.notice_contentsListView);
+		noticeListView=(ExpandableListView)findViewById(R.id.expandablelist_notice);
 		nAdapter=new NoticeAdapter(this);
 		noticeListView.setAdapter(nAdapter); 
 		
@@ -58,12 +59,9 @@ public class NoticeActivity extends ActionBarActivity {
 			@Override
 			public void onSuccess(NoticeResponse result) { 
 				 nAdapter.clear();
-				 nAdapter.addAll(result.result.items);
-				/*int notice_no = result.result.items.get(0).notice_no;
-				String notice_date = result.result.items.get(0).notice_date;
-				String notice_title = result.result.items.get(0).notice_title;
-				String notice_content = result.result.items.get(0).notice_content;
-				Textnotice.setText("notice no : " + notice_no + " " + notice_date + " " + notice_title + notice_content);*/
+				 for(NoticeItems data : result.result.items) {
+		               nAdapter.add(data.notice_no, data);
+				 }
 			}
 			
 			@Override

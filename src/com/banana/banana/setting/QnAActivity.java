@@ -57,7 +57,7 @@ public class QnAActivity extends ActionBarActivity {
 		                edit_subject.getText().toString(),  //Q&A 제목 
 		                edit_qna.getText().toString(),      //Q&A 내용     
 		                str,          //보내는 사람 gmail
-		                "pkmarin15@naver.com"  //관리자 이메일         
+		                "wholeba.contact@gmail.com"  //관리자 이메일         
 		                );  
 		        
 		      

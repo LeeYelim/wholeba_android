@@ -84,12 +84,14 @@ public class SettingActivity extends ActionBarActivity {
 							
 							@Override
 							public void onSuccess(WithDrawReponse result) {
-								Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
-								Intent intent = new Intent(SettingActivity.this, IntroActivity.class);
-								finish();
-								startActivity(intent); 
 								PropertyManager.getInstance().setUserId("");
 								PropertyManager.getInstance().setPassword("");
+								PropertyManager.getInstance().setIsFirst(true);
+								PropertyManager.getInstance().setAlarmOnOff(false);
+								Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
+								Intent intent = new Intent(SettingActivity.this, IntroActivity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); 
+								startActivity(intent); 
 							}
 							
 							@Override
@@ -126,7 +128,8 @@ public class SettingActivity extends ActionBarActivity {
 						// TODO Auto-generated method stub
 						PropertyManager.getInstance().setUserId("");
 						PropertyManager.getInstance().setPassword("");
-						
+						PropertyManager.getInstance().setIsFirst(true);
+						PropertyManager.getInstance().setAlarmOnOff(false);
 						Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
 						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK); 
@@ -182,7 +185,6 @@ public class SettingActivity extends ActionBarActivity {
 				LinearLayout setting_alarm=(LinearLayout)view.findViewById(R.id.alarm_layout);
 				LinearLayout detail_alarm=(LinearLayout)setting_alarm.findViewById(R.id.detail_alarm_layout);
 				if(alarmbutton_click==false){
-					
 					detail_alarm.setVisibility(View.VISIBLE);
 					alarmbutton_click=true;
 					}
@@ -249,9 +251,11 @@ public class SettingActivity extends ActionBarActivity {
 		if(isCheckedMessagePopup == false) {
 			btn_message_on.setBackgroundResource(R.drawable.set_off);
 			btn_message_off.setBackgroundResource(R.drawable.set_on); //clicked image
+			PropertyManager.getInstance().setUsePush(0);
 		} else {
 			btn_message_on.setBackgroundResource(R.drawable.set_on);  //clicked image
 			btn_message_off.setBackgroundResource(R.drawable.set_off);
+			PropertyManager.getInstance().setUsePush(1);
 		}
 	}
 	 

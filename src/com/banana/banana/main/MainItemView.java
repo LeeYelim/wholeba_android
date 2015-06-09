@@ -42,10 +42,8 @@ public class MainItemView extends FrameLayout{
 	private void init() {
 		// TODO Auto-generated method stub
 		LayoutInflater.from(getContext()).inflate(R.layout.main_list_item_layout, this);
-		 
 		categoryView = (TextView)findViewById(R.id.text_category);
 		popupView = (ImageView)findViewById(R.id.img_popup);
-		
 		popupView.setOnClickListener(new OnClickListener() {
 			
 			@Override

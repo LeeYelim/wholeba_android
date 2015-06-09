@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
@@ -42,12 +43,12 @@ import com.banana.banana.setting.SettingActivity;
 
 public class BananaMainActivity extends ActionBarActivity {
 
-	ImageView coinView, ManChar, WomanChar, WcoinView, img_isperiod, img_headache, img_band, img_bust_band, img_pimple;
+	ImageView ManChar, WomanChar, img_isperiod, img_headache, img_band, img_bust_band, img_pimple;
 	ListView contentsList;
 	MainAdapter mAdapter; 
-	TextView ddayView, TextMlevel, TextFlevel, titleView;
-	View dView;
-	HorizontalScrollView hView; 
+	TextView ddayView, TextMlevel, TextFlevel, titleView, textcoinCount;
+	View dView, fCoinView, mCoinView, layoutItemView;
+	//HorizontalScrollView hView; 
 	MainDialog dialog1; 
 	String couple_birth,gender;
 	int f_reward, m_reward, m_condition, f_condition, ddays;  
@@ -93,13 +94,7 @@ public class BananaMainActivity extends ActionBarActivity {
 					Intent intent = new Intent(BananaMainActivity.this, SettingActivity.class);
 					startActivity(intent);
 				}
-			}); 
-		     
-		      
-		      
-		      
-		      
-		      
+			});  
 		      
 		    sv1 = (ScrollView)findViewById(R.id.scrollView_main);  
 		    sv1.smoothScrollTo(0, 0);
@@ -109,7 +104,9 @@ public class BananaMainActivity extends ActionBarActivity {
 		    img_bust_band = (ImageView)findViewById(R.id.img_bust_band);
 		    img_pimple = (ImageView)findViewById(R.id.img_pimple);
 		    img_headache = (ImageView)findViewById(R.id.img_headache);
-		    
+		    fCoinView = (View)findViewById(R.id.femaleCoinView);
+		    mCoinView = (View)findViewById(R.id.maleCoinView);
+		    layoutItemView = (View)findViewById(R.id.layoutItem);
 			init();  
 			 
 			/*--------hView 아이템 코인에 따라 채우기--------*/
@@ -132,10 +129,17 @@ public class BananaMainActivity extends ActionBarActivity {
 			TextFlevel = (TextView)findViewById(R.id.text_female_level);
 			dialog1 = new MainDialog(this);
 			    
-			hView = (HorizontalScrollView)findViewById(R.id.horizontalScroll_item);
+			//hView = (HorizontalScrollView)findViewById(R.id.horizontalScroll_item);
 			contentsList = (ListView)findViewById(R.id.listView_main);
 			contentsList.setDivider(null);
-			
+			contentsList.setScrollContainer(false);
+			contentsList.setOnTouchListener(new View.OnTouchListener() {
+				
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					 return (event.getAction() == MotionEvent.ACTION_MOVE);
+				}
+			});
 			
 			mAdapter = new MainAdapter();
 			mAdapter.setOnAdapterImageListener(new OnAdapterImageListener() {
@@ -156,7 +160,6 @@ public class BananaMainActivity extends ActionBarActivity {
 			});
 			
 			contentsList.setAdapter(mAdapter); 
-			
 			contentsList.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -176,8 +179,7 @@ public class BananaMainActivity extends ActionBarActivity {
 			});
 			
 		
-			coinView = (ImageView)findViewById(R.id.image_male_item);
-			coinView.setOnClickListener(new View.OnClickListener() {
+			mCoinView.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) { 
@@ -187,8 +189,7 @@ public class BananaMainActivity extends ActionBarActivity {
 				}
 			});
 			
-			WcoinView = (ImageView)findViewById(R.id.image_female_item);
-			WcoinView.setOnClickListener(new View.OnClickListener() {
+			fCoinView.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) { 
@@ -198,6 +199,7 @@ public class BananaMainActivity extends ActionBarActivity {
 				}
 			});
 			
+			textcoinCount = (TextView)findViewById(R.id.textcoinCount);
 			ddayView = (TextView)findViewById(R.id.text_dday);
 			dView = (View)findViewById(R.id.LayoutDday);
 			dView.setOnClickListener(new View.OnClickListener() {
@@ -290,8 +292,10 @@ public class BananaMainActivity extends ActionBarActivity {
 						}
 						if(gender.equals("F")) {
 							PropertyManager.getInstance().setChipCount(f_reward);
+							textcoinCount.setText(f_reward + "개로 교환 할 수 있는 아이템");
 						} else if(gender.equals("M")) {
 							PropertyManager.getInstance().setChipCount(m_reward);
+							textcoinCount.setText(m_reward + "개로 교환 할 수 있는 아이템");
 						}
 						try{
 							subDdate(couple_birth);  
@@ -449,11 +453,11 @@ public class BananaMainActivity extends ActionBarActivity {
 	}
 		
 	public boolean isVisibleDetailView() {
-		return hView.getVisibility() == View.VISIBLE;
+		return layoutItemView.getVisibility() == View.VISIBLE;
 	}
 		
 	public void setVisibileDetailView(boolean isVisible) {
-		hView.setVisibility(isVisible?View.VISIBLE:View.GONE);
+		layoutItemView.setVisibility(isVisible?View.VISIBLE:View.GONE);
 		}
 		
     boolean isBackPressed = false;

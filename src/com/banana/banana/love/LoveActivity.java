@@ -42,16 +42,24 @@ public class LoveActivity extends ActionBarActivity {
 	View headerView; 
 	Button btn_LoveAdd; 
 	TextView noCondomPercentView, isCondomPercentView, isCondomView, noCondomView, LoveDayView, YearView, monthView, titleView; 
-	int orderby=0, count = 0, year, month, couple_condom; 
+	int orderby=0, yearCount = 0, monthCount = 0, year, month, couple_condom; 
 	float isCondom, notCondom;
-	Spinner lovesort;
-	ArrayAdapter<CharSequence> sortAdapter;
+	Spinner lovesort = null;
+	ArrayAdapter<String> sortAdapter = null;
 	private CustomGallery mCustomGallery, mCustomGallery2; 
 	View layoutSort, sortLayout, layoutTodayPercent;
 	CustomGalleryImageAdapter cAdapter;
 	CustomGalleryImageAdapter2 cAdapter2;
 	LoveDialog dialog;   
 	ImageView settingImg, img_posibility;
+	String[] mData = null;
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initData();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +84,7 @@ public class LoveActivity extends ActionBarActivity {
 				startActivity(intent);
 			}
 		});
-		 
+	      
 		loveList = (ListView)findViewById(R.id.listView1);  
 		btn_LoveAdd = (Button)findViewById(R.id.btn_add_love);
 		mLAdapter = new LoveAdapter(this); 
@@ -91,14 +99,19 @@ public class LoveActivity extends ActionBarActivity {
 		isCondomView = (TextView)headerView.findViewById(R.id.text_iscondom);
 		noCondomView = (TextView)headerView.findViewById(R.id.text_nocondom);
 		
-		lovesort = (Spinner)headerView.findViewById(R.id.love_sort);
 		layoutSort = (View)headerView.findViewById(R.id.layout_sort);
 		sortLayout = (View)headerView.findViewById(R.id.Sort_layout);
 		YearView = (TextView)headerView.findViewById(R.id.text_sort_year);
 		monthView = (TextView)headerView.findViewById(R.id.text_sort_month);  
 		mHoloCircularProgressBar = (HoloCircularProgressBar)headerView.findViewById(R.id.holoCircularProgressBar1);
 		layoutTodayPercent = (View)headerView.findViewById(R.id.layout_love_today_percent);
-		sortAdapter = ArrayAdapter.createFromResource(this, R.array.list_love_sort, android.R.layout.simple_spinner_item);
+		
+		
+		lovesort = (Spinner)headerView.findViewById(R.id.love_sort);
+		mData = getResources().getStringArray(R.array.list_love_sort); 
+		sortAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,mData);	
+		lovesort.setAdapter(sortAdapter);
+		
 		cAdapter = new CustomGalleryImageAdapter(this);
 		cAdapter2 = new CustomGalleryImageAdapter2(this);
 		  
@@ -109,12 +122,9 @@ public class LoveActivity extends ActionBarActivity {
 		 month = oCalendar.get(Calendar.MONTH)+1;
 		
 		 YearView.setText(""+year);
-		 monthView.setText(""+month);
-		
-		 img_posibility = (ImageView)findViewById(R.id.img_posibility);
+		 monthView.setText(""+month); 
 		 
-		 
-		initData(); 
+		 img_posibility = (ImageView)findViewById(R.id.img_posibility); 
 		
 		layoutTodayPercent.setOnClickListener(new OnClickListener() {
 			
@@ -140,13 +150,8 @@ public class LoveActivity extends ActionBarActivity {
 					isCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
 				}
 			}
-		});
+		}); 
 		
-		
-		
-
-
-		lovesort.setAdapter(sortAdapter);
 		lovesort.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override  
@@ -198,11 +203,10 @@ public class LoveActivity extends ActionBarActivity {
 				dialog.show(getSupportFragmentManager(), "dialog");  
 			}
 		}); 
-		
-		 mCustomGallery = (CustomGallery) findViewById(R.id.gallery);
-	     mCustomGallery.setAdapter(cAdapter);
-	     
-	     
+	
+
+		mCustomGallery = (CustomGallery) findViewById(R.id.gallery);
+	    mCustomGallery.setAdapter(cAdapter); 
 	     mCustomGallery.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 		@Override
@@ -220,9 +224,9 @@ public class LoveActivity extends ActionBarActivity {
 			
 		}
 	});
-	     
-	  mCustomGallery2 = (CustomGallery) findViewById(R.id.gallery2);  
-	  mCustomGallery2.setAdapter(cAdapter2);
+
+			mCustomGallery2 = (CustomGallery) findViewById(R.id.gallery2);  
+			mCustomGallery2.setAdapter(cAdapter2);  
 	  mCustomGallery2.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -245,6 +249,23 @@ public class LoveActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				setVisibileDetailView(!isVisibleDetailView());
+				monthCount = 0;
+				yearCount = 0;
+				
+				for(int i=2009; i<=2021; i++) {
+					if(i == year) {
+						mCustomGallery.setSelection(yearCount); 
+					} else {
+						yearCount++;
+					}
+				}
+				for(int i=1; i<=12; i++) {
+					if(i == month) {
+						mCustomGallery2.setSelection(monthCount); 
+					} else {
+						monthCount++;
+					}
+				}
 			}
 		}); 
 	}
@@ -256,29 +277,28 @@ public class LoveActivity extends ActionBarActivity {
 			@Override
 			public void onSuccess(LoveSearchResult result) {  
 						// TODO Auto-generated method stub 
-						mLAdapter.clear();
-						mLAdapter.addAll(result.result.items.item); 
-						isCondom = result.result.items.today_condom;
-						notCondom = result.result.items.today_notcondom; 
-						isCondomPercentView.setText("가임률"+(int)(isCondom*100)+"%");
-						noCondomPercentView.setText("가임률"+(int)(notCondom*100)+"%");     
-						if(couple_condom == 0) {
-							mHoloCircularProgressBar.setProgress((float)result.result.items.today_notcondom); 
-							img_posibility.setImageResource(R.drawable.popup_bt_banana);
-							noCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
-							noCondomView.setTextColor(getResources().getColor(R.color.font_red));
-							isCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
-							isCondomView.setTextColor(getResources().getColor(R.color.color_white));
-						} else if(couple_condom == 1){
-							mHoloCircularProgressBar.setProgress((float)result.result.items.today_condom); 
-							img_posibility.setImageResource(R.drawable.popup_bt_condorm);  
-							isCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
-							isCondomView.setTextColor(getResources().getColor(R.color.font_red));
-							noCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
-							noCondomView.setTextColor(getResources().getColor(R.color.color_white));
-							
-						}
-					} 
+				mLAdapter.clear();
+				mLAdapter.addAll(result.result.items.item); 
+				isCondom = result.result.items.today_condom;
+				notCondom = result.result.items.today_notcondom; 
+				isCondomPercentView.setText("가임률"+(int)(isCondom*100)+"%");
+				noCondomPercentView.setText("가임률"+(int)(notCondom*100)+"%");     
+				if(couple_condom == 0) {
+					mHoloCircularProgressBar.setProgress((float)result.result.items.today_notcondom); 
+					img_posibility.setImageResource(R.drawable.popup_bt_banana);
+					noCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
+					noCondomView.setTextColor(getResources().getColor(R.color.font_red));
+					isCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
+					isCondomView.setTextColor(getResources().getColor(R.color.color_white));
+				} else if(couple_condom == 1){
+					mHoloCircularProgressBar.setProgress((float)result.result.items.today_condom); 
+					img_posibility.setImageResource(R.drawable.popup_bt_condorm);  
+					isCondomPercentView.setTextColor(getResources().getColor(R.color.font_black));
+					isCondomView.setTextColor(getResources().getColor(R.color.font_red));
+					noCondomPercentView.setTextColor(getResources().getColor(R.color.color_white));
+					noCondomView.setTextColor(getResources().getColor(R.color.color_white));			
+				}
+			} 
 			@Override
 			public void onFail(int code) {
 				// TODO Auto-generated method stub
@@ -294,7 +314,7 @@ public class LoveActivity extends ActionBarActivity {
 	}
 	
 	public void setVisibileDetailView(boolean isVisible) {
-		sortLayout.setVisibility(isVisible?View.VISIBLE:View.GONE);
+		sortLayout.setVisibility(isVisible?View.VISIBLE:View.GONE); 
 	} 
 
 	private void animate(final HoloCircularProgressBar progressBar, final AnimatorListener listener) {

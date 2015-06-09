@@ -115,7 +115,7 @@
 
             android:layout_height="62dp"
             android:layout_marginTop="8dp"
-            android:background="#F9c900"
+            android:background="#F9c900" 
             android:text="알림설정"
             android:textColor="#6a3906" />
 
@@ -131,6 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="#6a3906" 
                 android:text="메세지 팝업"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -166,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="소리모드"
+                android:textSize="12sp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout

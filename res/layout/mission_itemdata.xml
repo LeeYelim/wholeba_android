@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/layoutMissionList"
         android:layout_width="match_parent"
-        android:layout_height="60dp" 
+        android:layout_height="60dp"  
+        android:background="@drawable/mission_contents_bar1"
      >
 
         <ImageView

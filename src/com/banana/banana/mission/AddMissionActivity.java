@@ -96,6 +96,7 @@ public class AddMissionActivity extends ActionBarActivity {
 			} else {
 				if (selectedButton == buttonView) { //같은거 두번 누르면 꺼지게
 					onToggleSelected(buttonView.getId(), isChecked);
+					theme_no = -1;
 				}
 			}
 		}
@@ -152,9 +153,14 @@ public class AddMissionActivity extends ActionBarActivity {
 			
 			@Override
 			public void onFail(int code) {
-				// TODO Auto-generated method stub
-				
-			}
+				if(code == 0) {
+					Toast.makeText(AddMissionActivity.this, "미션 생성 실패!", Toast.LENGTH_SHORT).show();
+				} else if(code == 1) {
+					Toast.makeText(AddMissionActivity.this, "리워드 부족!", Toast.LENGTH_SHORT).show();
+				} else if(code == 2) {
+					Toast.makeText(AddMissionActivity.this, "현재 진행 중인 미션이 3개 이상입니다!", Toast.LENGTH_SHORT).show();
+				}
+			} 
 		});
 	}
 

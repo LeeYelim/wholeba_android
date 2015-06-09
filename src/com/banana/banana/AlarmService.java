@@ -12,13 +12,14 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 import com.banana.banana.main.BananaMainActivity;
 
 public class AlarmService extends Service {
 	AlarmManager mAM;
 	NotificationManager mNM; 
-	
+	int boot = 0; 
 	
 	@Override
 	public void onCreate() {
@@ -33,15 +34,18 @@ public class AlarmService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) { //서비스가 시작되면
 		 
+		boot = intent.getIntExtra("boot", 0); 
 		
 		int count = PropertyManager.getInstance().getAlarmCount();
 		int hh = PropertyManager.getInstance().getHour();
+		Log.i("hh", ""+hh);
 		int mm = PropertyManager.getInstance().getMinute();
+		Log.i("mm", ""+mm);
 		boolean isOn = PropertyManager.getInstance().getAlarmOnOff();
 		long alarmtime;
 		
 		if(isOn == true) {
-			if(count == 0) {
+			if(count == 0 || boot == 1) {
 				Calendar c = Calendar.getInstance(TimeZone.getDefault());
 				int ch = c.get(Calendar.HOUR_OF_DAY);
 				int cm = c.get(Calendar.MINUTE);
@@ -58,7 +62,8 @@ public class AlarmService extends Service {
 				PendingIntent pi = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 				mAM.set(AlarmManager.RTC, alarmtime, pi);  
 				PropertyManager.getInstance().setAlarmCount(1);
-			} else if(count != 0) {
+				boot = 0;
+			} else if(count != 0 && boot == 0) {
 				Calendar c = Calendar.getInstance(TimeZone.getDefault());
 				int ch = c.get(Calendar.HOUR_OF_DAY);
 				int cm = c.get(Calendar.MINUTE);
@@ -70,18 +75,19 @@ public class AlarmService extends Service {
 					c.add(Calendar.DAY_OF_YEAR, 1); // 다음날으로 설정
 					alarmtime = c.getTimeInMillis();
 				}  
-				
+				 
 				Intent i = new Intent(this, AlarmService.class);
 				PendingIntent pi = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-				mAM.set(AlarmManager.RTC, alarmtime, pi);   
-				noti();
+				mAM.set(AlarmManager.RTC, alarmtime, pi);  
+				Log.i("boot", ""+boot); 
+				noti();  
 			}
-		}  
+		} 
 		return Service.START_NOT_STICKY;
 			
 	}
 	
-	public void noti() {
+	private void noti() {
 		mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE); 
 		int mId = 1;
 		
@@ -100,5 +106,6 @@ public class AlarmService extends Service {
 		builder.setContentIntent(pi);
 		
 		mNM.notify(mId, builder.build());  
+		boot = 0;
 	}
 }

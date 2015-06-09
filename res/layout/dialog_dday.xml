@@ -71,7 +71,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="186dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_alignLeft="@+id/text_title"
         android:layout_alignRight="@+id/edit_dday_name"
@@ -80,12 +80,16 @@
         android:background="@drawable/love_plus_day_bar" >
 
         <EditText
-            android:id="@+id/edit_dday_year"
-            android:layout_width="30dp"
+            android:id="@+id/edit_dday_year" 
+           	android:gravity="right"
+            android:hint="yyyy"
+            android:layout_width="43dp"
             android:layout_height="wrap_content"
             android:layout_weight="3.14"
             android:inputType="number"
             android:maxLength="4"  
+             android:textColor="#6a3906"
+             android:textSize="20sp" 
             android:background="#ffffffff"
             android:ems="10" />
 
@@ -100,11 +104,15 @@
 
         <EditText
             android:id="@+id/edit_dday_month"
-            android:layout_width="30dp"
+            android:layout_width="34dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
             android:maxLength="2"
+            android:gravity="right"
+             android:textColor="#6a3906"
+            android:hint="mm"
+            android:textSize="20sp" 
             android:background="#ffffffff"
             android:ems="10" />
 
@@ -124,7 +132,11 @@
             android:layout_weight="1"
             android:maxLength="2" 
             android:inputType="number"
+             android:textColor="#6a3906"
             android:background="#ffffffff"
+            android:gravity="right"
+            android:textSize="20sp" 
+            android:hint="dd"
             android:ems="10" />
 
         <TextView
@@ -143,7 +155,7 @@
         android:background="#ffe100" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/text_dday_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"

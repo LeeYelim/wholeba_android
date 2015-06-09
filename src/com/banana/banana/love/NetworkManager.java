@@ -8,7 +8,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -16,6 +15,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.entity.StringEntity;
 
 import android.content.Context;
+import android.text.style.ReplacementSpan;
 import android.util.Log;
 
 import com.banana.banana.LogoutResponse;
@@ -32,6 +32,7 @@ import com.banana.banana.mission.MissionIngResult;
 import com.banana.banana.mission.MissionResult;
 import com.banana.banana.setting.NoticeResponse;
 import com.banana.banana.setting.PeriodItems;
+import com.banana.banana.setting.PillsResponse;
 import com.banana.banana.setting.WomanInfoResponse;
 import com.banana.banana.signup.JoinResult;
 import com.banana.banana.signup.WomanInfoParcelData;
@@ -110,8 +111,7 @@ public class NetworkManager {
 		params.put("user_id", user_id);
 		params.put("user_pw", user_pass);
 		params.put("user_phone", user_phone);
-		params.put("user_regid", user_regid);
-		Log.i("login", "login");
+		params.put("user_regid", user_regid); 
 
 		client.post(context, LOGIN_URL, params, new TextHttpResponseHandler() {
 
@@ -127,7 +127,17 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
-				listener.onFail(statusCode);
+				if(statusCode == 502) {
+					listener.onFail(502);
+				} else {
+					try {
+						Gson gson = new Gson();
+						LoginResult results = gson.fromJson(responseString, LoginResult.class);
+						listener.onFail(results.success);
+					} catch(NullPointerException e) {
+						listener.onFail(100);
+					}
+				}
 			}
 		});
 	}
@@ -193,7 +203,10 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
-				listener.onFail(statusCode);
+				Gson gson = new Gson();
+				JoinResult result = gson.fromJson(responseString,
+						JoinResult.class); 
+				listener.onFail(result.success);
 			}
 		});
 	}
@@ -503,7 +516,10 @@ public class NetworkManager {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
-						listener.onFail(statusCode);
+						Gson gson = new Gson();
+						DdayResponse results = gson.fromJson(responseString,
+								DdayResponse.class);
+						listener.onFail(results.success);
 					}
 				});
 	}
@@ -533,7 +549,10 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
-				listener.onFail(statusCode);
+				Gson gson = new Gson();
+				DdayResponse results = gson.fromJson(responseString,
+						DdayResponse.class);
+				listener.onFail(results.success);
 
 			}
 		});
@@ -795,8 +814,10 @@ public class NetworkManager {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							String responseString, Throwable throwable) {
-						// TODO Auto-generated method stub
-						listener.onFail(statusCode);
+						Gson gson = new Gson();
+						MissionResult results = gson.fromJson(responseString,
+								MissionResult.class);
+						listener.onFail(results.success);
 					}
 				});
 
@@ -1048,8 +1069,10 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
-				// TODO Auto-generated method stub
-				listener.onFail(statusCode);
+				Gson gson = new Gson();
+				BananaItemResponse results = gson.fromJson(responseString,
+						BananaItemResponse.class);
+				listener.onFail(results.success);
 			}
 		});
 	}
@@ -1154,8 +1177,81 @@ public class NetworkManager {
 
 	}
 
-	public static final String NOTICE_URL = SERVER + "/setting/notice";
+	/*---약 복용 여부------*/
+	public static final String PILLS_URL = SERVER + "/setting/herself/pills";
+	public void setPills(Context context, int user_pills, final OnResultListener<PillsResponse> listener) {
+		RequestParams params = new RequestParams();
+		params.add("user_pills", ""+user_pills);
+		client.post(context, PILLS_URL, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) { 
+				Gson gson = new Gson();
+				PillsResponse result = gson.fromJson(responseString, PillsResponse.class);
+				listener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) { 
+				listener.onFail(statusCode); 
+			}
+		});
+		
+	}
+	 
+	/*------알람-------*/
+	public static final String ALARM_PILLS_TIME = SERVER + "/setting/herself/pills/time";
+	public void setPillsTime(Context context, String pills_date, String pills_time, final OnResultListener<PillsResponse> listener) {
+		RequestParams params = new RequestParams();
+		params.add("pills_date", pills_date);
+		params.add("pills_time", pills_time);
+		
+		client.post(context, ALARM_PILLS_TIME, params, new TextHttpResponseHandler() {
 
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				listener.onFail(statusCode);
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				// TODO Auto-generated method stub
+				Gson gson = new Gson();
+				PillsResponse results = gson.fromJson(responseString, PillsResponse.class);		 
+				listener.onSuccess(results);
+			}
+		});
+	}
+	
+	public static final String PILLS_ALARM = SERVER + "/setting/herself/pills/alram";
+	public void setPillsAlarm(Context context, int pills_alarm, final OnResultListener<PillsResponse> listener) {
+		RequestParams params = new RequestParams();
+		params.add("pills_alarm", ""+pills_alarm);
+		
+		client.post(context, PILLS_ALARM, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) { 
+				Gson gson = new Gson();
+				PillsResponse results = gson.fromJson(responseString, PillsResponse.class);
+				listener.onSuccess(results);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) { 
+				listener.onFail(statusCode);
+			}
+		});
+	}
+
+	public static final String NOTICE_URL = SERVER + "/setting/notice"; 
 	public void getNotic(Context context,
 			final OnResultListener<NoticeResponse> listener) {
 

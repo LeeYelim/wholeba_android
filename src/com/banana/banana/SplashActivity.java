@@ -46,7 +46,7 @@ public class SplashActivity extends ActionBarActivity {
 	int user_req;  //요청자인지 승인자인지
 	int user_no; 
 	Boolean isFirst;
-	String user_id, user_pass;
+	String user_id, user_pass, partner_phone;
 	//String g;
 	 //----gcm
 		
@@ -226,9 +226,12 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 			}
 
 			@Override
-			public void onFail(int code) {
-				// TODO Auto-generated method stub
-				
+			public void onFail(int code) { 
+				if(code==502) {
+					Toast.makeText(SplashActivity.this, "서버와의 연결이 끊겼습니다.", Toast.LENGTH_SHORT).show();
+				} else if(code==100) {
+					Toast.makeText(SplashActivity.this, "서버와의 연결이 끊겼습니다.", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -257,6 +260,7 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 				join_code = result.result.items.join_code;
 				user_req= result.result.items.user_req;
 				gender = result.result.items.user_gender;
+				partner_phone = result.result.items.partner_phone;
 				if(join_code == 0) { //메인페이지로
 					Intent intent = new Intent(SplashActivity.this, BananaMainActivity.class);  
 					startActivity(intent);
@@ -289,6 +293,7 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 					PropertyManager.getInstance().setUserGender(result.result.items.user_gender);
 					Intent intent = new Intent(SplashActivity.this, CoupleRequestActivity.class); 
 					intent.putExtra("joinData", joinData);
+					intent.putExtra("partner_phone", partner_phone);
 					startActivity(intent); 
 					finish();
 				} else if(join_code == 4) { //추가정보 미입력 페이지(기념일, 생일)
