@@ -50,10 +50,8 @@ public class MyinfoActivity extends ActionBarActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_myinfo);
-		// EditPeriodView = (View)findViewById(R.id.edit_period_layout);
-		menseListView = (WomanLinearLayout) findViewById(R.id.list_menses);
+		super.onCreate(savedInstanceState); 
+		
 		ActionBar actionBar = getSupportActionBar(); 
 	      actionBar.setDisplayHomeAsUpEnabled(false);
 	      actionBar.setDisplayShowTitleEnabled(false);
@@ -64,7 +62,9 @@ public class MyinfoActivity extends ActionBarActivity {
 	      titleView.setText("내 정보");
 	      settingImg = (ImageView)actionBar.getCustomView().findViewById(R.id.img_setting);
 	      settingImg.setVisibility(View.INVISIBLE);
-		
+	      
+	   setContentView(R.layout.activity_myinfo);
+	   menseListView = (WomanLinearLayout) findViewById(R.id.list_menses);
 	    scrollWomanInfoView = (View)findViewById(R.id.scrollWomanInfo);
 		btn_update = (Button)findViewById(R.id.btn_update);
 	    btn_update2 = (Button)findViewById(R.id.btn_update2);
@@ -100,6 +100,14 @@ public class MyinfoActivity extends ActionBarActivity {
 		}});
 		
 		user_gender = PropertyManager.getInstance().getUserGender();
+		if(user_gender.equals("M")) {
+			btn_update.setVisibility(View.INVISIBLE);
+			btn_update2.setVisibility(View.INVISIBLE); 
+			toggleOn.setVisibility(View.GONE); 
+			btn_setAlarm.setVisibility(View.GONE); //---수정
+			btn_alarmYes.setEnabled(false);
+			btn_alarmNo.setEnabled(false);
+		}
 		setPublic(true);
 	
 		text_latest_period.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +205,6 @@ public class MyinfoActivity extends ActionBarActivity {
 					PropertyManager.getInstance().setHour(Integer.parseInt(hour));
 					PropertyManager.getInstance().setMinute(Integer.parseInt(minute));  
 					PropertyManager.getInstance().setAlarmCount(0);								
-					Toast.makeText(MyinfoActivity.this, "알람등록 설정", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(MyinfoActivity.this, AlarmService.class); 
 					startService(intent);	
 				} else {
@@ -273,14 +280,8 @@ public class MyinfoActivity extends ActionBarActivity {
 						} catch(IndexOutOfBoundsException i) {
 							
 						}
-						if(user_gender.equals("M")) {
-							btn_update.setVisibility(View.INVISIBLE);
-							btn_update2.setVisibility(View.INVISIBLE); 
-							toggleOn.setVisibility(View.INVISIBLE);
-							btn_setAlarm.setVisibility(View.GONE);
-							btn_alarmYes.setEnabled(false);
-							btn_alarmNo.setEnabled(false);
-						}
+						
+						
 						
 						if(user_public == 0 && user_gender.equals("M")) {
 							scrollWomanInfoView.setVisibility(View.GONE);

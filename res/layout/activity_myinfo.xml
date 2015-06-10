@@ -373,8 +373,7 @@
                 android:layout_gravity="center"
                 android:textColor="#6a3906"
                 android:textSize="13sp"
-                 android:layout_marginBottom="15dp"
-                android:visibility="visible" />
+                 android:layout_marginBottom="15dp" />
 			     
       </LinearLayout>
      

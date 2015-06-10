@@ -18,8 +18,7 @@ import com.banana.banana.main.BananaMainActivity;
 
 public class AlarmService extends Service {
 	AlarmManager mAM;
-	NotificationManager mNM; 
-	int boot = 0; 
+	NotificationManager mNM;  
 	
 	@Override
 	public void onCreate() {
@@ -30,22 +29,19 @@ public class AlarmService extends Service {
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
+	 
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) { //서비스가 시작되면
 		 
-		boot = intent.getIntExtra("boot", 0); 
-		
 		int count = PropertyManager.getInstance().getAlarmCount();
-		int hh = PropertyManager.getInstance().getHour();
-		Log.i("hh", ""+hh);
-		int mm = PropertyManager.getInstance().getMinute();
-		Log.i("mm", ""+mm);
+		int hh = PropertyManager.getInstance().getHour(); 
+		int mm = PropertyManager.getInstance().getMinute(); 
 		boolean isOn = PropertyManager.getInstance().getAlarmOnOff();
-		long alarmtime;
-		
+		long alarmtime;  
+		Log.i("AlarmSer2", ""+intent.getIntExtra("isAlaram", -1));
 		if(isOn == true) {
-			if(count == 0 || boot == 1) {
+			if(count == 0) {
 				Calendar c = Calendar.getInstance(TimeZone.getDefault());
 				int ch = c.get(Calendar.HOUR_OF_DAY);
 				int cm = c.get(Calendar.MINUTE);
@@ -61,26 +57,29 @@ public class AlarmService extends Service {
 				Intent i = new Intent(this, AlarmService.class);
 				PendingIntent pi = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 				mAM.set(AlarmManager.RTC, alarmtime, pi);  
-				PropertyManager.getInstance().setAlarmCount(1);
-				boot = 0;
-			} else if(count != 0 && boot == 0) {
+				PropertyManager.getInstance().setAlarmCount(1); 
+			} else if(count != 0) {
+				if(intent.getIntExtra("isAlaram", -1) == 1) {
+					Log.i("AlarmSer", ""+intent.getIntExtra("isAlaram", -1));
+					noti();
+				}
 				Calendar c = Calendar.getInstance(TimeZone.getDefault());
 				int ch = c.get(Calendar.HOUR_OF_DAY);
 				int cm = c.get(Calendar.MINUTE);
 				c.set(Calendar.HOUR_OF_DAY, hh);
-				c.set(Calendar.MINUTE, mm);
+				c.set(Calendar.MINUTE, mm); 
 				if (ch < hh || (ch == hh && cm < mm)) { // 시간이 내가 설정한 시간보다 작거나, 시간은 같은데 분이 작다면
 					alarmtime = c.getTimeInMillis(); // alert time을 내가 셋팅한 시간으로하고 
 				} else {
 					c.add(Calendar.DAY_OF_YEAR, 1); // 다음날으로 설정
 					alarmtime = c.getTimeInMillis();
 				}  
-				 
+	
 				Intent i = new Intent(this, AlarmService.class);
+				i.putExtra("isAlaram", 1);
 				PendingIntent pi = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-				mAM.set(AlarmManager.RTC, alarmtime, pi);  
-				Log.i("boot", ""+boot); 
-				noti();  
+				mAM.set(AlarmManager.RTC, alarmtime, pi);   
+				
 			}
 		} 
 		return Service.START_NOT_STICKY;
@@ -105,7 +104,6 @@ public class AlarmService extends Service {
 		PendingIntent pi = tsb.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 		builder.setContentIntent(pi);
 		
-		mNM.notify(mId, builder.build());  
-		boot = 0;
+		mNM.notify(mId, builder.build());   
 	}
 }
