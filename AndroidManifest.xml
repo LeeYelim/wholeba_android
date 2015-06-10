@@ -7,8 +7,9 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-	
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+	 
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -234,10 +235,10 @@
             android:label="@string/title_activity_mission_item_use_push"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"  >
         </activity>
-        <service android:name="AlarmService" android:exported="true"></service> 
-        <receiver android:name="AlaramReceiver">
-             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <service android:name="AlarmService"></service> 
+        <receiver android:name="AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
          

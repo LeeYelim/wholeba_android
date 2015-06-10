@@ -331,10 +331,7 @@ public class BananaMainActivity extends ActionBarActivity {
 								}
 							}
 						}
-						
-						if(gender.equals("F")) {
-							setAlarm();
-						}
+						 
 				}
 
 				@Override
@@ -424,19 +421,7 @@ public class BananaMainActivity extends ActionBarActivity {
 			}
 		}
 	} 
-	
-		private void setAlarm() {
-		int hh = 11; //알람 시간
-		int mm = 00; //알람 분 설정  
-		
-		PropertyManager.getInstance().setHour(hh);
-		PropertyManager.getInstance().setMinute(mm);  
-		PropertyManager.getInstance().setAlarmCount(0);
-		
-		Intent intent = new Intent(BananaMainActivity.this, AlarmService.class); 
-		startService(intent);
-	}
-	
+	  
 	
 	
 	private void myCondition(int condition_no) {

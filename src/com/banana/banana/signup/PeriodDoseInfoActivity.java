@@ -1,6 +1,7 @@
 package com.banana.banana.signup;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
@@ -19,9 +20,11 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.banana.banana.AlarmData;
+import com.banana.banana.AlarmModel;
+import com.banana.banana.AlarmReceiver;
 import com.banana.banana.AlarmService;
-import com.banana.banana.DBManager;
+import com.banana.banana.AlarmDBHelper;
+import com.banana.banana.MyApplication;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
@@ -38,11 +41,14 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 	ToggleButton toggleTime;
 	Button btn_next, btn_before;
 	int user_pills = 0;
+	AlarmModel alarmDetails;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_period_dose_info);
+		alarmDetails = new AlarmModel();
+		
 		yearView = (EditText)findViewById(R.id.edit_period_start_year);
 		monthView = (EditText)findViewById(R.id.edit_period_start_month);
 		dayView = (EditText)findViewById(R.id.edit_period_start_day);
@@ -101,10 +107,11 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 				String pills_time = hour+":"+minute; 
 				  
 				if(!hour.equals("")) {
-					if(!toggleTime.isChecked() && 
-							Integer.parseInt(hour)<=12 && 
-								hour!= null) {
+					if(!toggleTime.isChecked() && Integer.parseInt(hour)<=12 && hour!= null) {
 						int h = Integer.parseInt(hour);
+						if(h == 12) {
+							h = 00;
+						}
 						hour = Integer.toString((h+12));
 						pills_time = hour+":"+minute;   
 					} 
@@ -112,13 +119,26 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 					if(hour != null && minute != null && 
 							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=24 && 
 							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=60 ) {
+						
+							AlarmReceiver.cancelAlarms(MyApplication.getContext());
+							List<AlarmModel> list = AlarmDBHelper.alarms;
+							alarmDetails.hour = Integer.parseInt(hour);
+							alarmDetails.minute = Integer.parseInt(minute);
+							
 							PropertyManager.getInstance().setHour(Integer.parseInt(hour));
-							PropertyManager.getInstance().setMinute(Integer.parseInt(minute));  
-							PropertyManager.getInstance().setAlarmCount(0);			
+							PropertyManager.getInstance().setMinute(Integer.parseInt(minute));   
 							PropertyManager.getInstance().setAlarmOnOff(true);	
+							
+							if (list.size()<=0) {
+								AlarmDBHelper.createAlarm(alarmDetails);
+							} else {
+								AlarmDBHelper.updateAlarm(alarmDetails, "pillsAlarm");
+							}
+			 
+							AlarmReceiver.setAlarms(MyApplication.getContext()); 
+							setResult(RESULT_OK);  
+							
 							Toast.makeText(PeriodDoseInfoActivity.this, "알람등록 설정", Toast.LENGTH_SHORT).show();
-							Intent intent = new Intent(PeriodDoseInfoActivity.this, AlarmService.class); 
-							startService(intent);	
 					} else {
 						Toast.makeText(PeriodDoseInfoActivity.this, "정확한 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
 					}

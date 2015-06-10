@@ -23,7 +23,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.banana.banana.AlarmDBHelper;
+import com.banana.banana.AlarmModel;
+import com.banana.banana.AlarmReceiver;
 import com.banana.banana.AlarmService;
+import com.banana.banana.MyApplication;
 import com.banana.banana.PropertyManager;
 import com.banana.banana.R;
 import com.banana.banana.love.NetworkManager;
@@ -47,6 +51,7 @@ public class MyinfoActivity extends ActionBarActivity {
 	ToggleButton toggleOn;
 	DatePicker alarmDatePicker;
 	TimePicker alarmTimePicker;
+	AlarmModel alarmDetails;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class MyinfoActivity extends ActionBarActivity {
 	      settingImg.setVisibility(View.INVISIBLE);
 	      
 	   setContentView(R.layout.activity_myinfo);
+	   alarmDetails = new AlarmModel();
 	   menseListView = (WomanLinearLayout) findViewById(R.id.list_menses);
 	    scrollWomanInfoView = (View)findViewById(R.id.scrollWomanInfo);
 		btn_update = (Button)findViewById(R.id.btn_update);
@@ -201,12 +207,24 @@ public class MyinfoActivity extends ActionBarActivity {
 				setPillsAlarmTime(pills_date, pills_time);
 				
 				if(hour != null && minute != null && toggleOn.isChecked()) {
+					AlarmReceiver.cancelAlarms(MyApplication.getContext());
+					List<AlarmModel> list = AlarmDBHelper.alarms;
+					alarmDetails.hour = Integer.parseInt(hour);
+					alarmDetails.minute = Integer.parseInt(minute);
+					
 					PropertyManager.getInstance().setAlarmOnOff(true);	
 					PropertyManager.getInstance().setHour(Integer.parseInt(hour));
-					PropertyManager.getInstance().setMinute(Integer.parseInt(minute));  
-					PropertyManager.getInstance().setAlarmCount(0);								
-					Intent intent = new Intent(MyinfoActivity.this, AlarmService.class); 
-					startService(intent);	
+					PropertyManager.getInstance().setMinute(Integer.parseInt(minute)); 
+					
+					if (list.size()<=0) {
+						AlarmDBHelper.createAlarm(alarmDetails);
+					} else {
+						AlarmDBHelper.updateAlarm(alarmDetails, "pillsAlarm");
+					}
+	 
+					AlarmReceiver.setAlarms(MyApplication.getContext()); 
+					setResult(RESULT_OK); 
+					
 				} else {
 					Toast.makeText(MyinfoActivity.this, "정확한 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
 				}

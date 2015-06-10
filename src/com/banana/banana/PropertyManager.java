@@ -120,16 +120,7 @@ public class PropertyManager {
 	
 	public int getMinute() {
 		return mPrefs.getInt(ALARM_MINUTE, -1);
-	} 
-	private static final String ALARM_COUNT = "alarm_count";
-	public void setAlarmCount(int count) {
-		mEditor.putInt(ALARM_COUNT, count); 
-		mEditor.commit();
-	}
-	
-	public int getAlarmCount() {
-		return mPrefs.getInt(ALARM_COUNT, -1);
-	} 
+	}  
 	
 	private static final String USE_PUSH = "use_push";
 	public void setUsePush(int use) {
