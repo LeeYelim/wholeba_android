@@ -295,9 +295,7 @@ public class GcmIntentService extends IntentService {
     		  
     		  // 8번일땐 shared에 리워드 저장만
     	  }else if(push_type==9){ // 탈퇴 
-    		  intent=new Intent(this,SplashActivity.class);
-    			PropertyManager.getInstance().setUserId("");
-					PropertyManager.getInstance().setPassword("");
+    		  intent=new Intent(this, SplashActivity.class); 
     		  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
     		  /*------gcm-----*/
     		  PendingIntent contentIntent = PendingIntent.getActivity(this, 0,

@@ -111,8 +111,12 @@ public class MyinfoActivity extends ActionBarActivity {
 			btn_update2.setVisibility(View.INVISIBLE); 
 			toggleOn.setVisibility(View.GONE); 
 			btn_setAlarm.setVisibility(View.GONE); //---수정
+			btn_setAlarm.setEnabled(false);
+			btn_setAlarm.setBackgroundResource(R.drawable.join_bt01_gray);
 			btn_alarmYes.setEnabled(false);
 			btn_alarmNo.setEnabled(false);
+			alarmDatePicker.setEnabled(false);
+			alarmTimePicker.setEnabled(false);
 		}
 		setPublic(true);
 	

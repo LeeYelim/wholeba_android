@@ -50,6 +50,13 @@ public class MissionActivity extends ActionBarActivity {
 	String gender;
 	
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initData();
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mission);
@@ -137,7 +144,6 @@ public class MissionActivity extends ActionBarActivity {
 		yearView.setText(""+year);
 		monthView.setText(""+month);
 
-		initData();
 		
 		btn=(Button)findViewById(R.id.btn_add);
 		btn.setOnClickListener(new View.OnClickListener() {

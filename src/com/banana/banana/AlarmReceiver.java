@@ -77,9 +77,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 	}
 
 	private static PendingIntent createPendingIntent(Context context) {
+		
 		Intent intent = new Intent(context, AlarmService.class); 
-		intent.putExtra("TIME_HOUR", PropertyManager.getInstance().getHour());
-		intent.putExtra("TIME_MINUTE", PropertyManager.getInstance().getMinute()); 
+		
+		if(PropertyManager.getInstance().getUserGender().equals("F")) {
+			intent.putExtra("TIME_HOUR", PropertyManager.getInstance().getHour());
+			intent.putExtra("TIME_MINUTE", PropertyManager.getInstance().getMinute());
+			intent.putExtra("alaR", 1);
+		} else {
+			
+		}
 		return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 

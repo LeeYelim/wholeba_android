@@ -14,6 +14,7 @@ import com.banana.banana.main.BananaMainActivity;
 public class AlarmService extends Service {
 	NotificationManager nNM;
 	public static String TAG = AlarmService.class.getSimpleName();
+	int Snoti;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -24,12 +25,15 @@ public class AlarmService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
-		if(PropertyManager.getInstance().getAlarmOnOff() == true) {
+		Snoti = intent.getIntExtra("alaR", -1);
+		Log.i("alaR", ""+Snoti);
+		
+		if(PropertyManager.getInstance().getAlarmOnOff() == true && Snoti == 1) {
 			noti();  
 			Log.i("NOTINOTI", "NOTI");
 			AlarmReceiver.setAlarms(this);
 		}
-		return super.onStartCommand(intent, flags, startId);
+		return Service.START_NOT_STICKY;
 	}
 
 	private void noti() {
@@ -50,7 +54,8 @@ public class AlarmService extends Service {
 		PendingIntent pi = tsb.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 		builder.setContentIntent(pi);
 		
-		nNM.notify(mId, builder.build());   
+		nNM.notify(mId, builder.build());  
+		Snoti = 0;
 	} 
 
 }

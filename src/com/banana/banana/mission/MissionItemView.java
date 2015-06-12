@@ -122,18 +122,19 @@ public class MissionItemView extends FrameLayout {
 			valid_view.setText("성공날짜 " + mData.mlist_successdate);
 		}else if(MissionState==2){
 			stateView.setText("확인안함");
-			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
+			valid_view.setText("시작날짜 " + kdf.format(df.parse(mData.mlist_regdate)));
 		}else if(MissionState==3){
 			stateView.setBackgroundResource(R.drawable.mission_contents_yellow_icon);
 			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
 		}else if(MissionState==4){
 			stateView.setText("패스");
 			valid_view.setText("유효기간 " + kdf.format(df.parse(mData.mlist_expiredate)));
-		}
+		}}catch (NullPointerException e) {
+			e.printStackTrace();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		//성별
 		setGenderView();
 		//힌트처리 -------------------------

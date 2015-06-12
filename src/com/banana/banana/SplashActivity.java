@@ -355,6 +355,11 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Toast.makeText(SplashActivity.this, "Yes Click", Toast.LENGTH_SHORT).show();
+					PropertyManager.getInstance().setUserId("");
+					PropertyManager.getInstance().setPassword("");
+					PropertyManager.getInstance().setIsFirst(true);
+					PropertyManager.getInstance().setAlarmOnOff(false);
+					PropertyManager.getInstance().setRegistrationId(""); 
 				}
 			});
 			
