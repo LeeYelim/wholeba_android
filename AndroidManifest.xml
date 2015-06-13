@@ -193,19 +193,10 @@
             android:label="@string/title_activity_simple" >
         </activity>
         <activity
-            android:name=".LogoutActivity"
-            android:exported="true"
-            android:label="@string/title_activity_logout" >
-        </activity>
-        <activity
             android:name=".mission.MissionReceiveConfirmActivity"
             android:exported="true"
             android:label="@string/title_activity_mission_receive_confirm" >
-        </activity>
-        <activity
-            android:name=".WithDrawActivity"
-            android:label="@string/title_activity_with_draw" >
-        </activity>
+        </activity> 
 
         <receiver
             android:name=".GcmBroadcastReceiver"

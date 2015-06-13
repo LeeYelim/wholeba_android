@@ -2,6 +2,7 @@ package com.banana.banana.signup;
  
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,8 +51,11 @@ public class CoupleRequestFragment extends Fragment {
 			if(join_code == 3) {
 			edit_request_number.setEnabled(false);
 			btnRequest.setEnabled(false); 
-			btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);
+			btnRequest.setBackgroundColor(Color.TRANSPARENT);
+			btnRequest.setText("커플 승인 대기 중 입니다....");
 			edit_request_number.setText(partner_phone);
+			edit_request_number.setTextColor(getResources().getColor(R.color.join_font_color));
+			btnRequest.setTextColor(getResources().getColor(R.color.font_black));
 		}
 		btnRequest.setOnClickListener(new View.OnClickListener() {
 			
@@ -68,8 +72,11 @@ public class CoupleRequestFragment extends Fragment {
 						//버튼 비활성화
 						sendSMS(auth_phone, "홀딱 바나나 커플요청"); 
 						edit_request_number.setEnabled(false);
+						edit_request_number.setTextColor(getResources().getColor(R.color.join_font_color));
 						btnRequest.setEnabled(false);  
-						btnRequest.setBackgroundResource(R.drawable.join_bt01_gray);
+						btnRequest.setBackgroundColor(Color.TRANSPARENT);
+						btnRequest.setText("커플 승인 대기 중 입니다....");
+						btnRequest.setTextColor(getResources().getColor(R.color.font_black));
 					}
 					
 					@Override

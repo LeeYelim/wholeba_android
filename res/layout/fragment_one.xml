@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="90dp"
-        android:background="@drawable/join_bt01"
+        android:background="@drawable/sign_up_selector"
         android:text="커플승인요청보내기"
         android:textColor="@color/color_white"
         android:textColorLink="@color/color_white"
@@ -44,5 +44,16 @@
         android:layout_marginBottom="14dp"
         android:layout_marginRight="17dp"
         android:src="@drawable/join_character" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edit_number"
+        android:layout_alignRight="@+id/edit_number"
+        android:layout_below="@+id/img_mission1"
+        android:layout_marginTop="31dp"
+        android:textColor="@color/join_font_color"
+        android:text="상대방 번호" />
 
 </RelativeLayout>

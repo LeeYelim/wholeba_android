@@ -41,12 +41,12 @@ public class UseInfoActivity extends ActionBarActivity {
 				switch (checkedId) {
 				case R.id.radio_yes:
 					use = 1;  
-					Toast.makeText(UseInfoActivity.this, "피임기구 사용", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(UseInfoActivity.this, "피임기구 사용", Toast.LENGTH_SHORT).show();
 					break;
 
 				case R.id.radio_no:
 					use = 0;  
-					Toast.makeText(UseInfoActivity.this, "피임기구 미사용", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(UseInfoActivity.this, "피임기구 미사용", Toast.LENGTH_SHORT).show();
 					break;
 				} 
 			}

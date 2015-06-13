@@ -1,6 +1,9 @@
 package com.banana.banana.signup;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
@@ -40,14 +43,22 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 	EditText yearView, monthView, dayView, hourView, minuteView;
 	ToggleButton toggleTime;
 	Button btn_next, btn_before;
-	int user_pills = 0;
+	int user_pills = 0, pills_y, pills_m, pills_d, pills_hour, pills_minute;
 	AlarmModel alarmDetails;
+	String year, month, day, hour, minute, pills_date, pills_time;
+	boolean isTrue;
+	Calendar cal;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_period_dose_info);
 		alarmDetails = new AlarmModel();
+		
+		long now = System.currentTimeMillis();
+		Date date = new Date(now);
+		cal = Calendar.getInstance();
+		cal.setTime(date); 
 		
 		yearView = (EditText)findViewById(R.id.edit_period_start_year);
 		monthView = (EditText)findViewById(R.id.edit_period_start_month);
@@ -96,16 +107,34 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 		btn_next.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub 
-				String year = yearView.getText().toString();
-				String month = monthView.getText().toString();
-				String day = dayView.getText().toString();
-				String pills_date = year + "-" + month + "-" + day;
-				String hour = hourView.getText().toString();
-				String minute = minuteView.getText().toString();
-				String pills_time = hour+":"+minute; 
-				  
+			public void onClick(View v) { 
+				if(user_pills == 1) {
+				year = yearView.getText().toString();
+				month = monthView.getText().toString();
+				day = dayView.getText().toString();
+				
+				hour = hourView.getText().toString();
+				minute = minuteView.getText().toString();
+				//pills_time = hour+":"+minute; 
+				
+				if(!(year.equals("") || month.equals("") || day.equals(""))) {
+					pills_y = Integer.parseInt(year);
+					pills_m = Integer.parseInt(month);
+					pills_d = Integer.parseInt(day);
+				}
+				
+				StringBuffer sb = new StringBuffer();
+				pills_date = sb.append(year).append("-").append(month).append("-").append(day).toString() 
+						+" 00:00:00";
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				try {
+					Date dateD = df.parse(pills_date);
+					isTrue = subDate(dateD);  
+				} catch (ParseException e) { 
+					e.printStackTrace();
+				}
+				
+				
 				if(!hour.equals("")) {
 					if(!toggleTime.isChecked() && Integer.parseInt(hour)<=12 && hour!= null) {
 						int h = Integer.parseInt(hour);
@@ -116,9 +145,12 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 						pills_time = hour+":"+minute;   
 					} 
 			    
-					if(hour != null && minute != null && 
+					if(!hour.equals("") && !minute.equals("") && 
 							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=24 && 
-							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=60 ) {
+							Integer.parseInt(hour)>=0 && Integer.parseInt(hour)<=60 && 
+							!(year.length() < 4 || year.equals("") || month.equals("") || day.equals("") || 
+							pills_y >cal.get(Calendar.YEAR) || 
+							pills_m > 12 || pills_m <= 0 || pills_d > 31 || pills_d <= 0 || isTrue == false) ) {
 						
 							AlarmReceiver.cancelAlarms(MyApplication.getContext());
 							List<AlarmModel> list = AlarmDBHelper.alarms;
@@ -136,40 +168,44 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 							}
 			 
 							AlarmReceiver.setAlarms(MyApplication.getContext()); 
-							setResult(RESULT_OK);  
+							setResult(RESULT_OK);    
+							pills_date = year + "-" + month + "-" + day;
 							
-							Toast.makeText(PeriodDoseInfoActivity.this, "알람등록 설정", Toast.LENGTH_SHORT).show();
+							Bundle bundle = getIntent().getExtras();
+							WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 
+							wdata.user_pills = user_pills;
+							wdata.pills_date = pills_date;
+							wdata.pills_time = pills_time;
+							
+							if(!(wdata.pills_date.equals("") || wdata.pills_time.equals(""))) {
+								addWomanInfo(wdata); 
+							}
+							
+							
 					} else {
 						Toast.makeText(PeriodDoseInfoActivity.this, "정확한 시간을 입력해주세요", Toast.LENGTH_SHORT).show();
 					}
-				}
+				} //알람시간 체크 
 				
-				/*int h = Integer.parseInt(hour);
 				
-				if(toggleTime.getText().equals("PM") && h < 12) { 
-					h += 12;
-					hour = Integer.toString(h);
-				}*/   
-				
-				if(year.equals("")||month.equals("")||day.equals("")) {
-					pills_date = "";
-				}
-				
-				if(hour.equals("")||minute.equals("")) {
-					pills_time = "";
-				} 
-				   
+ 				
+//				if(year.equals("")||month.equals("")||day.equals("")||hour.equals("")||minute.equals("")) { 
+//					Toast.makeText(PeriodDoseInfoActivity.this, "날짜를 다시 입력해 주세요", Toast.LENGTH_SHORT).show();
+//				} else {
+//					
+//				}
 			/*	if(!pills_time.equals("")) {
 					setAlarm(pills_time);
 				}*/
 
-				Bundle bundle = getIntent().getExtras();
-				WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 
-				wdata.user_pills = user_pills;
-				wdata.pills_date = pills_date;
-				wdata.pills_time = pills_time;
-				
-				addWomanInfo(wdata); 
+				} else {
+					Bundle bundle = getIntent().getExtras();
+					WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 
+					wdata.user_pills = user_pills;
+					wdata.pills_date = pills_date;
+					wdata.pills_time = pills_time;
+					addWomanInfo(wdata);
+				}
 				
 			}
 		});
@@ -199,7 +235,19 @@ public class PeriodDoseInfoActivity extends ActionBarActivity {
 		});
 	}  
 	
-	 
+	public boolean subDate(Date d1) {
+		Calendar car = Calendar.getInstance() ;
+		Date d = new Date();
+		d = car.getTime();
+		long subday = d1.getTime() - d.getTime(); 
+		
+		if(subday > 0) {
+			return false; 
+		} else {
+			return true;
+		}
+	} 
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

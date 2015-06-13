@@ -63,7 +63,7 @@ public class DdayDialog extends DialogFragment {
 			params.addRule(Gravity.CENTER_HORIZONTAL);
 			btnOk.setLayoutParams(params);			
 		} else {
-			text_dday_title.setText("디데이 수정");
+			text_dday_title.setText("기념일 수정");
 			initDialogData();
 		}
 		

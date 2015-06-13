@@ -35,7 +35,7 @@
             android:layout_width="126dp"
             android:layout_height="40dp"
             android:layout_marginLeft="23dp"
-            android:background="@drawable/join_bt031"
+            android:background="@drawable/sign_up_use_selector"
             android:gravity="center_vertical|center_horizontal"
             android:text="YES"
             android:textColor="#ffffffff"
@@ -48,6 +48,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="23dp"
+            android:background="@drawable/sign_up_use_selector"
             android:checked="true"
             android:gravity="center_vertical|center_horizontal"
             android:text="NO"
@@ -149,75 +150,6 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/LinearLayout01"
-        android:layout_width="256dp"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="0dp" 
-        android:background="@drawable/love_plus_day_bar"
-        android:visibility="gone" > 
-
-        <ToggleButton
-            android:id="@+id/toggleTime"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:background="#ffff00"
-            android:textOff="PM"
-            android:textOn="AM" />
-
-        <EditText
-            android:id="@+id/EditText02"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#ffffffff"
-            android:maxLength="2"
-            android:inputType="number"
-            android:gravity="right"
-            android:ems="10" />
-
-        <TextView
-            android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="시"
-            android:textColor="#6a3906"
-            android:textSize="13sp" />
-
-        <EditText
-            android:id="@+id/EditText01"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#ffffffff"
-            android:maxLength="2"
-            android:inputType="number"
-            android:gravity="right"
-            android:ems="10" />
-
-        <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="분"
-            android:textColor="#6a3906"
-            android:textSize="13sp" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton2"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:background="#6a3906"
-            android:text="ToggleButton"
-            android:textColor="#ffffffff"
-            android:textOff="　"
-            android:textOn="반복" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/btn_next"
         android:layout_width="32dp"
@@ -237,5 +169,63 @@
         android:layout_marginBottom="26dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/join_bt03" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="256dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:background="@drawable/love_plus_day_bar"
+        android:visibility="gone" >
+
+        <ToggleButton
+            android:id="@+id/toggleTime"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="#ffff00"
+            android:textOff="PM"
+            android:textOn="AM" />
+
+        <EditText
+            android:id="@+id/EditText02"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="시"
+            android:textColor="#6a3906"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/EditText01"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="분"
+            android:textColor="#6a3906"
+            android:textSize="13sp" />
+    </LinearLayout>
 
 </RelativeLayout>

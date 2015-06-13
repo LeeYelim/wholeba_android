@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.banana.banana.R;
 
@@ -16,6 +17,8 @@ public class SymtomInfoActivity extends ActionBarActivity {
  
 	Button btn_before, btn_next;
 	ListLinearLayout symtomListView;
+	TextView textSymtomGuide;
+	
 	//SymtomAdapter mAdapter;
 	int[] textViewList = { 
 			R.id.textSymtom1, 
@@ -43,6 +46,7 @@ public class SymtomInfoActivity extends ActionBarActivity {
 		public void onClick(View v) {
 			int index = (Integer)v.getTag();
 			symtomListView.set(dataList[index], v); 
+			textSymtomGuide.setVisibility(View.INVISIBLE);
 		}
 	};
 
@@ -52,6 +56,7 @@ public class SymtomInfoActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_symtom_info);
 
+		textSymtomGuide = (TextView)findViewById(R.id.text_guide);
 		for (int i = 0; i < textViewList.length; i++) {
 			TextView tv = (TextView)findViewById(textViewList[i]);
 			tv.setTag((Integer)i);
@@ -84,25 +89,30 @@ public class SymtomInfoActivity extends ActionBarActivity {
 					startActivity(intent);*/
 
 					Bundle bundle = getIntent().getExtras();
-					WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 	
-					wdata.syndromes = symtomListView.getSyndromeList();
+					WomanInfoParcelData wdata = bundle.getParcelable("wdata"); 	 
+					boolean isEmpty = false;
 					
-					 
-					
-					
-					/*for(int i=0; i<=items.size(); i++) {	
-						 
-						if(!((SyndromeList)SymtomListView.getItemAtPosition(i)).syndrome_before.equals("") 
-								&& !((SyndromeList)SymtomListView.getItemAtPosition(i)).syndrome_after.equals("")) { 
-							wdata.syndromes.add(((SyndromeList)SymtomListView.getItemAtPosition(i)));
+					if(symtomListView.getSyndromeList().size()==0) {
+						Toast.makeText(SymtomInfoActivity.this, "최소 1개 이상 입력 선택 가능합니다.", Toast.LENGTH_SHORT).show();
+					} else {
+						for (int i = 0; i < symtomListView.getSyndromeList().size(); i++) {
+							if(symtomListView.getSyndromeList().get(i).syndrome_after == 0 || symtomListView.getSyndromeList().get(i).syndrome_before == 0) { 
+								isEmpty = true;
+							}  
 						}
-					}*/
-						
+							if(isEmpty == false) {
+								wdata.syndromes = symtomListView.getSyndromeList();
+								Intent intent = new Intent(SymtomInfoActivity.this, UseInfoActivity.class);
+								intent.putExtra("wdata", wdata);
+								startActivity(intent);	
+							} else {
+								Toast.makeText(SymtomInfoActivity.this, "최소 1개 이상 입력 선택 가능합니다.", Toast.LENGTH_SHORT).show();
+							}
+					}
+					
 					
 					//wdata.syndromes = items;
-					Intent intent = new Intent(SymtomInfoActivity.this, UseInfoActivity.class);
-					intent.putExtra("wdata", wdata);
-					startActivity(intent);
+					
 				}
 			});	
 			

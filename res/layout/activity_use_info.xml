@@ -24,10 +24,10 @@
         <RadioButton
             android:id="@+id/radio_yes"
             style="@style/RadioButtonStyle" 
-            android:layout_width="wrap_content"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="23dp"
-            android:background="@drawable/join_bt031"
+            android:background="@drawable/sign_up_use_selector"
             android:checked="true"
             android:gravity="center_vertical|center_horizontal"
             android:text="YES"
@@ -37,8 +37,8 @@
         <RadioButton
             android:id="@+id/radio_no"
             style="@style/RadioButtonStyle2"
-            android:background="@drawable/join_bt04"
-            android:layout_width="wrap_content"
+            android:background="@drawable/sign_up_use_selector"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="23dp"

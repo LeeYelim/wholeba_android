@@ -3,14 +3,17 @@ package com.banana.banana.signup;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.banana.banana.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ListLinearLayout extends LinearLayout {
-
+ 
 	public ListLinearLayout(Context context) {
 		super(context);
 		init();
@@ -56,7 +59,7 @@ public class ListLinearLayout extends LinearLayout {
 			SyndromeList item = new SyndromeList(data.syndrome_no, data.syndrome_before, data.syndrome_after);
 			list.add(item);
 			v.setSelected(true);
-			notifyDataSetChanged();
+			notifyDataSetChanged(); 
 			return ITEM_ADDED;
 		}
 		

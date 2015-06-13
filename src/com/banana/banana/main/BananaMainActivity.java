@@ -364,7 +364,7 @@ public class BananaMainActivity extends ActionBarActivity {
 			d1 = cal.getTime().getTime();
 			d2 = cal2.getTime().getTime();
 			
-			ddays = (int)((d1-d2)/(1000*60*60*24)); 
+			ddays = (int)((d1-d2)/(1000*60*60*24))+1; 
 			ddayView.setText(""+ddays);
 			PropertyManager.getInstance().setCoupleDays(ddays);
 			
