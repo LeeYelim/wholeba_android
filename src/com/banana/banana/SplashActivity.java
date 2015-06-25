@@ -189,7 +189,7 @@ Handler mHandler = new Handler(Looper.getMainLooper());
 		 		user_phone = user_phone.replace("+82", "0");
 		 	}
 		} catch (NullPointerException e) {
-			user_phone = "01012341234";
+			user_phone = "01043214321";
 		}
 		 
 		

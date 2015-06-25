@@ -1,13 +1,13 @@
 package com.banana.banana.signup;
  
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +25,7 @@ public class CoupleRequestFragment extends Fragment {
 
 	EditText edit_request_number; 
 	Button btnRequest;
-	String user_gender, auth_phone, partner_phone;
+	String user_gender, auth_phone, partner_phone, user_phone;
 	int join_code;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +44,24 @@ public class CoupleRequestFragment extends Fragment {
 		}
 		JoinCodeInfoParcel joinData = bundle.getParcelable("joinData");
 		join_code = joinData.join_code;  
-		
 		partner_phone = getActivity().getIntent().getStringExtra("partner_phone");
+		
+		 TelephonyManager telManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE); 
+		    try{ 
+				user_phone = telManager.getLine1Number();
+				if(user_phone.startsWith("+82")){
+			 		user_phone = user_phone.replace("+82", "0");
+			 	}
+			} catch (NullPointerException e) {
+				user_phone = "01043214321"; 
+			}
+		    
+			 
+			
+		 	String num1 = user_phone.substring(0, 3);
+			String num2 = user_phone.substring(3, 7);
+			String num3 = user_phone.substring(7, 11);
+			user_phone = num1+"-"+num2+"-"+num3;
 		
 		
 			if(join_code == 3) {
@@ -57,13 +73,16 @@ public class CoupleRequestFragment extends Fragment {
 			edit_request_number.setTextColor(getResources().getColor(R.color.join_font_color));
 			btnRequest.setTextColor(getResources().getColor(R.color.font_black));
 		}
+			
 		btnRequest.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) { 
 				auth_phone = edit_request_number.getText().toString(); 
 				if(auth_phone.length()!=13) { 
-					Toast.makeText(getActivity(), "번호를 다시 입력", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "번호를 다시 입력해 주세요.", Toast.LENGTH_SHORT).show();
+				} else if(user_phone.equals(auth_phone)) {
+					Toast.makeText(getActivity(), "본인 번호로 커플 요청 할 수 없습니다.", Toast.LENGTH_SHORT).show();
 				} else {
 					NetworkManager.getInstnace().coupleAsk(getActivity(), auth_phone, user_gender, new OnResultListener<JoinResult>() {
 					

@@ -86,7 +86,7 @@ public class LoginActivity extends ActionBarActivity {
 			 		user_phone = user_phone.replace("+82", "0");
 			 	}
 			} catch (NullPointerException e) {
-				user_phone = "01012341234";
+				user_phone = "01043214321";
 			} 
 			
 		 	String num1 = user_phone.substring(0, 3);

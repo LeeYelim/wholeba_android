@@ -133,28 +133,9 @@ public class MissionCardScratchActivity extends ActionBarActivity {
 		btn_cancel.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				NetworkManager.getInstnace().confirmMission(MissionCardScratchActivity.this, mlist_no, new OnResultListener<MissionResult>() {
-
-					@Override
-					public void onSuccess(MissionResult result) {
-						if(result.success==1){
-							Toast.makeText(MissionCardScratchActivity.this, "미션 확인 완료", Toast.LENGTH_SHORT).show();
-							Intent intent=new Intent(MissionCardScratchActivity.this,MissionActivity.class);
-							finish();
-							startActivity(intent);
-						}
-						
-					}
-
-					@Override
-					public void onFail(int code) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-			} 
+			public void onClick(View v) { 
+				finish();
+			}
 		});
 		
 		

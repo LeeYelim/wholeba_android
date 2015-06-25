@@ -128,8 +128,7 @@ public class SettingActivity extends ActionBarActivity {
 					public void onSuccess(LogoutResponse result) {
 						// TODO Auto-generated method stub
 						PropertyManager.getInstance().setUserId("");
-						PropertyManager.getInstance().setPassword("");
-						PropertyManager.getInstance().setIsFirst(true);
+						PropertyManager.getInstance().setPassword(""); 
 						PropertyManager.getInstance().setAlarmOnOff(false);
 						Toast.makeText(SettingActivity.this, result.result.message, Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
